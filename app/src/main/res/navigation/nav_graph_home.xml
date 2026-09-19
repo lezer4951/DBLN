@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_home"
-    app:startDestination="@id/homeFragment"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -35,15 +35,45 @@
 
     </fragment>
 
-    <!--
-        Placeholder del Paso 4.1b. Lista de apuntes dentro de una sección
-        + crear/editar se completa en el Paso 4.1c.
-    -->
     <fragment
         android:id="@+id/misApuntesDetalleFragment"
         android:name="com.dubalin.app.presentation.ui.autoestudio.misapuntes.ApuntesDetalleFragment"
         android:label="Apuntes"
-        tools:layout="@layout/fragment_apuntes_detalle" />
+        tools:layout="@layout/fragment_apuntes_detalle">
+
+        <argument
+            android:name="seccionId"
+            app:argType="integer"
+            android:defaultValue="0" />
+
+        <argument
+            android:name="seccionNombre"
+            app:argType="string"
+            android:defaultValue="" />
+
+        <action
+            android:id="@+id/action_apuntes_to_editor"
+            app:destination="@id/editorApunteFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/editorApunteFragment"
+        android:name="com.dubalin.app.presentation.ui.autoestudio.misapuntes.EditorApunteFragment"
+        android:label="Editor de apunte"
+        tools:layout="@layout/fragment_editor_apunte">
+
+        <argument
+            android:name="seccionId"
+            app:argType="integer"
+            android:defaultValue="0" />
+
+        <argument
+            android:name="apunteId"
+            app:argType="integer"
+            android:defaultValue="0" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/desafiosFragment"
