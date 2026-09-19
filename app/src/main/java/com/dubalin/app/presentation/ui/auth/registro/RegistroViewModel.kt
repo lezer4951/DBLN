@@ -2,8 +2,10 @@ package com.dubalin.app.presentation.ui.auth.registro
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dubalin.app.core.util.EmailValidator
 import com.dubalin.app.data.local.SessionManager
 import com.dubalin.app.domain.repository.AuthRepository
+import com.dubalin.app.domain.repository.EmailAlreadyRegisteredException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -28,6 +30,8 @@ class RegistroViewModel @Inject constructor(
     val uiState: StateFlow<RegistroUiState> = _uiState.asStateFlow()
 
     fun registrar(nombre: String, correo: String, password: String, confirmarPassword: String) {
+        if (_uiState.value.isLoading) return
+
         val error = validar(nombre, correo, password, confirmarPassword)
         if (error != null) {
             _uiState.update { it.copy(errorMessage = error) }
@@ -35,20 +39,26 @@ class RegistroViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            _uiState.update { it.copy(isLoading = true, errorMessage = null) }
+            _uiState.update {
+                it.copy(
+                    isLoading = true,
+                    registroExitoso = false,
+                    errorMessage = null
+                )
+            }
 
-            authRepository.registrar(nombre.trim(), correo.trim(), password)
+            authRepository.registrar(nombre, correo, password)
                 .onSuccess { usuario ->
-                    // Auto-login tras registrarse: se guarda la sesión de una vez,
-                    // sin obligar al usuario a volver a escribir sus credenciales.
                     sessionManager.saveUsuarioId(usuario.id)
-                    _uiState.update { it.copy(isLoading = false, registroExitoso = true) }
+                    _uiState.update {
+                        it.copy(isLoading = false, registroExitoso = true)
+                    }
                 }
-                .onFailure { throwable ->
+                .onFailure { errorRegistro ->
                     _uiState.update {
                         it.copy(
                             isLoading = false,
-                            errorMessage = throwable.message ?: "No se pudo crear la cuenta."
+                            errorMessage = errorRegistro.toRegistroMessage()
                         )
                     }
                 }
@@ -59,6 +69,10 @@ class RegistroViewModel @Inject constructor(
         _uiState.update { it.copy(errorMessage = null) }
     }
 
+    fun registroConsumido() {
+        _uiState.update { it.copy(registroExitoso = false) }
+    }
+
     private fun validar(
         nombre: String,
         correo: String,
@@ -66,9 +80,14 @@ class RegistroViewModel @Inject constructor(
         confirmarPassword: String
     ): String? = when {
         nombre.isBlank() -> "Ingresa tu nombre."
-        correo.isBlank() || !correo.contains("@") -> "Ingresa un correo válido."
+        !EmailValidator.isValid(correo) -> "Ingresa un correo válido."
         password.length < 6 -> "La contraseña debe tener al menos 6 caracteres."
         password != confirmarPassword -> "Las contraseñas no coinciden."
         else -> null
     }
+}
+
+private fun Throwable.toRegistroMessage(): String = when (this) {
+    is EmailAlreadyRegisteredException -> "Ya existe una cuenta con ese correo."
+    else -> "No se pudo crear la cuenta. Inténtalo de nuevo."
 }
