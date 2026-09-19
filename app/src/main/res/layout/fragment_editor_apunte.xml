@@ -14,7 +14,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:navigationContentDescription="@string/action_back"
         app:navigationIcon="@drawable/ic_arrow_back"
+        app:navigationIconTint="?attr/colorOnSurface"
         app:title="@string/apunte_new_title" />
 
     <androidx.core.widget.NestedScrollView
@@ -61,7 +63,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_contenido_apunte"
                     android:layout_width="match_parent"
-                    android:layout_height="240dp"
+                    android:layout_height="@dimen/editor_content_min_height"
                     android:gravity="top|start"
                     android:inputType="textCapSentences|textMultiLine"
                     android:maxLength="10000"
@@ -82,8 +84,8 @@
 
                 <com.google.android.material.progressindicator.CircularProgressIndicator
                     android:id="@+id/progress_guardar_apunte"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="@dimen/progress_size_sm"
+                    android:layout_height="@dimen/progress_size_sm"
                     android:layout_gravity="center"
                     android:visibility="gone" />
 

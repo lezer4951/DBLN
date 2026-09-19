@@ -28,6 +28,35 @@
     <string name="action_cancel">Cancelar</string>
     <string name="action_edit">Editar</string>
     <string name="action_delete">Eliminar</string>
+    <string name="action_back">Volver</string>
+
+    <!-- Autenticación -->
+    <string name="login_title">Bienvenido de nuevo</string>
+    <string name="login_email_hint">Correo electrónico</string>
+    <string name="login_password_hint">Contraseña</string>
+    <string name="login_action">Iniciar sesión</string>
+    <string name="login_go_to_register">¿No tienes cuenta? Regístrate</string>
+    <string name="register_title">Crea tu cuenta</string>
+    <string name="register_name_hint">Nombre</string>
+    <string name="register_confirm_password_hint">Confirmar contraseña</string>
+    <string name="register_action">Crear cuenta</string>
+    <string name="register_go_to_login">¿Ya tienes cuenta? Inicia sesión</string>
+
+    <!-- Autoestudio -->
+    <string name="autoestudio_title">Autoestudio</string>
+    <string name="autoestudio_notes_title">Mis Apuntes</string>
+    <string name="autoestudio_notes_description">Organiza tus resúmenes por secciones</string>
+    <string name="autoestudio_flashcards_title">Laboratorio de Flashcards</string>
+    <string name="autoestudio_ai_title">Generador de Estudio con IA</string>
+    <string name="autoestudio_review_title">Repaso Inteligente</string>
+    <string name="coming_soon">Próximamente</string>
+
+    <!-- Pantallas provisionales -->
+    <string name="challenges_placeholder">Desafíos: próximamente</string>
+    <string name="languages_placeholder">Idiomas: próximamente</string>
+    <string name="profile_placeholder">Perfil</string>
+    <string name="profile_logout">Cerrar sesión</string>
+    <string name="profile_logout_question">¿Quieres cerrar tu sesión en Dubalin?</string>
 
     <!-- Secciones de apuntes -->
     <string name="secciones_empty">Aún no tienes secciones. Toca + para crear la primera.</string>
@@ -67,4 +96,6 @@
     <string name="apunte_not_found_error">El apunte ya no existe.</string>
     <string name="apuntes_load_error">No se pudieron cargar los apuntes.</string>
     <string name="apuntes_operation_error">No se pudo completar la operación con el apunte.</string>
+
+    <string name="home_streak_icon" translatable="false">🔥</string>
 </resources>

@@ -23,4 +23,11 @@
     <dimen name="icon_size_md">24dp</dimen>
     <dimen name="icon_size_lg">32dp</dimen>
 
+    <!-- Accesibilidad y componentes reutilizables -->
+    <dimen name="touch_target_min">48dp</dimen>
+    <dimen name="item_min_height">64dp</dimen>
+    <dimen name="icon_button_padding">12dp</dimen>
+    <dimen name="progress_size_sm">24dp</dimen>
+    <dimen name="editor_content_min_height">240dp</dimen>
+
 </resources>

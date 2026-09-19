@@ -9,7 +9,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Idiomas (Módulo 6)"
+        android:accessibilityHeading="true"
+        android:text="@string/languages_placeholder"
         android:textColor="?attr/colorOnBackground"
         android:textSize="@dimen/text_size_title"
         app:layout_constraintBottom_toBottomOf="parent"

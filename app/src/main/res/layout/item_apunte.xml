@@ -33,11 +33,11 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_acciones_apunte"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/touch_target_min"
+            android:layout_height="@dimen/touch_target_min"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/apunte_actions_content_description"
-            android:padding="12dp"
+            android:padding="@dimen/icon_button_padding"
             android:src="@drawable/ic_more_vert"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

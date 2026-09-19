@@ -39,10 +39,10 @@ class PerfilFragment : Fragment(R.layout.fragment_perfil) {
 
     private fun confirmarCierreDeSesion() {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Cerrar sesión")
-            .setMessage("¿Quieres cerrar tu sesión en Dubalin?")
-            .setNegativeButton("Cancelar", null)
-            .setPositiveButton("Cerrar sesión") { _, _ ->
+            .setTitle(R.string.profile_logout)
+            .setMessage(R.string.profile_logout_question)
+            .setNegativeButton(R.string.action_cancel, null)
+            .setPositiveButton(R.string.profile_logout) { _, _ ->
                 viewModel.cerrarSesion()
             }
             .show()

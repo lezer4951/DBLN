@@ -18,7 +18,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_xl"
-            android:text="Crea tu cuenta"
+            android:accessibilityHeading="true"
+            android:text="@string/register_title"
             android:textColor="?attr/colorOnBackground"
             android:textSize="@dimen/text_size_display"
             android:textStyle="bold"
@@ -32,13 +33,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_xl"
-            android:hint="Nombre"
+            android:hint="@string/register_name_hint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_registro_titulo">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_nombre"
+                android:autofillHints="name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName" />
@@ -51,13 +53,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_md"
-            android:hint="Correo electrónico"
+            android:hint="@string/login_email_hint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/til_nombre">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_correo"
+                android:autofillHints="emailAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress" />
@@ -70,7 +73,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_md"
-            android:hint="Contraseña"
+            android:hint="@string/login_password_hint"
             app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -78,6 +81,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_password"
+                android:autofillHints="newPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword" />
@@ -90,7 +94,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_md"
-            android:hint="Confirmar contraseña"
+            android:hint="@string/register_confirm_password_hint"
             app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -98,6 +102,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_confirmar_password"
+                android:autofillHints="newPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword" />
@@ -109,7 +114,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_lg"
-            android:text="Crear cuenta"
+            android:text="@string/register_action"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/til_confirmar_password" />
@@ -132,8 +137,10 @@
             android:layout_marginTop="@dimen/spacing_lg"
             android:clickable="true"
             android:focusable="true"
+            android:gravity="center"
+            android:minHeight="@dimen/touch_target_min"
             android:padding="@dimen/spacing_sm"
-            android:text="¿Ya tienes cuenta? Inicia sesión"
+            android:text="@string/register_go_to_login"
             android:textColor="?attr/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

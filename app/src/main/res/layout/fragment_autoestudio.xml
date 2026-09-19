@@ -17,7 +17,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_sm"
-            android:text="Autoestudio"
+            android:accessibilityHeading="true"
+            android:text="@string/autoestudio_title"
             android:textColor="?attr/colorOnBackground"
             android:textSize="@dimen/text_size_display"
             android:textStyle="bold"
@@ -46,7 +47,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mis Apuntes"
+                    android:text="@string/autoestudio_notes_title"
                     android:textColor="?attr/colorOnSurface"
                     android:textSize="@dimen/text_size_title"
                     android:textStyle="bold" />
@@ -55,7 +56,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_xs"
-                    android:text="Organiza tus resúmenes por secciones"
+                    android:text="@string/autoestudio_notes_description"
                     android:textColor="?attr/colorOnSurfaceVariant"
                     android:textSize="@dimen/text_size_body" />
 
@@ -83,7 +84,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Laboratorio de Flashcards"
+                    android:text="@string/autoestudio_flashcards_title"
                     android:textColor="?attr/colorOnSurface"
                     android:textSize="@dimen/text_size_title"
                     android:textStyle="bold" />
@@ -92,7 +93,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_xs"
-                    android:text="Próximamente"
+                    android:text="@string/coming_soon"
                     android:textColor="?attr/colorOnSurfaceVariant"
                     android:textSize="@dimen/text_size_body" />
 
@@ -120,7 +121,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Generador de Estudio con IA"
+                    android:text="@string/autoestudio_ai_title"
                     android:textColor="?attr/colorOnSurface"
                     android:textSize="@dimen/text_size_title"
                     android:textStyle="bold" />
@@ -129,7 +130,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_xs"
-                    android:text="Próximamente"
+                    android:text="@string/coming_soon"
                     android:textColor="?attr/colorOnSurfaceVariant"
                     android:textSize="@dimen/text_size_body" />
 
@@ -158,7 +159,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Repaso Inteligente"
+                    android:text="@string/autoestudio_review_title"
                     android:textColor="?attr/colorOnSurface"
                     android:textSize="@dimen/text_size_title"
                     android:textStyle="bold" />
@@ -167,7 +168,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_xs"
-                    android:text="Próximamente"
+                    android:text="@string/coming_soon"
                     android:textColor="?attr/colorOnSurfaceVariant"
                     android:textSize="@dimen/text_size_body" />
 
