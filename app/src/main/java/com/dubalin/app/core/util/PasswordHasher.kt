@@ -1,14 +1,14 @@
 package com.dubalin.app.core.util
 
+import android.util.Base64
 import java.security.SecureRandom
-import java.util.Base64
 import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.PBEKeySpec
 
 /**
  * Hashing de contraseñas para el login local (sin backend).
  * Usa PBKDF2WithHmacSHA1 con salt aleatorio por usuario -- no requiere
- * ninguna librería externa, solo javax.crypto del propio JDK/Android.
+ * ninguna librería externa, solo APIs incluidas en Android.
  *
  * El resultado de [hash] se guarda completo en el único campo `password`
  * de UsuarioEntity, con el formato "saltBase64:hashBase64", así no hace
@@ -45,8 +45,8 @@ object PasswordHasher {
     }
 
     private fun encode(bytes: ByteArray): String =
-        Base64.getEncoder().encodeToString(bytes)
+        Base64.encodeToString(bytes, Base64.NO_WRAP)
 
     private fun decode(value: String): ByteArray =
-        Base64.getDecoder().decode(value)
+        Base64.decode(value, Base64.NO_WRAP)
 }
