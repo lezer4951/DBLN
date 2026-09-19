@@ -20,9 +20,14 @@ interface ApuntesRepository {
 
     fun observarApuntes(seccionId: Int): Flow<List<Apunte>>
 
-    suspend fun guardarApunte(seccionId: Int, apunteId: Int?, titulo: String, contenido: String)
+    suspend fun guardarApunte(
+        seccionId: Int,
+        apunteId: Int?,
+        titulo: String,
+        contenido: String
+    ): Result<Unit>
 
-    suspend fun eliminarApunte(apunte: Apunte)
+    suspend fun eliminarApunte(apunte: Apunte): Result<Unit>
 
-    suspend fun obtenerApunte(apunteId: Int): Apunte?
+    suspend fun obtenerApunte(apunteId: Int): Result<Apunte>
 }
