@@ -22,6 +22,13 @@
         <item quantity="other">%d días de racha</item>
     </plurals>
 
+    <!-- Acciones comunes -->
+    <string name="action_create">Crear</string>
+    <string name="action_save">Guardar</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_edit">Editar</string>
+    <string name="action_delete">Eliminar</string>
+
     <!-- Secciones de apuntes -->
     <string name="secciones_empty">Aún no tienes secciones. Toca + para crear la primera.</string>
     <string name="secciones_create_content_description">Crear sección</string>
@@ -31,11 +38,6 @@
     <string name="seccion_name_hint">Nombre de la sección</string>
     <string name="seccion_name_helper">Ejemplo: Inglés, Historia o Programación</string>
     <string name="seccion_name_required">Escribe un nombre para la sección.</string>
-    <string name="action_create">Crear</string>
-    <string name="action_save">Guardar</string>
-    <string name="action_cancel">Cancelar</string>
-    <string name="action_edit">Editar</string>
-    <string name="action_delete">Eliminar</string>
     <string name="seccion_delete_title">Eliminar sección</string>
     <string name="seccion_delete_message">Se eliminará “%1$s” y todos sus apuntes. Esta acción no se puede deshacer.</string>
     <string name="seccion_created">Sección creada.</string>
@@ -46,4 +48,23 @@
     <string name="session_required_error">Tu sesión ya no es válida. Vuelve a iniciar sesión.</string>
     <string name="secciones_load_error">No se pudieron cargar las secciones.</string>
     <string name="secciones_operation_error">No se pudo completar la operación.</string>
+
+    <!-- Apuntes -->
+    <string name="apuntes_title_default">Apuntes</string>
+    <string name="apuntes_empty">Aún no hay apuntes en esta sección. Toca + para crear el primero.</string>
+    <string name="apunte_create_content_description">Crear apunte</string>
+    <string name="apunte_actions_content_description">Acciones del apunte</string>
+    <string name="apunte_new_title">Nuevo apunte</string>
+    <string name="apunte_edit_title">Editar apunte</string>
+    <string name="apunte_title_hint">Título</string>
+    <string name="apunte_content_hint">Contenido</string>
+    <string name="apunte_title_required">Escribe un título.</string>
+    <string name="apunte_content_required">Escribe el contenido del apunte.</string>
+    <string name="apunte_delete_title">Eliminar apunte</string>
+    <string name="apunte_delete_message">Se eliminará “%1$s”. Esta acción no se puede deshacer.</string>
+    <string name="apunte_deleted">Apunte eliminado.</string>
+    <string name="apunte_invalid_error">El título y el contenido son obligatorios.</string>
+    <string name="apunte_not_found_error">El apunte ya no existe.</string>
+    <string name="apuntes_load_error">No se pudieron cargar los apuntes.</string>
+    <string name="apuntes_operation_error">No se pudo completar la operación con el apunte.</string>
 </resources>
