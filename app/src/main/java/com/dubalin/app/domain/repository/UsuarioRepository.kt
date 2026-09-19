@@ -12,6 +12,8 @@ import kotlinx.coroutines.flow.Flow
  */
 interface UsuarioRepository {
 
+    suspend fun obtenerUsuario(usuarioId: Int): Usuario?
+
     fun observarUsuario(usuarioId: Int): Flow<Usuario?>
 
     fun observarEstadisticas(usuarioId: Int): Flow<EstadisticasUsuario?>
