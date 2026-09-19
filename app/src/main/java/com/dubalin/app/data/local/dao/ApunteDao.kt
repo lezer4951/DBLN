@@ -12,14 +12,14 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ApunteDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insert(apunte: ApunteEntity): Long
 
     @Update
-    suspend fun update(apunte: ApunteEntity)
+    suspend fun update(apunte: ApunteEntity): Int
 
     @Delete
-    suspend fun delete(apunte: ApunteEntity)
+    suspend fun delete(apunte: ApunteEntity): Int
 
     @Query("SELECT * FROM apunte WHERE id = :id")
     suspend fun getById(id: Int): ApunteEntity?
