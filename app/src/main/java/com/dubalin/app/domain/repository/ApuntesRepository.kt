@@ -8,9 +8,15 @@ interface ApuntesRepository {
 
     fun observarSecciones(usuarioId: Int): Flow<List<SeccionApuntes>>
 
-    suspend fun crearSeccion(usuarioId: Int, nombre: String)
+    suspend fun crearSeccion(usuarioId: Int, nombre: String): Result<Unit>
 
-    suspend fun eliminarSeccion(seccion: SeccionApuntes)
+    suspend fun actualizarSeccion(
+        seccionId: Int,
+        usuarioId: Int,
+        nombre: String
+    ): Result<Unit>
+
+    suspend fun eliminarSeccion(seccion: SeccionApuntes): Result<Unit>
 
     fun observarApuntes(seccionId: Int): Flow<List<Apunte>>
 
