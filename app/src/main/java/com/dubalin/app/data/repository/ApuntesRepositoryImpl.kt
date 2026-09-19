@@ -7,6 +7,8 @@ import com.dubalin.app.data.local.entity.SeccionApuntesEntity
 import com.dubalin.app.domain.model.Apunte
 import com.dubalin.app.domain.model.SeccionApuntes
 import com.dubalin.app.domain.repository.ApuntesRepository
+import com.dubalin.app.domain.repository.DuplicateSectionNameException
+import com.dubalin.app.domain.repository.SectionNotFoundException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -21,17 +23,54 @@ class ApuntesRepositoryImpl @Inject constructor(
     override fun observarSecciones(usuarioId: Int): Flow<List<SeccionApuntes>> =
         seccionApuntesDao.observeByUsuarioId(usuarioId).map { list -> list.map { it.toDomain() } }
 
-    override suspend fun crearSeccion(usuarioId: Int, nombre: String) {
-        withContext(Dispatchers.IO) {
+    override suspend fun crearSeccion(
+        usuarioId: Int,
+        nombre: String
+    ): Result<Unit> = withContext(Dispatchers.IO) {
+        runCatching {
+            val nombreNormalizado = nombre.normalizarNombre()
+            validarNombreDisponible(usuarioId, nombreNormalizado)
+
             seccionApuntesDao.insert(
-                SeccionApuntesEntity(usuarioId = usuarioId, nombre = nombre)
+                SeccionApuntesEntity(
+                    usuarioId = usuarioId,
+                    nombre = nombreNormalizado
+                )
             )
+            Unit
         }
     }
 
-    override suspend fun eliminarSeccion(seccion: SeccionApuntes) {
-        withContext(Dispatchers.IO) {
-            seccionApuntesDao.delete(seccion.toEntity())
+    override suspend fun actualizarSeccion(
+        seccionId: Int,
+        usuarioId: Int,
+        nombre: String
+    ): Result<Unit> = withContext(Dispatchers.IO) {
+        runCatching {
+            val actual = seccionApuntesDao.getById(seccionId)
+                ?.takeIf { it.usuarioId == usuarioId }
+                ?: throw SectionNotFoundException()
+
+            val nombreNormalizado = nombre.normalizarNombre()
+            validarNombreDisponible(
+                usuarioId = usuarioId,
+                nombre = nombreNormalizado,
+                excludedId = seccionId
+            )
+
+            seccionApuntesDao.update(actual.copy(nombre = nombreNormalizado))
+        }
+    }
+
+    override suspend fun eliminarSeccion(
+        seccion: SeccionApuntes
+    ): Result<Unit> = withContext(Dispatchers.IO) {
+        runCatching {
+            val actual = seccionApuntesDao.getById(seccion.id)
+                ?.takeIf { it.usuarioId == seccion.usuarioId }
+                ?: throw SectionNotFoundException()
+
+            seccionApuntesDao.delete(actual)
         }
     }
 
@@ -70,13 +109,23 @@ class ApuntesRepositoryImpl @Inject constructor(
         withContext(Dispatchers.IO) {
             apunteDao.getById(apunteId)?.toDomain()
         }
+
+    private suspend fun validarNombreDisponible(
+        usuarioId: Int,
+        nombre: String,
+        excludedId: Int = 0
+    ) {
+        if (seccionApuntesDao.existsByName(usuarioId, nombre, excludedId)) {
+            throw DuplicateSectionNameException()
+        }
+    }
 }
+
+private fun String.normalizarNombre(): String =
+    trim().replace(Regex("\\s+"), " ")
 
 private fun SeccionApuntesEntity.toDomain(): SeccionApuntes =
     SeccionApuntes(id = id, usuarioId = usuarioId, nombre = nombre)
-
-private fun SeccionApuntes.toEntity(): SeccionApuntesEntity =
-    SeccionApuntesEntity(id = id, usuarioId = usuarioId, nombre = nombre)
 
 private fun ApunteEntity.toDomain(): Apunte =
     Apunte(
