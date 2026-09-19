@@ -43,6 +43,16 @@ android {
         viewBinding = true
         compose = false
     }
+
+    // Permite que MigrationTestHelper encuentre los esquemas exportados por Room.
+    sourceSets {
+        getByName("androidTest").assets.srcDir("$projectDir/schemas")
+    }
+}
+
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+    arg("room.incremental", "true")
 }
 
 dependencies {
