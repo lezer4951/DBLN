@@ -10,12 +10,14 @@ import com.dubalin.app.domain.model.SeccionApuntes
 
 class SeccionesAdapter(
     private val onClick: (SeccionApuntes) -> Unit,
-    private val onLongClick: (SeccionApuntes) -> Unit
+    private val onActionsClick: (SeccionApuntes) -> Unit
 ) : ListAdapter<SeccionApuntes, SeccionesAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemSeccionBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
+            LayoutInflater.from(parent.context),
+            parent,
+            false
         )
         return ViewHolder(binding)
     }
@@ -31,10 +33,7 @@ class SeccionesAdapter(
         fun bind(seccion: SeccionApuntes) {
             binding.tvNombreSeccion.text = seccion.nombre
             binding.root.setOnClickListener { onClick(seccion) }
-            binding.root.setOnLongClickListener {
-                onLongClick(seccion)
-                true
-            }
+            binding.btnAcciones.setOnClickListener { onActionsClick(seccion) }
         }
     }
 
