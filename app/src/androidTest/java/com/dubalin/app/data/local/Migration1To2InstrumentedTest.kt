@@ -41,6 +41,13 @@ class Migration1To2InstrumentedTest {
                             )
                             """.trimIndent()
                         )
+                        db.execSQL(
+                            """
+                            INSERT INTO `usuario`
+                                (`nombre`, `correo`, `password`, `fecha_registro`)
+                            VALUES ('Ana', 'ana@dubalin.com', 'hash', 1)
+                            """.trimIndent()
+                        )
                     }
 
                     override fun onUpgrade(
@@ -62,47 +69,80 @@ class Migration1To2InstrumentedTest {
     }
 
     @Test
-    fun migracion_1_2_crea_tablas_indices_y_claves_foraneas() {
+    fun migracion_1_2_preserva_datos_y_crea_el_esquema_esperado() {
         val db = helper.writableDatabase
 
         MIGRATION_1_2.migrate(db)
 
-        assertTrue(tableExists(db, "seccion_apuntes"))
-        assertTrue(tableExists(db, "apunte"))
+        assertEquals(1, rowCount(db, "usuario"))
+        assertEquals(
+            setOf("id", "usuario_id", "nombre"),
+            columnNames(db, "seccion_apuntes")
+        )
+        assertEquals(
+            setOf("id", "seccion_id", "titulo", "contenido", "fecha_actualizacion"),
+            columnNames(db, "apunte")
+        )
         assertTrue(indexExists(db, "index_seccion_apuntes_usuario_id"))
         assertTrue(indexExists(db, "index_apunte_seccion_id"))
-        assertEquals("usuario", foreignKeyTarget(db, "seccion_apuntes"))
-        assertEquals("seccion_apuntes", foreignKeyTarget(db, "apunte"))
+        assertEquals(
+            ForeignKeyInfo("usuario", "usuario_id", "id", "CASCADE"),
+            foreignKeyInfo(db, "seccion_apuntes")
+        )
+        assertEquals(
+            ForeignKeyInfo("seccion_apuntes", "seccion_id", "id", "CASCADE"),
+            foreignKeyInfo(db, "apunte")
+        )
     }
 
-    private fun tableExists(db: SupportSQLiteDatabase, table: String): Boolean =
-        objectExists(db, "table", table)
+    private fun rowCount(db: SupportSQLiteDatabase, table: String): Int =
+        db.query("SELECT COUNT(*) FROM `$table`").use { cursor ->
+            cursor.moveToFirst()
+            cursor.getInt(0)
+        }
 
-    private fun indexExists(db: SupportSQLiteDatabase, index: String): Boolean =
-        objectExists(db, "index", index)
-
-    private fun objectExists(
+    private fun columnNames(
         db: SupportSQLiteDatabase,
-        type: String,
-        name: String
-    ): Boolean {
+        table: String
+    ): Set<String> =
+        db.query("PRAGMA table_info(`$table`)").use { cursor ->
+            buildSet {
+                val nameIndex = cursor.getColumnIndexOrThrow("name")
+                while (cursor.moveToNext()) {
+                    add(cursor.getString(nameIndex))
+                }
+            }
+        }
+
+    private fun indexExists(db: SupportSQLiteDatabase, index: String): Boolean {
         db.query(
-            "SELECT 1 FROM sqlite_master WHERE type = ? AND name = ? LIMIT 1",
-            arrayOf(type, name)
+            "SELECT 1 FROM sqlite_master WHERE type = 'index' AND name = ? LIMIT 1",
+            arrayOf(index)
         ).use { cursor ->
             return cursor.moveToFirst()
         }
     }
 
-    private fun foreignKeyTarget(
+    private fun foreignKeyInfo(
         db: SupportSQLiteDatabase,
         table: String
-    ): String? {
+    ): ForeignKeyInfo? =
         db.query("PRAGMA foreign_key_list(`$table`)").use { cursor ->
             if (!cursor.moveToFirst()) return null
-            return cursor.getString(cursor.getColumnIndexOrThrow("table"))
+            ForeignKeyInfo(
+                targetTable = cursor.getString(cursor.getColumnIndexOrThrow("table")),
+                fromColumn = cursor.getString(cursor.getColumnIndexOrThrow("from")),
+                toColumn = cursor.getString(cursor.getColumnIndexOrThrow("to")),
+                onDelete = cursor.getString(cursor.getColumnIndexOrThrow("on_delete"))
+            )
         }
-    }
+
+    private data class ForeignKeyInfo(
+        val targetTable: String,
+        val fromColumn: String,
+        val toColumn: String,
+        val onDelete: String
+    )
 
     private companion object {
         const val TEST_DATABASE = "migration-1-2-test.db"
