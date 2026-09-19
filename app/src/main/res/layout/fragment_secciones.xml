@@ -8,8 +8,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_secciones"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:clipToPadding="false"
         android:padding="@dimen/spacing_md"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,10 +23,21 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/spacing_lg"
         android:gravity="center"
-        android:text="Aún no tienes secciones. Toca + para crear la primera (ej. Inglés)."
+        android:text="@string/secciones_empty"
         android:textColor="?attr/colorOnSurfaceVariant"
         android:textSize="@dimen/text_size_body"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_secciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/spacing_lg"
-        android:contentDescription="Crear sección"
+        android:contentDescription="@string/secciones_create_content_description"
         android:src="@android:drawable/ic_input_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
