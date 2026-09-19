@@ -1,10 +1,15 @@
 package com.dubalin.app.data.repository
 
+import android.database.sqlite.SQLiteConstraintException
 import com.dubalin.app.core.util.PasswordHasher
 import com.dubalin.app.data.local.dao.UsuarioDao
 import com.dubalin.app.data.local.entity.UsuarioEntity
 import com.dubalin.app.domain.model.Usuario
 import com.dubalin.app.domain.repository.AuthRepository
+import com.dubalin.app.domain.repository.EmailAlreadyRegisteredException
+import com.dubalin.app.domain.repository.InvalidCredentialsException
+import com.dubalin.app.domain.repository.UserNotFoundException
+import java.util.Locale
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -24,18 +29,24 @@ class AuthRepositoryImpl @Inject constructor(
         password: String
     ): Result<Usuario> = withContext(Dispatchers.IO) {
         runCatching {
-            val existente = usuarioDao.getByCorreo(correo)
+            val correoNormalizado = correo.normalizarCorreo()
+            val existente = usuarioDao.getByCorreo(correoNormalizado)
             if (existente != null) {
-                throw IllegalStateException("Ya existe una cuenta con ese correo.")
+                throw EmailAlreadyRegisteredException()
             }
 
             val entity = UsuarioEntity(
-                nombre = nombre,
-                correo = correo,
+                nombre = nombre.trim(),
+                correo = correoNormalizado,
                 password = PasswordHasher.hash(password),
                 fechaRegistro = System.currentTimeMillis()
             )
-            val id = usuarioDao.insert(entity)
+
+            val id = try {
+                usuarioDao.insert(entity)
+            } catch (_: SQLiteConstraintException) {
+                throw EmailAlreadyRegisteredException()
+            }
 
             entity.copy(id = id.toInt()).toDomain()
         }
@@ -46,17 +57,20 @@ class AuthRepositoryImpl @Inject constructor(
         password: String
     ): Result<Usuario> = withContext(Dispatchers.IO) {
         runCatching {
-            val entity = usuarioDao.getByCorreo(correo)
-                ?: throw NoSuchElementException("No existe una cuenta con ese correo.")
+            val entity = usuarioDao.getByCorreo(correo.normalizarCorreo())
+                ?: throw UserNotFoundException()
 
             if (!PasswordHasher.verify(password, entity.password)) {
-                throw SecurityException("Contraseña incorrecta.")
+                throw InvalidCredentialsException()
             }
 
             entity.toDomain()
         }
     }
 }
+
+private fun String.normalizarCorreo(): String =
+    trim().lowercase(Locale.ROOT)
 
 private fun UsuarioEntity.toDomain(): Usuario = Usuario(
     id = id,
