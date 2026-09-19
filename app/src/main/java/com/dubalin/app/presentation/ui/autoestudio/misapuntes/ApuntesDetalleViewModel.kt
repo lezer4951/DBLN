@@ -38,7 +38,7 @@ class ApuntesDetalleViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val seccionId: Int = savedStateHandle["seccionId"] ?: 0
-    private val seccionNombre: String = savedStateHandle["seccionNombre"].orEmpty()
+    private val seccionNombre: String = savedStateHandle.get<String>("seccionNombre").orEmpty()
 
     private val _uiState = MutableStateFlow(
         ApuntesUiState(
