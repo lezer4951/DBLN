@@ -21,4 +21,29 @@
         <item quantity="one">%d día de racha</item>
         <item quantity="other">%d días de racha</item>
     </plurals>
+
+    <!-- Secciones de apuntes -->
+    <string name="secciones_empty">Aún no tienes secciones. Toca + para crear la primera.</string>
+    <string name="secciones_create_content_description">Crear sección</string>
+    <string name="seccion_actions_content_description">Acciones de la sección</string>
+    <string name="seccion_new_title">Nueva sección</string>
+    <string name="seccion_edit_title">Editar sección</string>
+    <string name="seccion_name_hint">Nombre de la sección</string>
+    <string name="seccion_name_helper">Ejemplo: Inglés, Historia o Programación</string>
+    <string name="seccion_name_required">Escribe un nombre para la sección.</string>
+    <string name="action_create">Crear</string>
+    <string name="action_save">Guardar</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_edit">Editar</string>
+    <string name="action_delete">Eliminar</string>
+    <string name="seccion_delete_title">Eliminar sección</string>
+    <string name="seccion_delete_message">Se eliminará “%1$s” y todos sus apuntes. Esta acción no se puede deshacer.</string>
+    <string name="seccion_created">Sección creada.</string>
+    <string name="seccion_updated">Sección actualizada.</string>
+    <string name="seccion_deleted">Sección eliminada.</string>
+    <string name="seccion_duplicate_error">Ya existe una sección con ese nombre.</string>
+    <string name="seccion_not_found_error">La sección ya no existe.</string>
+    <string name="session_required_error">Tu sesión ya no es válida. Vuelve a iniciar sesión.</string>
+    <string name="secciones_load_error">No se pudieron cargar las secciones.</string>
+    <string name="secciones_operation_error">No se pudo completar la operación.</string>
 </resources>
