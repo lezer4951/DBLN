@@ -8,12 +8,14 @@ import com.dubalin.app.domain.model.Apunte
 import com.dubalin.app.domain.model.SeccionApuntes
 import com.dubalin.app.domain.repository.ApuntesRepository
 import com.dubalin.app.domain.repository.DuplicateSectionNameException
+import com.dubalin.app.domain.repository.InvalidNoteException
+import com.dubalin.app.domain.repository.NoteNotFoundException
 import com.dubalin.app.domain.repository.SectionNotFoundException
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 class ApuntesRepositoryImpl @Inject constructor(
     private val seccionApuntesDao: SeccionApuntesDao,
@@ -28,7 +30,7 @@ class ApuntesRepositoryImpl @Inject constructor(
         nombre: String
     ): Result<Unit> = withContext(Dispatchers.IO) {
         runCatching {
-            val nombreNormalizado = nombre.normalizarNombre()
+            val nombreNormalizado = nombre.normalizarTexto()
             validarNombreDisponible(usuarioId, nombreNormalizado)
 
             seccionApuntesDao.insert(
@@ -51,13 +53,8 @@ class ApuntesRepositoryImpl @Inject constructor(
                 ?.takeIf { it.usuarioId == usuarioId }
                 ?: throw SectionNotFoundException()
 
-            val nombreNormalizado = nombre.normalizarNombre()
-            validarNombreDisponible(
-                usuarioId = usuarioId,
-                nombre = nombreNormalizado,
-                excludedId = seccionId
-            )
-
+            val nombreNormalizado = nombre.normalizarTexto()
+            validarNombreDisponible(usuarioId, nombreNormalizado, seccionId)
             seccionApuntesDao.update(actual.copy(nombre = nombreNormalizado))
         }
     }
@@ -82,33 +79,66 @@ class ApuntesRepositoryImpl @Inject constructor(
         apunteId: Int?,
         titulo: String,
         contenido: String
-    ) {
-        withContext(Dispatchers.IO) {
-            val entity = ApunteEntity(
-                id = apunteId ?: 0,
-                seccionId = seccionId,
-                titulo = titulo,
-                contenido = contenido,
-                fechaActualizacion = System.currentTimeMillis()
-            )
+    ): Result<Unit> = withContext(Dispatchers.IO) {
+        runCatching {
+            val tituloNormalizado = titulo.normalizarTexto()
+            val contenidoNormalizado = contenido.trim()
+            if (tituloNormalizado.isBlank() || contenidoNormalizado.isBlank()) {
+                throw InvalidNoteException()
+            }
+            if (seccionApuntesDao.getById(seccionId) == null) {
+                throw SectionNotFoundException()
+            }
+
             if (apunteId == null) {
-                apunteDao.insert(entity)
+                apunteDao.insert(
+                    ApunteEntity(
+                        seccionId = seccionId,
+                        titulo = tituloNormalizado,
+                        contenido = contenidoNormalizado,
+                        fechaActualizacion = System.currentTimeMillis()
+                    )
+                )
             } else {
-                apunteDao.update(entity)
+                val actual = apunteDao.getById(apunteId)
+                    ?.takeIf { it.seccionId == seccionId }
+                    ?: throw NoteNotFoundException()
+
+                val updatedRows = apunteDao.update(
+                    actual.copy(
+                        titulo = tituloNormalizado,
+                        contenido = contenidoNormalizado,
+                        fechaActualizacion = System.currentTimeMillis()
+                    )
+                )
+                if (updatedRows == 0) throw NoteNotFoundException()
+            }
+            Unit
+        }
+    }
+
+    override suspend fun eliminarApunte(
+        apunte: Apunte
+    ): Result<Unit> = withContext(Dispatchers.IO) {
+        runCatching {
+            val actual = apunteDao.getById(apunte.id)
+                ?.takeIf { it.seccionId == apunte.seccionId }
+                ?: throw NoteNotFoundException()
+
+            if (apunteDao.delete(actual) == 0) {
+                throw NoteNotFoundException()
             }
         }
     }
 
-    override suspend fun eliminarApunte(apunte: Apunte) {
-        withContext(Dispatchers.IO) {
-            apunteDao.delete(apunte.toEntity())
+    override suspend fun obtenerApunte(
+        apunteId: Int
+    ): Result<Apunte> = withContext(Dispatchers.IO) {
+        runCatching {
+            apunteDao.getById(apunteId)?.toDomain()
+                ?: throw NoteNotFoundException()
         }
     }
-
-    override suspend fun obtenerApunte(apunteId: Int): Apunte? =
-        withContext(Dispatchers.IO) {
-            apunteDao.getById(apunteId)?.toDomain()
-        }
 
     private suspend fun validarNombreDisponible(
         usuarioId: Int,
@@ -121,7 +151,7 @@ class ApuntesRepositoryImpl @Inject constructor(
     }
 }
 
-private fun String.normalizarNombre(): String =
+private fun String.normalizarTexto(): String =
     trim().replace(Regex("\\s+"), " ")
 
 private fun SeccionApuntesEntity.toDomain(): SeccionApuntes =
@@ -129,15 +159,6 @@ private fun SeccionApuntesEntity.toDomain(): SeccionApuntes =
 
 private fun ApunteEntity.toDomain(): Apunte =
     Apunte(
-        id = id,
-        seccionId = seccionId,
-        titulo = titulo,
-        contenido = contenido,
-        fechaActualizacion = fechaActualizacion
-    )
-
-private fun Apunte.toEntity(): ApunteEntity =
-    ApunteEntity(
         id = id,
         seccionId = seccionId,
         titulo = titulo,
