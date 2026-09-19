@@ -3,9 +3,9 @@ package com.dubalin.app.presentation.ui.auth.registro
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dubalin.app.core.util.EmailValidator
-import com.dubalin.app.data.local.SessionManager
 import com.dubalin.app.domain.repository.AuthRepository
 import com.dubalin.app.domain.repository.EmailAlreadyRegisteredException
+import com.dubalin.app.domain.repository.SessionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,7 +23,7 @@ data class RegistroUiState(
 @HiltViewModel
 class RegistroViewModel @Inject constructor(
     private val authRepository: AuthRepository,
-    private val sessionManager: SessionManager
+    private val sessionRepository: SessionRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(RegistroUiState())
@@ -49,7 +49,7 @@ class RegistroViewModel @Inject constructor(
 
             authRepository.registrar(nombre, correo, password)
                 .onSuccess { usuario ->
-                    sessionManager.saveUsuarioId(usuario.id)
+                    sessionRepository.saveUsuarioId(usuario.id)
                     _uiState.update {
                         it.copy(isLoading = false, registroExitoso = true)
                     }

@@ -2,7 +2,7 @@ package com.dubalin.app.presentation.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dubalin.app.data.local.SessionManager
+import com.dubalin.app.domain.repository.SessionRepository
 import com.dubalin.app.domain.repository.UsuarioRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,7 +32,7 @@ private const val XP_POR_NIVEL = 100
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    sessionManager: SessionManager,
+    sessionRepository: SessionRepository,
     usuarioRepository: UsuarioRepository
 ) : ViewModel() {
 
@@ -40,7 +40,7 @@ class HomeViewModel @Inject constructor(
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
     init {
-        val usuarioId = sessionManager.getUsuarioId()
+        val usuarioId = sessionRepository.getUsuarioId()
         if (usuarioId != null) {
             usuarioRepository.observarUsuario(usuarioId)
                 .combine(usuarioRepository.observarEstadisticas(usuarioId)) { usuario, estadisticas ->

@@ -2,8 +2,7 @@ package com.dubalin.app.presentation.ui.auth.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dubalin.app.data.local.SessionManager
-import com.dubalin.app.domain.repository.UsuarioRepository
+import com.dubalin.app.domain.usecase.ValidarSesionUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.delay
@@ -24,8 +23,7 @@ data class SplashUiState(
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val sessionManager: SessionManager,
-    private val usuarioRepository: UsuarioRepository
+    private val validarSesion: ValidarSesionUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(SplashUiState())
@@ -43,13 +41,7 @@ class SplashViewModel @Inject constructor(
         viewModelScope.launch {
             delay(SPLASH_DELAY_MS)
 
-            val usuarioId = sessionManager.getUsuarioId()
-            val usuarioExiste = usuarioId != null &&
-                usuarioRepository.obtenerUsuario(usuarioId) != null
-
-            if (!usuarioExiste) {
-                sessionManager.clearSession()
-            }
+            val usuarioExiste = validarSesion()
 
             _uiState.update {
                 it.copy(

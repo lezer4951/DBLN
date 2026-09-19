@@ -2,7 +2,7 @@ package com.dubalin.app.presentation.ui.autoestudio.misapuntes
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dubalin.app.data.local.SessionManager
+import com.dubalin.app.domain.repository.SessionRepository
 import com.dubalin.app.domain.model.SeccionApuntes
 import com.dubalin.app.domain.repository.ApuntesRepository
 import com.dubalin.app.domain.repository.DuplicateSectionNameException
@@ -36,11 +36,11 @@ data class SeccionesUiState(
 
 @HiltViewModel
 class SeccionesViewModel @Inject constructor(
-    private val sessionManager: SessionManager,
+    private val sessionRepository: SessionRepository,
     private val apuntesRepository: ApuntesRepository
 ) : ViewModel() {
 
-    private val usuarioId = sessionManager.getUsuarioId()
+    private val usuarioId = sessionRepository.getUsuarioId()
 
     private val _uiState = MutableStateFlow(SeccionesUiState())
     val uiState: StateFlow<SeccionesUiState> = _uiState.asStateFlow()

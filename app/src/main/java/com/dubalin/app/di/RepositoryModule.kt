@@ -1,10 +1,12 @@
 package com.dubalin.app.di
 
+import com.dubalin.app.data.local.SessionManager
 import com.dubalin.app.data.repository.ApuntesRepositoryImpl
 import com.dubalin.app.data.repository.AuthRepositoryImpl
 import com.dubalin.app.data.repository.UsuarioRepositoryImpl
 import com.dubalin.app.domain.repository.ApuntesRepository
 import com.dubalin.app.domain.repository.AuthRepository
+import com.dubalin.app.domain.repository.SessionRepository
 import com.dubalin.app.domain.repository.UsuarioRepository
 import dagger.Binds
 import dagger.Module
@@ -34,4 +36,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindApuntesRepository(impl: ApuntesRepositoryImpl): ApuntesRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindSessionRepository(impl: SessionManager): SessionRepository
 }

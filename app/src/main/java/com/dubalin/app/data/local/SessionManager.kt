@@ -1,6 +1,7 @@
 package com.dubalin.app.data.local
 
 import android.content.Context
+import com.dubalin.app.domain.repository.SessionRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -15,21 +16,21 @@ import kotlinx.coroutines.flow.asStateFlow
 @Singleton
 class SessionManager @Inject constructor(
     @ApplicationContext context: Context
-) {
+) : SessionRepository {
     private val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
     private val _usuarioId = MutableStateFlow(readUsuarioId())
-    val usuarioId: StateFlow<Int?> = _usuarioId.asStateFlow()
+    override val usuarioId: StateFlow<Int?> = _usuarioId.asStateFlow()
 
-    fun saveUsuarioId(id: Int) {
+    override fun saveUsuarioId(id: Int) {
         require(id > 0) { "El id de usuario debe ser mayor que cero." }
         prefs.edit().putInt(KEY_USUARIO_ID, id).apply()
         _usuarioId.value = id
     }
 
-    fun getUsuarioId(): Int? = _usuarioId.value
+    override fun getUsuarioId(): Int? = _usuarioId.value
 
-    fun clearSession() {
+    override fun clearSession() {
         prefs.edit().remove(KEY_USUARIO_ID).apply()
         _usuarioId.value = null
     }

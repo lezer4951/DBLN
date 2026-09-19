@@ -2,7 +2,7 @@ package com.dubalin.app.presentation.ui.perfil
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dubalin.app.data.local.SessionManager
+import com.dubalin.app.domain.repository.SessionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
@@ -12,19 +12,19 @@ import kotlinx.coroutines.flow.stateIn
 
 @HiltViewModel
 class PerfilViewModel @Inject constructor(
-    private val sessionManager: SessionManager
+    private val sessionRepository: SessionRepository
 ) : ViewModel() {
 
     val sesionCerrada: StateFlow<Boolean> =
-        sessionManager.usuarioId
+        sessionRepository.usuarioId
             .map { usuarioId -> usuarioId == null }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.Eagerly,
-                initialValue = sessionManager.getUsuarioId() == null
+                initialValue = sessionRepository.getUsuarioId() == null
             )
 
     fun cerrarSesion() {
-        sessionManager.clearSession()
+        sessionRepository.clearSession()
     }
 }

@@ -3,9 +3,9 @@ package com.dubalin.app.presentation.ui.auth.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dubalin.app.core.util.EmailValidator
-import com.dubalin.app.data.local.SessionManager
 import com.dubalin.app.domain.repository.AuthRepository
 import com.dubalin.app.domain.repository.InvalidCredentialsException
+import com.dubalin.app.domain.repository.SessionRepository
 import com.dubalin.app.domain.repository.UserNotFoundException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,7 +24,7 @@ data class LoginUiState(
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val authRepository: AuthRepository,
-    private val sessionManager: SessionManager
+    private val sessionRepository: SessionRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(LoginUiState())
@@ -57,7 +57,7 @@ class LoginViewModel @Inject constructor(
 
             authRepository.login(correo, password)
                 .onSuccess { usuario ->
-                    sessionManager.saveUsuarioId(usuario.id)
+                    sessionRepository.saveUsuarioId(usuario.id)
                     _uiState.update {
                         it.copy(isLoading = false, loginExitoso = true)
                     }
