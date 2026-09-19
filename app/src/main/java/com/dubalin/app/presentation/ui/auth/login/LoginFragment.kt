@@ -46,6 +46,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 viewModel.uiState.collect { state ->
                     binding.progressLogin.isVisible = state.isLoading
                     binding.btnLogin.isEnabled = !state.isLoading
+                    binding.tvIrRegistro.isEnabled = !state.isLoading
 
                     state.errorMessage?.let { mensaje ->
                         Snackbar.make(binding.root, mensaje, Snackbar.LENGTH_SHORT).show()
@@ -53,6 +54,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     }
 
                     if (state.loginExitoso) {
+                        viewModel.loginConsumido()
                         findNavController().navigate(R.id.action_login_to_home)
                     }
                 }
