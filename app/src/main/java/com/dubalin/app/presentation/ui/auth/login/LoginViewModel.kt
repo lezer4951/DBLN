@@ -2,8 +2,11 @@ package com.dubalin.app.presentation.ui.auth.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dubalin.app.core.util.EmailValidator
 import com.dubalin.app.data.local.SessionManager
 import com.dubalin.app.domain.repository.AuthRepository
+import com.dubalin.app.domain.repository.InvalidCredentialsException
+import com.dubalin.app.domain.repository.UserNotFoundException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -28,32 +31,59 @@ class LoginViewModel @Inject constructor(
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
 
     fun login(correo: String, password: String) {
-        if (correo.isBlank() || password.isBlank()) {
-            _uiState.update { it.copy(errorMessage = "Completa correo y contraseña.") }
+        if (_uiState.value.isLoading) return
+
+        val errorValidacion = when {
+            correo.isBlank() || password.isBlank() ->
+                "Completa correo y contraseña."
+            !EmailValidator.isValid(correo) ->
+                "Ingresa un correo válido."
+            else -> null
+        }
+
+        if (errorValidacion != null) {
+            _uiState.update { it.copy(errorMessage = errorValidacion) }
             return
         }
 
         viewModelScope.launch {
-            _uiState.update { it.copy(isLoading = true, errorMessage = null) }
+            _uiState.update {
+                it.copy(
+                    isLoading = true,
+                    loginExitoso = false,
+                    errorMessage = null
+                )
+            }
 
-            authRepository.login(correo.trim(), password)
+            authRepository.login(correo, password)
                 .onSuccess { usuario ->
                     sessionManager.saveUsuarioId(usuario.id)
-                    _uiState.update { it.copy(isLoading = false, loginExitoso = true) }
+                    _uiState.update {
+                        it.copy(isLoading = false, loginExitoso = true)
+                    }
                 }
                 .onFailure { error ->
                     _uiState.update {
                         it.copy(
                             isLoading = false,
-                            errorMessage = error.message ?: "No se pudo iniciar sesión."
+                            errorMessage = error.toLoginMessage()
                         )
                     }
                 }
         }
     }
 
-    /** Limpia el error tras mostrarlo, para no repetirlo en recomposiciones. */
     fun errorMostrado() {
         _uiState.update { it.copy(errorMessage = null) }
     }
+
+    fun loginConsumido() {
+        _uiState.update { it.copy(loginExitoso = false) }
+    }
+}
+
+private fun Throwable.toLoginMessage(): String = when (this) {
+    is UserNotFoundException,
+    is InvalidCredentialsException -> "Correo o contraseña incorrectos."
+    else -> "No se pudo iniciar sesión. Inténtalo de nuevo."
 }
