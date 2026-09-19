@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface SeccionApuntesDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insert(seccion: SeccionApuntesEntity): Long
 
     @Update
@@ -24,6 +24,23 @@ interface SeccionApuntesDao {
     @Query("SELECT * FROM seccion_apuntes WHERE id = :id")
     suspend fun getById(id: Int): SeccionApuntesEntity?
 
-    @Query("SELECT * FROM seccion_apuntes WHERE usuario_id = :usuarioId ORDER BY nombre ASC")
+    @Query(
+        """
+        SELECT EXISTS(
+            SELECT 1
+            FROM seccion_apuntes
+            WHERE usuario_id = :usuarioId
+              AND LOWER(TRIM(nombre)) = LOWER(TRIM(:nombre))
+              AND id != :excludedId
+        )
+        """
+    )
+    suspend fun existsByName(
+        usuarioId: Int,
+        nombre: String,
+        excludedId: Int = 0
+    ): Boolean
+
+    @Query("SELECT * FROM seccion_apuntes WHERE usuario_id = :usuarioId ORDER BY nombre COLLATE NOCASE ASC")
     fun observeByUsuarioId(usuarioId: Int): Flow<List<SeccionApuntesEntity>>
 }
