@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_home"
+    app:startDestination="@id/homeFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.dubalin.app.presentation.ui.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home_tab" />
+
+    <fragment
+        android:id="@+id/autoestudioFragment"
+        android:name="com.dubalin.app.presentation.ui.autoestudio.AutoestudioFragment"
+        android:label="Autoestudio"
+        tools:layout="@layout/fragment_autoestudio">
+
+        <action
+            android:id="@+id/action_autoestudio_to_secciones"
+            app:destination="@id/seccionesFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/seccionesFragment"
+        android:name="com.dubalin.app.presentation.ui.autoestudio.misapuntes.SeccionesFragment"
+        android:label="Mis Apuntes"
+        tools:layout="@layout/fragment_secciones">
+
+        <action
+            android:id="@+id/action_secciones_to_apuntes"
+            app:destination="@id/misApuntesDetalleFragment" />
+
+    </fragment>
+
+    <!--
+        Placeholder del Paso 4.1b. Lista de apuntes dentro de una sección
+        + crear/editar se completa en el Paso 4.1c.
+    -->
+    <fragment
+        android:id="@+id/misApuntesDetalleFragment"
+        android:name="com.dubalin.app.presentation.ui.autoestudio.misapuntes.ApuntesDetalleFragment"
+        android:label="Apuntes"
+        tools:layout="@layout/fragment_apuntes_detalle" />
+
+    <fragment
+        android:id="@+id/desafiosFragment"
+        android:name="com.dubalin.app.presentation.ui.desafios.DesafiosFragment"
+        android:label="Desafíos"
+        tools:layout="@layout/fragment_desafios" />
+
+    <fragment
+        android:id="@+id/idiomasFragment"
+        android:name="com.dubalin.app.presentation.ui.idiomas.IdiomasFragment"
+        android:label="Idiomas"
+        tools:layout="@layout/fragment_idiomas" />
+
+    <fragment
+        android:id="@+id/perfilFragment"
+        android:name="com.dubalin.app.presentation.ui.perfil.PerfilFragment"
+        android:label="Perfil"
+        tools:layout="@layout/fragment_perfil" />
+
+</navigation>

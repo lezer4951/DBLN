@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_nav_home"
+        android:title="@string/nav_home" />
+
+    <item
+        android:id="@+id/autoestudioFragment"
+        android:icon="@drawable/ic_nav_autoestudio"
+        android:title="@string/nav_autoestudio" />
+
+    <item
+        android:id="@+id/desafiosFragment"
+        android:icon="@drawable/ic_nav_desafios"
+        android:title="@string/nav_desafios" />
+
+    <item
+        android:id="@+id/idiomasFragment"
+        android:icon="@drawable/ic_nav_idiomas"
+        android:title="@string/nav_idiomas" />
+
+    <item
+        android:id="@+id/perfilFragment"
+        android:icon="@drawable/ic_nav_perfil"
+        android:title="@string/nav_perfil" />
+
+</menu>

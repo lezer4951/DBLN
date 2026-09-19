@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.dubalin.app.presentation.ui.auth.splash.SplashFragment"
+        android:label="Splash"
+        tools:layout="@layout/fragment_splash">
+
+        <action
+            android:id="@+id/action_splash_to_login"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_splash_to_home"
+            app:destination="@id/homePlaceholderFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.dubalin.app.presentation.ui.auth.login.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/action_login_to_registro"
+            app:destination="@id/registroFragment" />
+
+        <action
+            android:id="@+id/action_login_to_home"
+            app:destination="@id/homePlaceholderFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/registroFragment"
+        android:name="com.dubalin.app.presentation.ui.auth.registro.RegistroFragment"
+        android:label="Registro"
+        tools:layout="@layout/fragment_registro">
+
+        <action
+            android:id="@+id/action_registro_to_home"
+            app:destination="@id/homePlaceholderFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <!--
+        Placeholder temporal. El Home real, con BottomNavigationView y las
+        5 pestañas, se construye en el Módulo 3.
+    -->
+    <fragment
+        android:id="@+id/homePlaceholderFragment"
+        android:name="com.dubalin.app.presentation.ui.home.HomePlaceholderFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home_placeholder">
+
+        <action
+            android:id="@+id/action_home_to_login"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+</navigation>

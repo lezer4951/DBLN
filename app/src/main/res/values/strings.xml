@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dubalin</string>
+
+    <!-- BottomNavigationView -->
+    <string name="nav_home">Home</string>
+    <string name="nav_autoestudio">Autoestudio</string>
+    <string name="nav_desafios">Desafíos</string>
+    <string name="nav_idiomas">Idiomas</string>
+    <string name="nav_perfil">Perfil</string>
+
+    <!-- Home tab -->
+    <string name="home_saludo">Hola, %1$s</string>
+    <string name="home_nivel_xp">Nivel %1$d · %2$d XP</string>
+    <string name="home_palabra_diaria_titulo">Palabra Diaria</string>
+    <string name="home_palabra_diaria_proximamente">Próximamente: preguntas generadas con IA para ganar XP cada día.</string>
+    <string name="home_accesos_rapidos_titulo">Accesos rápidos</string>
+    <string name="home_accesos_rapidos_proximamente">Tu última lección o mazo aparecerá aquí cuando empieces a estudiar.</string>
+
+    <plurals name="home_racha_dias">
+        <item quantity="one">%d día de racha</item>
+        <item quantity="other">%d días de racha</item>
+    </plurals>
+</resources>
