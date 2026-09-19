@@ -7,6 +7,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.dubalin.app.data.local.DubalinDatabase
 import com.dubalin.app.data.local.entity.UsuarioEntity
 import com.dubalin.app.domain.repository.DuplicateSectionNameException
+import com.dubalin.app.domain.repository.InvalidNoteException
+import com.dubalin.app.domain.repository.NoteNotFoundException
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -87,6 +89,71 @@ class ApuntesRepositoryImplInstrumentedTest {
             listOf("Historia", "Idiomas"),
             repository.observarSecciones(usuarioId).first().map { it.nombre }
         )
+    }
+
+    @Test
+    fun guardar_y_editar_apunte_persiste_los_cambios() = runTest {
+        repository.crearSeccion(usuarioId, "Programación")
+        val seccion = repository.observarSecciones(usuarioId).first().single()
+
+        val created = repository.guardarApunte(
+            seccionId = seccion.id,
+            apunteId = null,
+            titulo = "  Kotlin   Coroutines ",
+            contenido = "  Contenido inicial  "
+        )
+        val apunteCreado = repository.observarApuntes(seccion.id).first().single()
+
+        val updated = repository.guardarApunte(
+            seccionId = seccion.id,
+            apunteId = apunteCreado.id,
+            titulo = "StateFlow",
+            contenido = "Contenido actualizado"
+        )
+        val apunteActualizado = repository.obtenerApunte(apunteCreado.id).getOrThrow()
+
+        assertTrue(created.isSuccess)
+        assertTrue(updated.isSuccess)
+        assertEquals("Kotlin Coroutines", apunteCreado.titulo)
+        assertEquals("Contenido inicial", apunteCreado.contenido)
+        assertEquals("StateFlow", apunteActualizado.titulo)
+        assertEquals("Contenido actualizado", apunteActualizado.contenido)
+    }
+
+    @Test
+    fun guardar_rechaza_un_apunte_incompleto() = runTest {
+        repository.crearSeccion(usuarioId, "Programación")
+        val seccion = repository.observarSecciones(usuarioId).first().single()
+
+        val result = repository.guardarApunte(
+            seccionId = seccion.id,
+            apunteId = null,
+            titulo = " ",
+            contenido = "Contenido"
+        )
+
+        assertTrue(result.exceptionOrNull() is InvalidNoteException)
+        assertTrue(repository.observarApuntes(seccion.id).first().isEmpty())
+    }
+
+    @Test
+    fun eliminar_apunte_impide_eliminarlo_dos_veces() = runTest {
+        repository.crearSeccion(usuarioId, "Programación")
+        val seccion = repository.observarSecciones(usuarioId).first().single()
+        repository.guardarApunte(
+            seccionId = seccion.id,
+            apunteId = null,
+            titulo = "Coroutines",
+            contenido = "Notas"
+        )
+        val apunte = repository.observarApuntes(seccion.id).first().single()
+
+        val firstDelete = repository.eliminarApunte(apunte)
+        val secondDelete = repository.eliminarApunte(apunte)
+
+        assertTrue(firstDelete.isSuccess)
+        assertTrue(secondDelete.exceptionOrNull() is NoteNotFoundException)
+        assertTrue(repository.observarApuntes(seccion.id).first().isEmpty())
     }
 
     @Test
