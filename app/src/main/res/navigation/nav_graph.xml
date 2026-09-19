@@ -19,7 +19,7 @@
 
         <action
             android:id="@+id/action_splash_to_home"
-            app:destination="@id/homePlaceholderFragment"
+            app:destination="@id/homeContainerFragment"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
 
@@ -37,7 +37,7 @@
 
         <action
             android:id="@+id/action_login_to_home"
-            app:destination="@id/homePlaceholderFragment"
+            app:destination="@id/homeContainerFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
 
@@ -51,21 +51,17 @@
 
         <action
             android:id="@+id/action_registro_to_home"
-            app:destination="@id/homePlaceholderFragment"
+            app:destination="@id/homeContainerFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
 
     </fragment>
 
-    <!--
-        Placeholder temporal. El Home real, con BottomNavigationView y las
-        5 pestañas, se construye en el Módulo 3.
-    -->
     <fragment
-        android:id="@+id/homePlaceholderFragment"
-        android:name="com.dubalin.app.presentation.ui.home.HomePlaceholderFragment"
+        android:id="@+id/homeContainerFragment"
+        android:name="com.dubalin.app.presentation.ui.home.HomeContainerFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_home_placeholder">
+        tools:layout="@layout/fragment_home_container">
 
         <action
             android:id="@+id/action_home_to_login"
