@@ -9,6 +9,8 @@ import com.dubalin.app.data.local.DubalinDatabase
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -39,8 +41,8 @@ class AuthRepositoryImplInstrumentedTest {
     @Test
     fun registrar_guarda_el_usuario_y_la_contrasena_hasheada() = runTest {
         val result = repository.registrar(
-            nombre = "Ana",
-            correo = "ana@dubalin.com",
+            nombre = "  Ana  ",
+            correo = "  ANA@Dubalin.COM  ",
             password = "Dubalin123"
         )
 
@@ -50,18 +52,18 @@ class AuthRepositoryImplInstrumentedTest {
 
         assertEquals("Ana", usuario.nombre)
         assertEquals("ana@dubalin.com", usuario.correo)
-        assertTrue(entity != null)
-        assertTrue(entity?.password != "Dubalin123")
-        assertTrue(PasswordHasher.verify("Dubalin123", requireNotNull(entity).password))
+        assertNotNull(entity)
+        assertNotEquals("Dubalin123", requireNotNull(entity).password)
+        assertTrue(PasswordHasher.verify("Dubalin123", entity.password))
     }
 
     @Test
-    fun registrar_rechaza_un_correo_duplicado() = runTest {
+    fun registrar_rechaza_el_mismo_correo_con_mayusculas_o_espacios() = runTest {
         repository.registrar("Ana", "ana@dubalin.com", "Dubalin123")
 
         val duplicate = repository.registrar(
             nombre = "Otra Ana",
-            correo = "ana@dubalin.com",
+            correo = "  ANA@DUBALIN.COM ",
             password = "OtraClave123"
         )
 
@@ -73,10 +75,10 @@ class AuthRepositoryImplInstrumentedTest {
     }
 
     @Test
-    fun login_acepta_la_clave_correcta_y_rechaza_la_incorrecta() = runTest {
+    fun login_normaliza_el_correo_y_valida_la_contrasena() = runTest {
         repository.registrar("Ana", "ana@dubalin.com", "Dubalin123")
 
-        val correct = repository.login("ana@dubalin.com", "Dubalin123")
+        val correct = repository.login(" ANA@Dubalin.COM ", "Dubalin123")
         val incorrect = repository.login("ana@dubalin.com", "clave-incorrecta")
 
         assertTrue(correct.isSuccess)
