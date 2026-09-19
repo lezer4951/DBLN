@@ -45,6 +45,10 @@ class SeccionesFragment : Fragment(R.layout.fragment_secciones) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentSeccionesBinding.bind(view)
 
+        binding.toolbarSecciones.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+
         binding.rvSecciones.layoutManager = LinearLayoutManager(requireContext())
         binding.rvSecciones.adapter = adapter
         binding.fabCrearSeccion.setOnClickListener {

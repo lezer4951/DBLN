@@ -11,69 +11,75 @@
         android:label="Home"
         tools:layout="@layout/fragment_home_tab" />
 
-    <fragment
+    <navigation
         android:id="@+id/autoestudioFragment"
-        android:name="com.dubalin.app.presentation.ui.autoestudio.AutoestudioFragment"
-        android:label="Autoestudio"
-        tools:layout="@layout/fragment_autoestudio">
+        app:startDestination="@id/autoestudioMenuFragment">
 
-        <action
-            android:id="@+id/action_autoestudio_to_secciones"
-            app:destination="@id/seccionesFragment" />
+        <fragment
+            android:id="@+id/autoestudioMenuFragment"
+            android:name="com.dubalin.app.presentation.ui.autoestudio.AutoestudioFragment"
+            android:label="Autoestudio"
+            tools:layout="@layout/fragment_autoestudio">
 
-    </fragment>
+            <action
+                android:id="@+id/action_autoestudio_to_secciones"
+                app:destination="@id/seccionesFragment" />
 
-    <fragment
-        android:id="@+id/seccionesFragment"
-        android:name="com.dubalin.app.presentation.ui.autoestudio.misapuntes.SeccionesFragment"
-        android:label="Mis Apuntes"
-        tools:layout="@layout/fragment_secciones">
+        </fragment>
 
-        <action
-            android:id="@+id/action_secciones_to_apuntes"
-            app:destination="@id/misApuntesDetalleFragment" />
+        <fragment
+            android:id="@+id/seccionesFragment"
+            android:name="com.dubalin.app.presentation.ui.autoestudio.misapuntes.SeccionesFragment"
+            android:label="Mis Apuntes"
+            tools:layout="@layout/fragment_secciones">
 
-    </fragment>
+            <action
+                android:id="@+id/action_secciones_to_apuntes"
+                app:destination="@id/misApuntesDetalleFragment" />
 
-    <fragment
-        android:id="@+id/misApuntesDetalleFragment"
-        android:name="com.dubalin.app.presentation.ui.autoestudio.misapuntes.ApuntesDetalleFragment"
-        android:label="Apuntes"
-        tools:layout="@layout/fragment_apuntes_detalle">
+        </fragment>
 
-        <argument
-            android:name="seccionId"
-            app:argType="integer"
-            android:defaultValue="0" />
+        <fragment
+            android:id="@+id/misApuntesDetalleFragment"
+            android:name="com.dubalin.app.presentation.ui.autoestudio.misapuntes.ApuntesDetalleFragment"
+            android:label="Apuntes"
+            tools:layout="@layout/fragment_apuntes_detalle">
 
-        <argument
-            android:name="seccionNombre"
-            app:argType="string"
-            android:defaultValue="" />
+            <argument
+                android:name="seccionId"
+                app:argType="integer"
+                android:defaultValue="0" />
 
-        <action
-            android:id="@+id/action_apuntes_to_editor"
-            app:destination="@id/editorApunteFragment" />
+            <argument
+                android:name="seccionNombre"
+                app:argType="string"
+                android:defaultValue="" />
 
-    </fragment>
+            <action
+                android:id="@+id/action_apuntes_to_editor"
+                app:destination="@id/editorApunteFragment" />
 
-    <fragment
-        android:id="@+id/editorApunteFragment"
-        android:name="com.dubalin.app.presentation.ui.autoestudio.misapuntes.EditorApunteFragment"
-        android:label="Editor de apunte"
-        tools:layout="@layout/fragment_editor_apunte">
+        </fragment>
 
-        <argument
-            android:name="seccionId"
-            app:argType="integer"
-            android:defaultValue="0" />
+        <fragment
+            android:id="@+id/editorApunteFragment"
+            android:name="com.dubalin.app.presentation.ui.autoestudio.misapuntes.EditorApunteFragment"
+            android:label="Editor de apunte"
+            tools:layout="@layout/fragment_editor_apunte">
 
-        <argument
-            android:name="apunteId"
-            app:argType="integer"
-            android:defaultValue="0" />
+            <argument
+                android:name="seccionId"
+                app:argType="integer"
+                android:defaultValue="0" />
 
-    </fragment>
+            <argument
+                android:name="apunteId"
+                app:argType="integer"
+                android:defaultValue="0" />
+
+        </fragment>
+
+    </navigation>
 
     <fragment
         android:id="@+id/desafiosFragment"
