@@ -10,13 +10,38 @@
     android:clickable="true"
     android:focusable="true">
 
-    <TextView
-        android:id="@+id/tv_nombre_seccion"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/spacing_md"
-        android:textColor="?attr/colorOnSurface"
-        android:textSize="@dimen/text_size_title"
-        tools:text="Inglés" />
+        android:minHeight="64dp">
+
+        <TextView
+            android:id="@+id/tv_nombre_seccion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_md"
+            android:layout_marginVertical="@dimen/spacing_md"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="@dimen/text_size_title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_acciones"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Inglés" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_acciones"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/seccion_actions_content_description"
+            android:padding="12dp"
+            android:src="@drawable/ic_more_vert"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="?attr/colorOnSurfaceVariant" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
