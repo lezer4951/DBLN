@@ -49,6 +49,7 @@ class RegistroFragment : Fragment(R.layout.fragment_registro) {
                 viewModel.uiState.collect { state ->
                     binding.progressRegistro.isVisible = state.isLoading
                     binding.btnRegistrar.isEnabled = !state.isLoading
+                    binding.tvIrLogin.isEnabled = !state.isLoading
 
                     state.errorMessage?.let { mensaje ->
                         Snackbar.make(binding.root, mensaje, Snackbar.LENGTH_SHORT).show()
@@ -56,6 +57,7 @@ class RegistroFragment : Fragment(R.layout.fragment_registro) {
                     }
 
                     if (state.registroExitoso) {
+                        viewModel.registroConsumido()
                         findNavController().navigate(R.id.action_registro_to_home)
                     }
                 }
