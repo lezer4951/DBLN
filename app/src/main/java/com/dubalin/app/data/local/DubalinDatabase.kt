@@ -26,12 +26,10 @@ import com.dubalin.app.data.local.entity.SeccionApuntesEntity
 import com.dubalin.app.data.local.entity.UsuarioEntity
 
 /**
- * Base de datos Room de Dubalin. Offline-first: toda la persistencia
- * vive acá, sin backend por ahora.
+ * Base de datos Room de Dubalin. Los esquemas se exportan a app/schemas
+ * para conservar el historial y validar migraciones futuras.
  *
- * version = 2: agrega seccion_apuntes y apunte (Módulo 4, Mis Apuntes)
- * vía MIGRATION_1_2 -- no destructiva, preserva los datos ya guardados
- * en dispositivos con la versión 1.
+ * version = 2: agrega seccion_apuntes y apunte mediante MIGRATION_1_2.
  */
 @Database(
     entities = [
@@ -48,7 +46,7 @@ import com.dubalin.app.data.local.entity.UsuarioEntity
         ApunteEntity::class
     ],
     version = 2,
-    exportSchema = false
+    exportSchema = true
 )
 abstract class DubalinDatabase : RoomDatabase() {
 
