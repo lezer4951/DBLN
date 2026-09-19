@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.textfield.TextInputLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+    android:id="@+id/til_nombre_seccion"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/spacing_lg"
+    android:layout_marginTop="@dimen/spacing_sm"
+    android:hint="@string/seccion_name_hint"
+    app:helperText="@string/seccion_name_helper"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/et_nombre_seccion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:imeOptions="actionDone"
+        android:inputType="textCapSentences"
+        android:maxLength="50"
+        android:maxLines="1" />
+
+</com.google.android.material.textfield.TextInputLayout>
