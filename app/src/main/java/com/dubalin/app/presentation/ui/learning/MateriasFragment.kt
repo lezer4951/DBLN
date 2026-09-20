@@ -16,6 +16,14 @@ class MateriasFragment : Fragment(R.layout.fragment_learning_hub) {
         b.hubToolbar.setNavigationContentDescription(R.string.action_back)
         b.hubToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
         b.hubContent.hubCard("Tu siguiente logro empieza aquí", "Explora temas y prepara tu práctica. Las materias son iguales para todas las carreras.", true)
+        if (savedInstanceState == null) {
+            val index = arguments?.getInt("materiaInicial", -1) ?: -1
+            Materias.todas.getOrNull(index)?.let { m ->
+                MaterialAlertDialogBuilder(requireContext()).setTitle(m.nombre)
+                    .setItems(m.temas.toTypedArray()) { _, i -> preparar(m.nombre, m.temas[i]) }
+                    .setNegativeButton(R.string.action_cancel, null).show()
+            }
+        }
         Materias.todas.forEach { m ->
             b.hubContent.hubCard(m.nombre, "${m.temas.size} temas iniciales · Sin evaluar\nExplorar →") {
                 MaterialAlertDialogBuilder(requireContext()).setTitle(m.nombre)

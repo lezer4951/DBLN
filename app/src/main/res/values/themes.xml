@@ -1,11 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!--
-        Tema principal de Dubalin (modo claro).
-        La variante de modo oscuro está en values-night/themes.xml y reutiliza
-        los mismos nombres de color (definidos por separado en values-night/colors.xml),
-        así que este único tema resuelve ambos modos automáticamente.
-    -->
+<resources>
     <style name="Theme.Dubalin" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/md_primary</item>
         <item name="colorOnPrimary">@color/md_on_primary</item>
@@ -33,16 +26,11 @@
         <item name="android:navigationBarColor">@color/md_surface</item>
         <item name="materialCardViewStyle">@style/Widget.Dubalin.CardView</item>
     </style>
-    <!--
-        Tarjeta estándar de la app: fondo blanco (superficie), esquinas redondeadas
-        20dp y elevación sutil de 2dp, según la especificación de diseño minimalista.
-        Usar en toda tarjeta (Apuntes, Flashcards, Cuestionarios, etc.) en vez de
-        declarar cardCornerRadius/cardElevation sueltos en cada layout.
-    -->
     <style name="Widget.Dubalin.CardView" parent="Widget.Material3.CardView.Elevated">
         <item name="cardCornerRadius">@dimen/card_corner_radius</item>
-        <item name="cardElevation">@dimen/card_elevation</item>
-        <item name="strokeWidth">0dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="strokeColor">@color/dubalin_line</item>
         <item name="cardBackgroundColor">@color/md_surface</item>
     </style>
 </resources>

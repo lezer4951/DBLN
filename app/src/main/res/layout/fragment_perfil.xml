@@ -1,17 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
- android:layout_width="match_parent" android:layout_height="match_parent"
- android:orientation="vertical" android:background="?android:attr/colorBackground">
- <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
- android:padding="20dp" android:text="@string/profile_placeholder" android:textSize="28sp"
- android:textStyle="bold" android:accessibilityHeading="true" android:textColor="?attr/colorOnSurface" />
- <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
- android:layout_height="0dp" android:layout_weight="1">
- <LinearLayout android:id="@+id/profile_content" android:layout_width="match_parent"
- android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp" />
- </androidx.core.widget.NestedScrollView>
- <com.google.android.material.button.MaterialButton android:id="@+id/btn_cerrar_sesion"
- style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="match_parent"
- android:layout_height="wrap_content" android:layout_marginHorizontal="20dp" android:minHeight="48dp"
- android:text="@string/profile_logout" />
-</LinearLayout>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:background="@color/dubalin_canvas">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/nav_perfil" android:textSize="28sp" android:textColor="@color/dubalin_ink" android:textStyle="bold" android:accessibilityHeading="true" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ref_profile_desc" android:textSize="16sp" android:textColor="@color/dubalin_ink_soft" android:layout_marginTop="6dp" android:lineSpacingExtra="2dp" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="22dp" android:padding="18dp" android:gravity="center_vertical" android:orientation="horizontal" android:background="@drawable/bg_hero_gradient">
+            <TextView android:id="@+id/profile_avatar" android:layout_width="58dp" android:layout_height="58dp" android:gravity="center" android:text="" android:textSize="20sp" android:textStyle="bold" android:textColor="@color/dubalin_white" android:background="@drawable/bg_circle_primary" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="12dp" android:orientation="vertical">
+                <TextView android:id="@+id/profile_name" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:textSize="20sp" android:textColor="@color/dubalin_white" android:textStyle="bold" />
+                <TextView android:id="@+id/profile_level" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:textSize="14sp" android:textColor="@color/dubalin_white" />
+            </LinearLayout>
+            <TextView android:id="@+id/profile_edit_icon" android:layout_width="48dp" android:layout_height="48dp" android:gravity="center" android:text="✎" android:textSize="20sp" android:textColor="@color/dubalin_white" android:background="?attr/selectableItemBackgroundBorderless" android:contentDescription="@string/ref_edit" android:focusable="true" />
+        </LinearLayout>
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.Dubalin.CardView" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="18dp" android:orientation="vertical">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ref_about" android:textSize="18sp" android:textColor="@color/dubalin_ink" android:textStyle="bold" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp" android:orientation="vertical">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="6dp">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:text="@string/ref_career" android:textSize="14sp" android:textColor="@color/dubalin_ink_soft" android:textStyle="bold" android:layout_weight="1" />
+                        <TextView android:id="@+id/profile_career" android:layout_width="0dp" android:layout_height="wrap_content" android:text="" android:textSize="14sp" android:textColor="@color/dubalin_ink" android:textStyle="bold" android:layout_weight="1" />
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="6dp">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:text="@string/ref_grade" android:textSize="14sp" android:textColor="@color/dubalin_ink_soft" android:textStyle="bold" android:layout_weight="1" />
+                        <TextView android:id="@+id/profile_grade" android:layout_width="0dp" android:layout_height="wrap_content" android:text="" android:textSize="14sp" android:textColor="@color/dubalin_ink" android:textStyle="bold" android:layout_weight="1" />
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="6dp">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:text="@string/ref_interests" android:textSize="14sp" android:textColor="@color/dubalin_ink_soft" android:textStyle="bold" android:layout_weight="1" />
+                        <TextView android:id="@+id/profile_interests" android:layout_width="0dp" android:layout_height="wrap_content" android:text="" android:textSize="14sp" android:textColor="@color/dubalin_ink" android:textStyle="bold" android:layout_weight="1" />
+                    </LinearLayout>
+                </LinearLayout>
+                <TextView android:id="@+id/btn_edit_profile" android:layout_width="wrap_content" android:layout_height="48dp" android:layout_marginTop="8dp" android:gravity="center_vertical" android:text="@string/ref_edit" android:textSize="15sp" android:textStyle="bold" android:textColor="@color/md_primary" android:focusable="true" android:background="?attr/selectableItemBackground" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:padding="18dp" android:background="@drawable/bg_info_panel" android:orientation="horizontal">
+            <ImageView android:layout_width="38dp" android:layout_height="38dp" android:backgroundTint="@color/md_on_primary" android:background="@drawable/bg_icon_tile" android:importantForAccessibility="no" app:srcCompat="@drawable/ic_ref_info" app:tint="@color/md_primary" android:padding="10dp" />
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="10dp" android:orientation="vertical">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ref_career_info_title" android:textSize="16sp" android:textColor="@color/md_primary" android:textStyle="bold" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ref_career_info_desc" android:textSize="14sp" android:textColor="@color/md_on_primary_container" android:layout_marginTop="4dp" android:lineSpacingExtra="2dp" />
+            </LinearLayout>
+        </LinearLayout>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ref_subject_ranks" android:textSize="20sp" android:textColor="@color/dubalin_ink" android:layout_marginTop="22dp" android:textStyle="bold" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ref_subject_ranks_desc" android:textSize="14sp" android:textColor="@color/dubalin_ink_soft" android:layout_marginTop="2dp" android:layout_marginBottom="12dp" />
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/profile_ranks" android:layout_width="match_parent" android:layout_height="wrap_content" android:nestedScrollingEnabled="false" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/btn_cerrar_sesion" style="@style/Widget.Dubalin.Button.Outlined" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:layout_marginBottom="16dp" android:text="@string/profile_logout" android:textColor="@color/dubalin_ink_soft" app:strokeColor="@color/dubalin_line" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

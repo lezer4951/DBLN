@@ -1,10 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!--
-        Variante de modo oscuro. Misma estructura que values/themes.xml;
-        cada @color/md_* se resuelve aquí contra values-night/colors.xml,
-        así que no se repite lógica, solo la paleta cambia.
-    -->
+<resources>
     <style name="Theme.Dubalin" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/md_primary</item>
         <item name="colorOnPrimary">@color/md_on_primary</item>

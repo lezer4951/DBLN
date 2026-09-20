@@ -1,36 +1,53 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:background="?android:attr/colorBackground">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/autoestudio_title" android:textSize="30sp" android:textColor="?attr/colorOnSurface" android:id="@+id/tv_autoestudio_titulo" android:fontFamily="sans-serif-medium" android:accessibilityHeading="true"/>
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ui_auto_detail" android:textSize="16sp" android:textColor="?attr/colorOnSurfaceVariant" android:layout_marginTop="8dp" android:layout_marginBottom="12dp"/>
-        <com.google.android.material.button.MaterialButton android:id="@+id/btn_materias" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="@string/ui_explore"/>
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ui_offline" android:textSize="12sp" android:textColor="?attr/colorPrimary" android:layout_marginTop="24dp" android:layout_marginBottom="16dp"/>
-        <com.google.android.material.card.MaterialCardView style="@style/Widget.Dubalin.CardView" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" android:id="@+id/card_flashcards" android:clickable="true" android:focusable="true">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
-                <ImageView android:layout_width="48dp" android:layout_height="48dp" android:padding="12dp" android:background="@drawable/bg_icon_tile" app:srcCompat="@drawable/ic_nav_autoestudio" app:tint="?attr/colorPrimary" android:importantForAccessibility="no"/>
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/autoestudio_flashcards_title" android:textSize="20sp" android:textColor="?attr/colorOnSurface" android:layout_marginTop="16dp" android:fontFamily="sans-serif-medium"/>
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/flashcards_description" android:textSize="16sp" android:textColor="?attr/colorOnSurfaceVariant" android:layout_marginTop="8dp"/>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:background="@color/dubalin_canvas">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp">
+        <TextView android:id="@+id/tv_autoestudio_titulo" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/autoestudio_title" android:textSize="28sp" android:textColor="@color/dubalin_ink" android:textStyle="bold" android:accessibilityHeading="true" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ui_auto_detail" android:textSize="16sp" android:textColor="@color/dubalin_ink_soft" android:layout_marginTop="6dp" android:lineSpacingExtra="2dp" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/btn_materias" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:text="@string/ui_explore" app:cornerRadius="15dp" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ref_offline" android:textSize="13sp" android:textColor="@color/dubalin_ink_soft" android:layout_marginTop="22dp" android:layout_marginBottom="14dp" android:textStyle="bold" />
+        <com.google.android.material.card.MaterialCardView android:id="@+id/card_flashcards" style="@style/Widget.Dubalin.CardView" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp" android:clickable="true" android:focusable="true">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="top" android:padding="16dp">
+                <ImageView android:layout_width="48dp" android:layout_height="48dp" android:backgroundTint="@color/dubalin_green_soft" android:background="@drawable/bg_icon_tile" android:importantForAccessibility="no" app:srcCompat="@drawable/ic_ref_cards" app:tint="@color/dubalin_green" android:padding="10dp" />
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="12dp" android:orientation="vertical">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/ref_flashcards_lab" android:textSize="18sp" android:textStyle="bold" android:textColor="@color/dubalin_ink" />
+                    </LinearLayout>
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="@string/ref_flashcards_desc" android:textSize="15sp" android:lineSpacingExtra="2dp" android:textColor="@color/dubalin_ink_soft" />
+                </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-        <com.google.android.material.card.MaterialCardView style="@style/Widget.Dubalin.CardView" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" android:id="@+id/card_mis_apuntes" android:clickable="true" android:focusable="true">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
-                <ImageView android:layout_width="48dp" android:layout_height="48dp" android:padding="12dp" android:background="@drawable/bg_icon_tile" app:srcCompat="@drawable/ic_nav_idiomas" app:tint="?attr/colorPrimary" android:importantForAccessibility="no"/>
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/autoestudio_notes_title" android:textSize="20sp" android:textColor="?attr/colorOnSurface" android:layout_marginTop="16dp" android:fontFamily="sans-serif-medium"/>
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/autoestudio_notes_description" android:textSize="16sp" android:textColor="?attr/colorOnSurfaceVariant" android:layout_marginTop="8dp"/>
+        <com.google.android.material.card.MaterialCardView android:id="@+id/card_mis_apuntes" style="@style/Widget.Dubalin.CardView" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp" android:clickable="true" android:focusable="true">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="top" android:padding="16dp">
+                <ImageView android:layout_width="48dp" android:layout_height="48dp" android:backgroundTint="@color/dubalin_primary_soft" android:background="@drawable/bg_icon_tile" android:importantForAccessibility="no" app:srcCompat="@drawable/ic_ref_notes" app:tint="@color/md_primary" android:padding="10dp" />
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="12dp" android:orientation="vertical">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/autoestudio_notes_title" android:textSize="18sp" android:textStyle="bold" android:textColor="@color/dubalin_ink" />
+                    </LinearLayout>
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="@string/autoestudio_notes_description" android:textSize="15sp" android:lineSpacingExtra="2dp" android:textColor="@color/dubalin_ink_soft" />
+                </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-        <com.google.android.material.card.MaterialCardView style="@style/Widget.Dubalin.CardView" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" android:id="@+id/card_generador_ia">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
-                <ImageView android:layout_width="48dp" android:layout_height="48dp" android:padding="12dp" android:background="@drawable/bg_icon_tile" app:srcCompat="@drawable/ic_nav_desafios" app:tint="?attr/colorPrimary" android:importantForAccessibility="no"/>
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/autoestudio_ai_title" android:textSize="20sp" android:textColor="?attr/colorOnSurface" android:layout_marginTop="16dp" android:fontFamily="sans-serif-medium"/>
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/coming_soon" android:textSize="16sp" android:textColor="?attr/colorOnSurfaceVariant" android:layout_marginTop="8dp"/>
+        <com.google.android.material.card.MaterialCardView android:id="@+id/card_generador_ia" style="@style/Widget.Dubalin.CardView" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp" android:clickable="false" android:focusable="false">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="top" android:padding="16dp">
+                <ImageView android:layout_width="48dp" android:layout_height="48dp" android:backgroundTint="@color/dubalin_purple_soft" android:background="@drawable/bg_icon_tile" android:importantForAccessibility="no" app:srcCompat="@drawable/ic_ref_sparkles" app:tint="@color/dubalin_purple" android:padding="10dp" />
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="12dp" android:orientation="vertical">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="start">
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/autoestudio_ai_title" android:textSize="18sp" android:textStyle="bold" android:textColor="@color/dubalin_ink" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/ref_soon" android:textColor="@color/dubalin_orange" android:textStyle="bold" android:textSize="12sp" android:background="@drawable/bg_pill_soon" android:layout_marginTop="6dp" />
+                    </LinearLayout>
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="@string/ref_ai_desc" android:textSize="15sp" android:lineSpacingExtra="2dp" android:textColor="@color/dubalin_ink_soft" />
+                </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-        <com.google.android.material.card.MaterialCardView style="@style/Widget.Dubalin.CardView" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" android:id="@+id/card_repaso_inteligente">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
-                <ImageView android:layout_width="48dp" android:layout_height="48dp" android:padding="12dp" android:background="@drawable/bg_icon_tile" app:srcCompat="@drawable/ic_nav_home" app:tint="?attr/colorPrimary" android:importantForAccessibility="no"/>
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/autoestudio_review_title" android:textSize="20sp" android:textColor="?attr/colorOnSurface" android:layout_marginTop="16dp" android:fontFamily="sans-serif-medium"/>
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/coming_soon" android:textSize="16sp" android:textColor="?attr/colorOnSurfaceVariant" android:layout_marginTop="8dp"/>
+        <com.google.android.material.card.MaterialCardView android:id="@+id/card_repaso_inteligente" style="@style/Widget.Dubalin.CardView" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp" android:clickable="false" android:focusable="false">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="top" android:padding="16dp">
+                <ImageView android:layout_width="48dp" android:layout_height="48dp" android:backgroundTint="@color/dubalin_cyan_soft" android:background="@drawable/bg_icon_tile" android:importantForAccessibility="no" app:srcCompat="@drawable/ic_ref_repeat" app:tint="@color/dubalin_cyan" android:padding="10dp" />
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="12dp" android:orientation="vertical">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="start">
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/autoestudio_review_title" android:textSize="18sp" android:textStyle="bold" android:textColor="@color/dubalin_ink" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/ref_soon" android:textColor="@color/dubalin_orange" android:textStyle="bold" android:textSize="12sp" android:background="@drawable/bg_pill_soon" android:layout_marginTop="6dp" />
+                    </LinearLayout>
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="@string/ref_review_desc" android:textSize="15sp" android:lineSpacingExtra="2dp" android:textColor="@color/dubalin_ink_soft" />
+                </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
