@@ -26,6 +26,11 @@ import javax.inject.Singleton
 abstract class RepositoryModule {
 
     @Binds
+    abstract fun bindFlashcardsRepository(
+        impl: com.dubalin.app.data.repository.FlashcardsRepository
+    ): com.dubalin.app.domain.repository.FlashcardsRepository
+
+    @Binds
     @Singleton
     abstract fun bindAuthRepository(impl: AuthRepositoryImpl): AuthRepository
 

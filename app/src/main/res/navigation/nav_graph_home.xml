@@ -16,6 +16,12 @@
         app:startDestination="@id/autoestudioMenuFragment">
 
         <fragment
+            android:id="@+id/flashcardsFragment"
+            android:name="com.dubalin.app.presentation.ui.autoestudio.flashcards.FlashcardsFragment"
+            android:label="@string/autoestudio_flashcards_title"
+            tools:layout="@layout/fragment_flashcards" />
+
+        <fragment
             android:id="@+id/autoestudioMenuFragment"
             android:name="com.dubalin.app.presentation.ui.autoestudio.AutoestudioFragment"
             android:label="Autoestudio"

@@ -47,6 +47,7 @@
     <string name="autoestudio_notes_title">Mis Apuntes</string>
     <string name="autoestudio_notes_description">Organiza tus resúmenes por secciones</string>
     <string name="autoestudio_flashcards_title">Laboratorio de Flashcards</string>
+    <string name="flashcards_description">Crea mazos y estudia tarjetas de anverso y reverso.</string>
     <string name="autoestudio_ai_title">Generador de Estudio con IA</string>
     <string name="autoestudio_review_title">Repaso Inteligente</string>
     <string name="coming_soon">Próximamente</string>

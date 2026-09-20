@@ -9,9 +9,7 @@ import com.dubalin.app.databinding.FragmentAutoestudioBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
- * Menú de Autoestudio. Solo "Mis Apuntes" es funcional por ahora;
- * Laboratorio de Flashcards, Generador con IA y Repaso Inteligente
- * quedan como tarjetas "próximamente" hasta sus respectivos pasos.
+ * Menú de Autoestudio con apuntes y flashcards locales.
  */
 @AndroidEntryPoint
 class AutoestudioFragment : Fragment(R.layout.fragment_autoestudio) {
@@ -25,6 +23,9 @@ class AutoestudioFragment : Fragment(R.layout.fragment_autoestudio) {
 
         binding.cardMisApuntes.setOnClickListener {
             findNavController().navigate(R.id.action_autoestudio_to_secciones)
+        }
+        binding.cardFlashcards.setOnClickListener {
+            findNavController().navigate(R.id.flashcardsFragment)
         }
     }
 
