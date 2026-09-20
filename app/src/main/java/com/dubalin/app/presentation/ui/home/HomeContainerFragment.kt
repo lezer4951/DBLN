@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
 import com.dubalin.app.R
 import com.dubalin.app.databinding.FragmentHomeContainerBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,7 +46,7 @@ class HomeContainerFragment : Fragment(R.layout.fragment_home_container) {
             .findFragmentById(R.id.nav_host_home) as NavHostFragment
         val navController = navHostFragment.navController
 
-        binding.bottomNav.setupWithNavController(navController)
+        binding.bottomNav.bindHomeNavigation(navController)
     }
 
     override fun onDestroyView() {

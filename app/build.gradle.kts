@@ -44,6 +44,10 @@ android {
         compose = false
     }
 
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+    }
+
     // Permite que MigrationTestHelper encuentre los esquemas exportados por Room.
     sourceSets {
         getByName("androidTest").assets.srcDir("$projectDir/schemas")
@@ -91,6 +95,9 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
 
     // Testing
+    testImplementation("org.robolectric:robolectric:4.13")
+    testImplementation("androidx.test:core:1.6.1")
+    testImplementation("androidx.navigation:navigation-testing:2.7.7")
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.junit)
