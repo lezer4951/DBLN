@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Dubalin</string>
+    <string name="subjects_title">Materias y temas</string>
 
     <!-- BottomNavigationView -->
     <string name="nav_home">Home</string>

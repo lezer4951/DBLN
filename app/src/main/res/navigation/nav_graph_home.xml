@@ -15,6 +15,11 @@
         android:id="@+id/autoestudioFragment"
         app:startDestination="@id/autoestudioMenuFragment">
 
+        <fragment android:id="@+id/materiasFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.MateriasFragment"
+            android:label="@string/subjects_title"
+            tools:layout="@layout/fragment_learning_hub" />
+
         <fragment
             android:id="@+id/flashcardsFragment"
             android:name="com.dubalin.app.presentation.ui.autoestudio.flashcards.FlashcardsFragment"

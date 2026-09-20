@@ -20,6 +20,9 @@ class AutoestudioFragment : Fragment(R.layout.fragment_autoestudio) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentAutoestudioBinding.bind(view)
+        binding.btnMaterias.setOnClickListener {
+            findNavController().navigate(R.id.materiasFragment)
+        }
 
         binding.cardMisApuntes.setOnClickListener {
             findNavController().navigate(R.id.action_autoestudio_to_secciones)
