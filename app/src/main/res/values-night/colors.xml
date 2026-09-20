@@ -1,33 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- Paleta Material 3 (modo oscuro), mismos nombres que values/colors.xml -->
     <color name="md_primary">#B9C3FF</color>
     <color name="md_on_primary">#0022A4</color>
     <color name="md_primary_container">#2A3EDA</color>
     <color name="md_on_primary_container">#DDE1FF</color>
-
     <color name="md_secondary">#C4C5DD</color>
     <color name="md_on_secondary">#2D2F42</color>
     <color name="md_secondary_container">#434559</color>
     <color name="md_on_secondary_container">#DFE1F9</color>
-
     <color name="md_background">#121316</color>
     <color name="md_on_background">#E4E2E6</color>
-
     <color name="md_surface">#121316</color>
     <color name="md_on_surface">#E4E2E6</color>
     <color name="md_surface_variant">#46464F</color>
     <color name="md_on_surface_variant">#C7C5D0</color>
-
     <color name="md_outline">#90909A</color>
-
     <color name="md_error">#FFB4AB</color>
     <color name="md_on_error">#690005</color>
     <color name="md_error_container">#93000A</color>
     <color name="md_on_error_container">#FFDAD6</color>
-
     <!-- Acento funcional: racha/fuego. Se mantiene fijo entre temas por especificación. -->
     <color name="accent_racha">#FF6B35</color>
-
+    <color name="feedback_success">#81D7A9</color>
+    <color name="feedback_on_success">#003921</color>
 </resources>

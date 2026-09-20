@@ -2,6 +2,7 @@ package com.dubalin.app.presentation.ui.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -24,6 +25,8 @@ class HomeFragment : Fragment(R.layout.fragment_home_tab) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentHomeTabBinding.bind(view)
 
+        binding.btnHomeSubjects.setOnClickListener { findNavController().navigate(R.id.autoestudioFragment); findNavController().navigate(R.id.materiasFragment) }
+        binding.btnHomeFlashcards.setOnClickListener { findNavController().navigate(R.id.autoestudioFragment); findNavController().navigate(R.id.flashcardsFragment) }
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { state ->

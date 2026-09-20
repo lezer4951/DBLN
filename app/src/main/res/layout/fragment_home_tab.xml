@@ -1,157 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?android:attr/colorBackground"
-    android:fillViewport="true">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/spacing_md">
-
-        <!-- Header: saludo + nivel/XP -->
-        <TextView
-            android:id="@+id/tv_saludo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_sm"
-            android:textColor="?attr/colorOnBackground"
-            android:textSize="@dimen/text_size_display"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Hola, Ana" />
-
-        <TextView
-            android:id="@+id/tv_nivel_xp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xs"
-            android:textColor="?attr/colorOnSurfaceVariant"
-            android:textSize="@dimen/text_size_body"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_saludo"
-            tools:text="Nivel 1 · 0 XP" />
-
-        <!-- Widget de racha -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_racha"
-            style="@style/Widget.Dubalin.CardView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_lg"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_nivel_xp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="@dimen/spacing_md">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:importantForAccessibility="no"
-                    android:text="@string/home_streak_icon"
-                    android:textSize="@dimen/text_size_display" />
-
-                <TextView
-                    android:id="@+id/tv_racha_dias"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/spacing_sm"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="@dimen/text_size_title"
-                    tools:text="0 días de racha" />
-
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:background="?android:attr/colorBackground">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ui_today" android:textSize="12sp" android:textColor="?attr/colorPrimary" android:letterSpacing="0.08" android:fontFamily="sans-serif-medium"/>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:textSize="30sp" android:textColor="?attr/colorOnSurface" android:id="@+id/tv_saludo" android:layout_marginTop="12dp" android:accessibilityHeading="true" android:fontFamily="sans-serif-medium"/>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:textSize="16sp" android:textColor="?attr/colorOnSurfaceVariant" android:id="@+id/tv_nivel_xp" android:layout_marginTop="8dp" android:layout_marginBottom="24dp"/>
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.Dubalin.CardView" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ui_home_title" android:textSize="28sp" android:textColor="?attr/colorOnSurface" android:fontFamily="sans-serif-medium"/>
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ui_home_detail" android:textSize="16sp" android:textColor="?attr/colorOnSurfaceVariant" android:layout_marginTop="12dp"/>
+                <com.google.android.material.button.MaterialButton android:id="@+id/btn_home_subjects" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="@string/ui_explore"/>
             </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
-
-        <!-- Palabra Diaria (placeholder honesto: depende del motor de IA) -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_palabra_diaria"
-            style="@style/Widget.Dubalin.CardView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_md"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_racha">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/spacing_md">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/home_palabra_diaria_titulo"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="@dimen/text_size_title"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_xs"
-                    android:text="@string/home_palabra_diaria_proximamente"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="@dimen/text_size_body" />
-
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.Dubalin.CardView" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/home_streak_icon" android:textSize="32sp" android:textColor="@color/accent_racha" android:importantForAccessibility="no"/>
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:textSize="20sp" android:textColor="?attr/colorOnSurface" android:id="@+id/tv_racha_dias" android:layout_marginTop="8dp"/>
             </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
-
-        <!-- Accesos rápidos (placeholder: depende del Módulo 4, Autoestudio) -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_accesos_rapidos"
-            style="@style/Widget.Dubalin.CardView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_md"
-            android:layout_marginBottom="@dimen/spacing_md"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_palabra_diaria">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/spacing_md">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/home_accesos_rapidos_titulo"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="@dimen/text_size_title"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_xs"
-                    android:text="@string/home_accesos_rapidos_proximamente"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="@dimen/text_size_body" />
-
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ui_tools" android:textSize="20sp" android:textColor="?attr/colorOnSurface" android:fontFamily="sans-serif-medium" android:layout_marginBottom="16dp"/>
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.Dubalin.CardView" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/autoestudio_flashcards_title" android:textSize="20sp" android:textColor="?attr/colorOnSurface"/>
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/flashcards_description" android:textSize="16sp" android:textColor="?attr/colorOnSurfaceVariant" android:layout_marginTop="8dp"/>
+                <com.google.android.material.button.MaterialButton android:id="@+id/btn_home_flashcards" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="@string/ui_study" style="@style/Widget.Dubalin.Button.Outlined"/>
             </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    </LinearLayout>
 </androidx.core.widget.NestedScrollView>

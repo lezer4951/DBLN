@@ -3,7 +3,6 @@ package com.dubalin.app.presentation.ui.autoestudio.flashcards
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -18,11 +17,8 @@ import com.dubalin.app.R
 import com.dubalin.app.databinding.FragmentFlashcardsBinding
 import com.dubalin.app.domain.model.Mazo
 import com.dubalin.app.domain.model.Flashcard
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.TextInputLayout
-import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -31,21 +27,26 @@ class FlashcardsFragment : Fragment(R.layout.fragment_flashcards) {
     private var binding: FragmentFlashcardsBinding? = null
     private val vm: FlashcardsViewModel by viewModels()
     private var rows: List<Pair<String, () -> Unit>> = emptyList()
+    private var renderedCard: String? = null
+    private var renderedRevealed = false
+    private var showingBack = false
+    private var flipping = false
     private val adapter = object : RecyclerView.Adapter<RowHolder>() {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            RowHolder(MaterialButton(parent.context).apply {
-                layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                isAllCaps = false
-                minHeight = (56 * resources.displayMetrics.density).toInt()
-            })
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RowHolder(
+            com.dubalin.app.databinding.ItemHubCardBinding.inflate(
+                android.view.LayoutInflater.from(parent.context), parent, false))
         override fun getItemCount() = rows.size
         override fun onBindViewHolder(holder: RowHolder, position: Int) {
             val row = rows[position]
-            holder.button.text = row.first
-            holder.button.setOnClickListener { row.second() }
+            holder.item.hubTitle.text = row.first.substringBefore('\n')
+            holder.item.hubDetail.text = row.first.substringAfter('\n', getString(R.string.ui_open))
+            holder.item.root.isClickable = true
+            holder.item.root.isFocusable = true
+            holder.item.root.setOnClickListener { row.second() }
         }
     }
-    private class RowHolder(val button: MaterialButton) : RecyclerView.ViewHolder(button)
+    private class RowHolder(val item: com.dubalin.app.databinding.ItemHubCardBinding) :
+        RecyclerView.ViewHolder(item.root)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val b = FragmentFlashcardsBinding.bind(view)
@@ -82,11 +83,21 @@ class FlashcardsFragment : Fragment(R.layout.fragment_flashcards) {
         b.studyScroll.isVisible = s.estudio != null
         b.primaryFlashcards.isEnabled = !s.loading && !s.saving
         b.secondaryFlashcards.isEnabled = !s.loading && !s.saving
+        b.primaryFlashcards.backgroundTintList = androidx.appcompat.content.res.AppCompatResources.getColorStateList(requireContext(), R.color.button_primary)
+        b.primaryFlashcards.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.md_on_primary))
+        b.secondaryFlashcards.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.md_primary))
         b.thirdFlashcards.isVisible = false
         b.secondaryFlashcards.isVisible = false
         if (s.estudio != null) {
             val card = s.estudio.getOrNull(s.indice)
             if (card == null) {
+                resetFlip()
+                renderedCard = null
+                b.studySide.setText(R.string.ui_summary)
+                b.studyHint.isVisible = false
+                b.studyCard.isClickable = false
+                b.studyCard.isFocusable = false
+                b.studyCard.setOnClickListener(null)
                 b.statusFlashcards.text = "Sesión terminada"
                 b.studyText.text = "Recordaste ${s.aciertos} de ${s.estudio.size} tarjetas.\n\nPor practicar: ${s.estudio.size - s.aciertos}"
                 b.primaryFlashcards.text = "Volver al mazo"
@@ -95,15 +106,47 @@ class FlashcardsFragment : Fragment(R.layout.fragment_flashcards) {
                 b.statusFlashcards.text = "Tarjeta ${s.indice + 1} de ${s.estudio.size} · ${if (s.invertido) "Reverso → anverso" else "Anverso → reverso"}"
                 val pregunta = if (s.invertido) card.reverso else card.frente
                 val respuesta = if (s.invertido) card.frente else card.reverso
-                b.studyText.text = if (s.revelada) "$pregunta\n\n$respuesta" else pregunta
-                b.primaryFlashcards.text = if (s.revelada) "Lo sabía" else "Mostrar respuesta"
-                b.primaryFlashcards.setOnClickListener { if (s.revelada) vm.responder(true) else vm.revelar() }
+                b.studyHint.isVisible = true
+                val key = "${card.id}:${s.indice}:${s.invertido}"
+                if (renderedCard != key) {
+                    resetFlip()
+                    renderedCard = key
+                    renderedRevealed = s.revelada
+                    showingBack = s.revelada
+                    showFace(pregunta, respuesta, s.invertido)
+                } else if (s.revelada && !renderedRevealed) {
+                    renderedRevealed = true
+                    flip(pregunta, respuesta, s.invertido)
+                }
+                b.studyCard.isClickable = !flipping
+                b.studyCard.isFocusable = true
+                b.studyCard.setOnClickListener {
+                    if (!flipping) {
+                        if (!vm.uiState.value.revelada) vm.revelar()
+                        else flip(pregunta, respuesta, s.invertido)
+                    }
+                }
+                b.primaryFlashcards.setText(if (s.revelada) R.string.ui_known else R.string.ui_reveal)
+                b.primaryFlashcards.setOnClickListener {
+                    if (!flipping) { if (s.revelada) vm.responder(true) else vm.revelar() }
+                }
                 b.secondaryFlashcards.isVisible = s.revelada
-                b.secondaryFlashcards.text = "Necesito practicar"
-                b.secondaryFlashcards.setOnClickListener { vm.responder(false) }
+                b.secondaryFlashcards.setText(R.string.ui_practice)
+                b.secondaryFlashcards.setOnClickListener { if (!flipping) vm.responder(false) }
+                if (s.revelada) {
+                    b.primaryFlashcards.backgroundTintList = android.content.res.ColorStateList.valueOf(
+                        androidx.core.content.ContextCompat.getColor(requireContext(), R.color.feedback_success))
+                    b.primaryFlashcards.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.feedback_on_success))
+                    b.secondaryFlashcards.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(), R.color.md_error))
+                }
+                b.primaryFlashcards.isEnabled = !flipping && !s.saving && !s.loading
+                b.secondaryFlashcards.isEnabled = !flipping && !s.saving && !s.loading
+
             }
             return
         }
+        resetFlip()
+        renderedCard = null
         rows = if (s.mazo == null) s.mazos.map { mazo ->
             Pair(mazo.titulo + if (mazo.descripcion.isBlank()) "" else "\n${mazo.descripcion}", { opcionesMazo(mazo) })
         } else s.tarjetas.map { card -> Pair("${card.frente} ↔ ${card.reverso}", { opcionesTarjeta(card) }) }
@@ -148,25 +191,12 @@ class FlashcardsFragment : Fragment(R.layout.fragment_flashcards) {
         card?.frente.orEmpty(), card?.reverso.orEmpty(), true) { a, b -> vm.guardarTarjeta(card, a, b) }
     private fun formulario(titulo: String, labelA: String, labelB: String, a: String, b: String,
         ambos: Boolean, guardar: (String, String) -> Unit) {
-        val container = LinearLayout(requireContext()).apply {
-            orientation = LinearLayout.VERTICAL
-            val padding = (24 * resources.displayMetrics.density).toInt()
-            setPadding(padding, padding, padding, padding)
-        }
-        fun campo(label: String, texto: String): TextInputEditText {
-            val layout = TextInputLayout(requireContext()).apply { hint = label }
-            val edit = TextInputEditText(layout.context).apply {
-                setText(texto)
-                inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_FLAG_MULTI_LINE
-                filters = arrayOf(android.text.InputFilter.LengthFilter(2000))
-            }
-            layout.addView(edit)
-            container.addView(layout)
-            return edit
-        }
-        val first = campo(labelA, a)
-        val second = campo(labelB, b)
-        val dialog = MaterialAlertDialogBuilder(requireContext()).setTitle(titulo).setView(container)
+        val form = com.dubalin.app.databinding.DialogFlashcardFormBinding.inflate(layoutInflater)
+        form.firstLayout.hint = labelA
+        form.secondLayout.hint = labelB
+        val first = form.firstInput.apply { setText(a) }
+        val second = form.secondInput.apply { setText(b) }
+        val dialog = MaterialAlertDialogBuilder(requireContext()).setTitle(titulo).setView(form.root)
             .setNegativeButton(R.string.action_cancel, null).setPositiveButton(R.string.action_save, null).create()
         dialog.setOnShowListener {
             dialog.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setOnClickListener {
@@ -179,11 +209,57 @@ class FlashcardsFragment : Fragment(R.layout.fragment_flashcards) {
         }
         dialog.show()
     }
+    private fun showFace(question: String, answer: String, inverted: Boolean) {
+        val b = binding ?: return
+        b.studyText.text = if (showingBack) answer else question
+        b.studySide.setText(if (showingBack != inverted) R.string.ui_back else R.string.ui_front)
+        b.studyHint.setText(if (renderedRevealed) R.string.ui_rate else R.string.ui_flip)
+    }
+
+    private fun flip(question: String, answer: String, inverted: Boolean) {
+        val b = binding ?: return
+        if (flipping) return
+        if (!com.dubalin.app.presentation.ui.learning.Motion.enabled(b.root)) {
+            showingBack = !showingBack
+            showFace(question, answer, inverted)
+            return
+        }
+        flipping = true
+        b.primaryFlashcards.isEnabled = false
+        b.secondaryFlashcards.isEnabled = false
+        b.studyCard.isClickable = false
+        b.studyCard.cameraDistance = 8000 * resources.displayMetrics.density
+        b.studyCard.animate().rotationY(90f).setDuration(140)
+            .setInterpolator(android.view.animation.AccelerateInterpolator()).withEndAction {
+                if (binding !== b) return@withEndAction
+                showingBack = !showingBack
+                showFace(question, answer, inverted)
+                b.studyCard.rotationY = -90f
+                b.studyCard.animate().rotationY(0f).setDuration(180)
+                    .setInterpolator(android.view.animation.DecelerateInterpolator()).withEndAction {
+                        if (binding === b) {
+                            flipping = false
+                            b.studyCard.isClickable = true
+                            b.primaryFlashcards.isEnabled = !vm.uiState.value.saving && !vm.uiState.value.loading
+                            b.secondaryFlashcards.isEnabled = b.primaryFlashcards.isEnabled
+                        }
+                    }.start()
+            }.start()
+    }
+
+    private fun resetFlip() {
+        binding?.studyCard?.animate()?.withEndAction(null)?.cancel()
+        binding?.studyCard?.rotationY = 0f
+        flipping = false
+    }
+
     private fun confirmar(titulo: String, mensaje: String, action: () -> Unit) {
         MaterialAlertDialogBuilder(requireContext()).setTitle(titulo).setMessage(mensaje)
             .setNegativeButton(R.string.action_cancel, null).setPositiveButton("Confirmar") { _, _ -> action() }.show()
     }
     override fun onDestroyView() {
+        resetFlip()
+        renderedCard = null
         binding?.listFlashcards?.adapter = null
         binding = null
         super.onDestroyView()

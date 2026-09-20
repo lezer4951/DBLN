@@ -1,192 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?android:attr/colorBackground"
-    android:fillViewport="true">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/spacing_md">
-
-        <TextView
-            android:id="@+id/tv_autoestudio_titulo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_sm"
-            android:accessibilityHeading="true"
-            android:text="@string/autoestudio_title"
-            android:textColor="?attr/colorOnBackground"
-            android:textSize="@dimen/text_size_display"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_materias"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:minHeight="56dp"
-            android:text="@string/subjects_title"
-            app:layout_constraintTop_toBottomOf="@id/tv_autoestudio_titulo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_mis_apuntes"
-            style="@style/Widget.Dubalin.CardView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_lg"
-            android:clickable="true"
-            android:focusable="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_materias">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/spacing_md">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/autoestudio_notes_title"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="@dimen/text_size_title"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_xs"
-                    android:text="@string/autoestudio_notes_description"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="@dimen/text_size_body" />
-
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:background="?android:attr/colorBackground">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/autoestudio_title" android:textSize="30sp" android:textColor="?attr/colorOnSurface" android:id="@+id/tv_autoestudio_titulo" android:fontFamily="sans-serif-medium" android:accessibilityHeading="true"/>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ui_auto_detail" android:textSize="16sp" android:textColor="?attr/colorOnSurfaceVariant" android:layout_marginTop="8dp" android:layout_marginBottom="12dp"/>
+        <com.google.android.material.button.MaterialButton android:id="@+id/btn_materias" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="@string/ui_explore"/>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ui_offline" android:textSize="12sp" android:textColor="?attr/colorPrimary" android:layout_marginTop="24dp" android:layout_marginBottom="16dp"/>
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.Dubalin.CardView" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" android:id="@+id/card_flashcards" android:clickable="true" android:focusable="true">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
+                <ImageView android:layout_width="48dp" android:layout_height="48dp" android:padding="12dp" android:background="@drawable/bg_icon_tile" app:srcCompat="@drawable/ic_nav_autoestudio" app:tint="?attr/colorPrimary" android:importantForAccessibility="no"/>
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/autoestudio_flashcards_title" android:textSize="20sp" android:textColor="?attr/colorOnSurface" android:layout_marginTop="16dp" android:fontFamily="sans-serif-medium"/>
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/flashcards_description" android:textSize="16sp" android:textColor="?attr/colorOnSurfaceVariant" android:layout_marginTop="8dp"/>
             </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_flashcards"
-            style="@style/Widget.Dubalin.CardView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_md"
-            android:clickable="true"
-            android:focusable="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_mis_apuntes">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/spacing_md">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/autoestudio_flashcards_title"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="@dimen/text_size_title"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_xs"
-                    android:text="@string/flashcards_description"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="@dimen/text_size_body" />
-
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.Dubalin.CardView" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" android:id="@+id/card_mis_apuntes" android:clickable="true" android:focusable="true">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
+                <ImageView android:layout_width="48dp" android:layout_height="48dp" android:padding="12dp" android:background="@drawable/bg_icon_tile" app:srcCompat="@drawable/ic_nav_idiomas" app:tint="?attr/colorPrimary" android:importantForAccessibility="no"/>
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/autoestudio_notes_title" android:textSize="20sp" android:textColor="?attr/colorOnSurface" android:layout_marginTop="16dp" android:fontFamily="sans-serif-medium"/>
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/autoestudio_notes_description" android:textSize="16sp" android:textColor="?attr/colorOnSurfaceVariant" android:layout_marginTop="8dp"/>
             </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_generador_ia"
-            style="@style/Widget.Dubalin.CardView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_md"
-            android:alpha="0.6"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_flashcards">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/spacing_md">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/autoestudio_ai_title"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="@dimen/text_size_title"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_xs"
-                    android:text="@string/coming_soon"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="@dimen/text_size_body" />
-
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.Dubalin.CardView" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" android:id="@+id/card_generador_ia">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
+                <ImageView android:layout_width="48dp" android:layout_height="48dp" android:padding="12dp" android:background="@drawable/bg_icon_tile" app:srcCompat="@drawable/ic_nav_desafios" app:tint="?attr/colorPrimary" android:importantForAccessibility="no"/>
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/autoestudio_ai_title" android:textSize="20sp" android:textColor="?attr/colorOnSurface" android:layout_marginTop="16dp" android:fontFamily="sans-serif-medium"/>
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/coming_soon" android:textSize="16sp" android:textColor="?attr/colorOnSurfaceVariant" android:layout_marginTop="8dp"/>
             </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_repaso_inteligente"
-            style="@style/Widget.Dubalin.CardView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_md"
-            android:layout_marginBottom="@dimen/spacing_md"
-            android:alpha="0.6"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_generador_ia">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/spacing_md">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/autoestudio_review_title"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="@dimen/text_size_title"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_xs"
-                    android:text="@string/coming_soon"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="@dimen/text_size_body" />
-
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.Dubalin.CardView" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" android:id="@+id/card_repaso_inteligente">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
+                <ImageView android:layout_width="48dp" android:layout_height="48dp" android:padding="12dp" android:background="@drawable/bg_icon_tile" app:srcCompat="@drawable/ic_nav_home" app:tint="?attr/colorPrimary" android:importantForAccessibility="no"/>
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/autoestudio_review_title" android:textSize="20sp" android:textColor="?attr/colorOnSurface" android:layout_marginTop="16dp" android:fontFamily="sans-serif-medium"/>
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/coming_soon" android:textSize="16sp" android:textColor="?attr/colorOnSurfaceVariant" android:layout_marginTop="8dp"/>
             </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    </LinearLayout>
 </androidx.core.widget.NestedScrollView>

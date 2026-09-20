@@ -17,6 +17,25 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeContainerFragment : Fragment(R.layout.fragment_home_container) {
 
+    private val motionCallbacks = object : androidx.fragment.app.FragmentManager.FragmentLifecycleCallbacks() {
+        override fun onFragmentViewCreated(fm: androidx.fragment.app.FragmentManager, f: Fragment,
+            v: View, savedInstanceState: Bundle?) {
+            if (f !is NavHostFragment && savedInstanceState == null) {
+                com.dubalin.app.presentation.ui.learning.Motion.enter(v)
+            }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        childFragmentManager.registerFragmentLifecycleCallbacks(motionCallbacks, true)
+    }
+
+    override fun onDestroy() {
+        childFragmentManager.unregisterFragmentLifecycleCallbacks(motionCallbacks)
+        super.onDestroy()
+    }
+
     private var _binding: FragmentHomeContainerBinding? = null
     private val binding get() = _binding!!
 

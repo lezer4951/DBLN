@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_today">TU ESPACIO PARA APRENDER</string>
+    <string name="ui_home_title">Un pequeño paso.
+Un gran avance.</string>
+    <string name="ui_home_detail">Elige una materia o repasa tus tarjetas. Tú marcas el ritmo.</string>
+    <string name="ui_explore">Explorar materias</string>
+    <string name="ui_study">Estudiar flashcards</string>
+    <string name="ui_tools">A tu ritmo</string>
+    <string name="ui_auto_detail">Organiza tus ideas, practica y descubre lo que puedes aprender.</string>
+    <string name="ui_offline">TUS APUNTES Y TARJETAS · SIN CONEXIÓN</string>
+    <string name="ui_front">ANVERSO</string>
+    <string name="ui_back">REVERSO</string>
+    <string name="ui_flip">Toca la tarjeta para ver la respuesta</string>
+    <string name="ui_rate">Toca para alternar las caras. Evalúa tu respuesta abajo.</string>
+    <string name="ui_summary">SESIÓN COMPLETADA</string>
+    <string name="ui_reveal">Mostrar respuesta</string>
+    <string name="ui_known">Lo sabía</string>
+    <string name="ui_practice">Necesito practicar</string>
+    <string name="ui_languages_title">Un mundo por descubrir</string>
+    <string name="ui_languages_detail">Practica vocabulario con tus propios pares de palabras en Flashcards.</string>
+    <string name="ui_languages_soon">Rutas de idiomas · Próximamente</string>
+    <string name="ui_level_question">¿Cuánto crees dominarlo?</string>
+    <string name="ui_difficulty_hint">¿Qué se te dificulta? (opcional)</string>
+    <string name="ui_exam_preview">Vista previa: preguntas y calificación próximamente.</string>
+    <string-array name="ui_mastery">
+        <item>Estoy empezando</item>
+        <item>Conozco lo básico</item>
+        <item>Quiero ponerme a prueba</item>
+    </string-array>
+    <string name="ui_career">Carrera (opcional)</string>
+    <string name="ui_grade">Grado o semestre (opcional)</string>
+    <string name="ui_interests">Intereses (opcional)</string>
+    <string name="ui_open">Abrir</string>
+</resources>

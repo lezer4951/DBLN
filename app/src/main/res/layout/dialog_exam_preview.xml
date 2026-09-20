@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="wrap_content">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="24dp" android:orientation="vertical">
+        <TextView android:id="@+id/topic" android:layout_width="match_parent" android:layout_height="wrap_content" android:textAppearance="@style/TextAppearance.Material3.TitleMedium"/>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:labelFor="@id/mastery" android:text="@string/ui_level_question"/>
+        <Spinner android:id="@+id/mastery" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="56dp" android:entries="@array/ui_mastery"/>
+        <com.google.android.material.textfield.TextInputLayout style="@style/Widget.Material3.TextInputLayout.OutlinedBox" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:hint="@string/ui_difficulty_hint">
+            <com.google.android.material.textfield.TextInputEditText android:id="@+id/difficulty" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textMultiLine" android:maxLength="500"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:textAppearance="@style/TextAppearance.Dubalin.Body" android:text="@string/ui_exam_preview"/>
+    </LinearLayout>
+</ScrollView>

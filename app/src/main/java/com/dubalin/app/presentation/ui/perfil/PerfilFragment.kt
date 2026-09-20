@@ -47,7 +47,7 @@ class PerfilFragment : Fragment(R.layout.fragment_perfil) {
         content.hubCard("Tu camino, tus logros", "Estudia a tu ritmo. Tus rangos se mostrarán cuando existan evaluaciones.", true)
         content.hubCard("Sobre mí", "Carrera: ${details.carrera.ifBlank { "Sin especificar" }}\nGrado: ${details.grado.ifBlank { "Sin especificar" }}\nIntereses: ${details.intereses.ifBlank { "Sin especificar" }}\n\nEditar información →") { editarPerfil() }
         content.hubCard("La carrera no limita tu aprendizaje", "Es un dato descriptivo y opcional. No cambia tus materias, preguntas ni dificultad.")
-        content.hubCard("Rangos por materia", "Sin evaluar. No mostramos IQ ni asignamos rangos sin resultados.")
+        content.hubCard("Rangos por materia", "Completa evaluaciones para descubrir tus fortalezas.")
         com.dubalin.app.domain.model.Materias.todas.forEach { materia ->
             content.hubCard(materia.nombre, "Sin evaluar · Progreso disponible próximamente")
         }
@@ -55,25 +55,11 @@ class PerfilFragment : Fragment(R.layout.fragment_perfil) {
 
     private fun editarPerfil() {
         val current = viewModel.detalles()
-        val box = android.widget.LinearLayout(requireContext()).apply {
-            orientation = android.widget.LinearLayout.VERTICAL
-            val p = (20 * resources.displayMetrics.density).toInt()
-            setPadding(p, p, p, p)
-        }
-        fun field(label: String, value: String): com.google.android.material.textfield.TextInputEditText {
-            val layout = com.google.android.material.textfield.TextInputLayout(requireContext()).apply { hint = label }
-            val input = com.google.android.material.textfield.TextInputEditText(layout.context).apply {
-                setText(value)
-                inputType = android.text.InputType.TYPE_CLASS_TEXT
-                filters = arrayOf(android.text.InputFilter.LengthFilter(200))
-            }
-            layout.addView(input); box.addView(layout)
-            return input
-        }
-        val carrera = field("Carrera (opcional)", current.carrera)
-        val grado = field("Grado o semestre (opcional)", current.grado)
-        val intereses = field("Intereses (opcional)", current.intereses)
-        MaterialAlertDialogBuilder(requireContext()).setTitle("Editar perfil").setView(box)
+        val form = com.dubalin.app.databinding.DialogProfileBinding.inflate(layoutInflater)
+        val carrera = form.career.apply { setText(current.carrera) }
+        val grado = form.grade.apply { setText(current.grado) }
+        val intereses = form.interests.apply { setText(current.intereses) }
+        MaterialAlertDialogBuilder(requireContext()).setTitle("Editar perfil").setView(form.root)
             .setNegativeButton(R.string.action_cancel, null)
             .setPositiveButton(R.string.action_save) { _, _ ->
                 viewModel.guardarDetalles(com.dubalin.app.data.local.ProfileDetails(
