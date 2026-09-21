@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="profile_no_ranks">Todavía no tienes rangos. Cuando consigas tu primer rango en una materia, aparecerá aquí.</string>
     <string name="lesson_resume_title">Retoma donde lo dejaste</string>
     <string name="lesson_resume_action">Continuar sesión</string>
     <string name="lesson_resume_detail">Nivel %1$d · %2$s\nSección %3$d de 5</string>

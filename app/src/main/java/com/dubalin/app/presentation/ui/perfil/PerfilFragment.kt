@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -29,18 +30,6 @@ class PerfilFragment : Fragment(R.layout.fragment_perfil) {
     private val binding get() = _binding!!
     private val viewModel: PerfilViewModel by viewModels()
     private val rankAdapter = RankAdapter()
-
-    private val rankStyles = listOf(
-        Triple(R.drawable.ic_ref_math, R.color.dubalin_brand, R.string.subject_math),
-        Triple(R.drawable.ic_ref_book, R.color.dubalin_pink, R.string.subject_spanish),
-        Triple(R.drawable.ic_ref_globe, R.color.dubalin_green, R.string.subject_english),
-        Triple(R.drawable.ic_ref_atom, R.color.dubalin_orange, R.string.subject_physics),
-        Triple(R.drawable.ic_ref_flask, R.color.dubalin_cyan, R.string.subject_chemistry),
-        Triple(R.drawable.ic_ref_leaf, R.color.dubalin_green, R.string.subject_biology),
-        Triple(R.drawable.ic_ref_history, R.color.dubalin_purple, R.string.subject_history),
-        Triple(R.drawable.ic_ref_globe, R.color.dubalin_blue, R.string.subject_geography),
-        Triple(R.drawable.ic_ref_heart, R.color.dubalin_pink, R.string.subject_civic)
-    )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         _binding = FragmentPerfilBinding.bind(view)
@@ -69,6 +58,8 @@ class PerfilFragment : Fragment(R.layout.fragment_perfil) {
                         binding.profileLevel.text = getString(R.string.home_nivel_xp, h.nivel, h.xp)
                         binding.profileAvatar.text = h.nombre.firstOrNull()?.uppercase() ?: "D"
                         rankAdapter.setAstronomiaRango(h.rangoAstronomia)
+                        binding.profileRanks.isVisible = rankAdapter.itemCount > 0
+                        binding.profileRanksEmpty.isVisible = rankAdapter.itemCount == 0
                     }
                 }
                 launch {
@@ -105,23 +96,20 @@ class PerfilFragment : Fragment(R.layout.fragment_perfil) {
 
     private inner class RankAdapter : RecyclerView.Adapter<RankHolder>() {
         private var rangoAstronomia: Int? = null
-        override fun getItemCount() = rankStyles.size + if (rangoAstronomia != null) 1 else 0
+        override fun getItemCount() = if (rangoAstronomia != null) 1 else 0
         fun setAstronomiaRango(rango: Int?) {
-            if (rangoAstronomia == rango) return
-            rangoAstronomia = rango
+            val obtenido = rango?.takeIf { it > 0 }
+            if (rangoAstronomia == obtenido) return
+            rangoAstronomia = obtenido
             notifyDataSetChanged()
         }
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RankHolder(
             ItemSubjectRankBinding.inflate(LayoutInflater.from(parent.context), parent, false))
         override fun onBindViewHolder(holder: RankHolder, position: Int) {
-            if (rangoAstronomia != null && position == 0) {
-                holder.bind(
-                    Triple(R.drawable.ic_ref_sparkles, R.color.astronomy_blue, R.string.subject_astronomy),
-                    getString(R.string.astronomy_rank_value, rangoAstronomia)
-                )
-            } else {
-                holder.bind(rankStyles[position - if (rangoAstronomia != null) 1 else 0], getString(R.string.ref_unevaluated))
-            }
+            holder.bind(
+                Triple(R.drawable.ic_ref_sparkles, R.color.astronomy_blue, R.string.subject_astronomy),
+                getString(R.string.astronomy_rank_value, requireNotNull(rangoAstronomia))
+            )
         }
     }
 
