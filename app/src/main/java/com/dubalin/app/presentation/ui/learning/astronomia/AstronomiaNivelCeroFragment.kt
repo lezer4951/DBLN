@@ -25,6 +25,8 @@ class AstronomiaNivelCeroFragment : Fragment(R.layout.fragment_astronomia_nivel_
     private var _binding: FragmentAstronomiaNivelCeroBinding? = null
     private val binding get() = _binding!!
     private val viewModel: AstronomiaNivelCeroViewModel by viewModels()
+    @javax.inject.Inject lateinit var sessionRepository: com.dubalin.app.domain.repository.SessionRepository
+    private var secciones: SeccionesLeccion? = null
     private var rendering = false
     private var defaultTints: List<ColorStateList?> = emptyList()
     private val options: List<RadioButton> get() = listOf(binding.selfOptionA, binding.selfOptionB, binding.selfOptionC)
@@ -32,6 +34,7 @@ class AstronomiaNivelCeroFragment : Fragment(R.layout.fragment_astronomia_nivel_
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentAstronomiaNivelCeroBinding.bind(view)
+        secciones = SeccionesLeccion(binding, sessionRepository.getUsuarioId(), 0)
         defaultTints = options.map { it.buttonTintList }
         binding.lessonToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
         binding.buttonPrevious.setOnClickListener { viewModel.paginaAnterior() }
@@ -80,6 +83,7 @@ class AstronomiaNivelCeroFragment : Fragment(R.layout.fragment_astronomia_nivel_
         }
         binding.lessonProgress.setProgressCompat(((state.temaActual + 1) * 100) / state.sesiones.size, true)
         if (state.fase == FaseSesion.CONTENIDO) renderContent(state) else renderAssessment(state)
+        if (state.fase == FaseSesion.CONTENIDO) secciones?.render(state.temaActual)
     }
 
     private fun renderContent(state: AstronomiaNivelCeroUiState) {
@@ -154,7 +158,7 @@ class AstronomiaNivelCeroFragment : Fragment(R.layout.fragment_astronomia_nivel_
         })
     }
 
-    override fun onDestroyView() {
+    override fun onDestroyView() { secciones = null;
         defaultTints = emptyList()
         super.onDestroyView()
         _binding = null

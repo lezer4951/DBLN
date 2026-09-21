@@ -51,7 +51,7 @@ class HomeNavigationTest {
     }
 
     @Test
-    fun returnsFromNestedNotesAndPreservesTheStudyTab() {
+    fun returnsFromNestedNotesAndResetsTheStudyTab() {
         bottomNav.selectedItemId = R.id.autoestudioFragment
         controller.navigate(R.id.seccionesFragment)
         controller.navigate(R.id.misApuntesDetalleFragment, Bundle().apply {
@@ -61,8 +61,7 @@ class HomeNavigationTest {
         bottomNav.selectedItemId = R.id.homeFragment
         assertHome()
         bottomNav.selectedItemId = R.id.autoestudioFragment
-        assertEquals(R.id.misApuntesDetalleFragment, controller.currentDestination?.id)
-        assertEquals(7, controller.currentBackStackEntry?.arguments?.getInt("seccionId"))
+        assertEquals(R.id.autoestudioMenuFragment, controller.currentDestination?.id)
         bottomNav.selectedItemId = R.id.homeFragment
         assertHome()
     }
@@ -85,7 +84,7 @@ class HomeNavigationTest {
         bottomNav.selectedItemId = R.id.homeFragment
         assertHome()
         bottomNav.selectedItemId = R.id.autoestudioFragment
-        assertEquals(R.id.materiasFragment, controller.currentDestination?.id)
+        assertEquals(R.id.autoestudioMenuFragment, controller.currentDestination?.id)
     }
 
     private fun assertHome() {

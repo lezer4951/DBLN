@@ -24,12 +24,15 @@ class AstronomiaNivelDosFragment : Fragment(R.layout.fragment_astronomia_nivel_c
     private var _binding: FragmentAstronomiaNivelCeroBinding? = null
     private val binding get() = _binding!!
     private val viewModel: AstronomiaNivelDosViewModel by viewModels()
+    @javax.inject.Inject lateinit var sessionRepository: com.dubalin.app.domain.repository.SessionRepository
+    private var secciones: SeccionesLeccion? = null
     private var rendering = false
     private var tints: List<ColorStateList?> = emptyList()
     private val options: List<RadioButton> get() = listOf(binding.selfOptionA, binding.selfOptionB, binding.selfOptionC)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState); _binding = FragmentAstronomiaNivelCeroBinding.bind(view)
+        secciones = SeccionesLeccion(binding, sessionRepository.getUsuarioId(), 2)
         tints = options.map { it.buttonTintList }
         binding.lessonToolbar.title = getString(R.string.astronomy_level_two_title)
         binding.lessonToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
@@ -70,6 +73,7 @@ class AstronomiaNivelDosFragment : Fragment(R.layout.fragment_astronomia_nivel_c
         if (state.temaCompletadoReciente) { Snackbar.make(binding.root, R.string.astronomy_topic_mastered, Snackbar.LENGTH_SHORT).show(); viewModel.consumirEvento() }
         binding.lessonProgress.setProgressCompat((state.temaActual + 1) * 100 / state.sesiones.size, true)
         if (state.fase == FaseSesion.CONTENIDO) contenido(state) else pregunta(state)
+        if (state.fase == FaseSesion.CONTENIDO) secciones?.render(state.temaActual)
     }
 
     private fun contenido(state: AstronomiaNivelDosUiState) = with(binding) {
@@ -112,5 +116,5 @@ class AstronomiaNivelDosFragment : Fragment(R.layout.fragment_astronomia_nivel_c
             else -> R.string.astronomy_check_answer })
     }
 
-    override fun onDestroyView() { tints = emptyList(); super.onDestroyView(); _binding = null }
+    override fun onDestroyView() { secciones = null; tints = emptyList(); super.onDestroyView(); _binding = null }
 }

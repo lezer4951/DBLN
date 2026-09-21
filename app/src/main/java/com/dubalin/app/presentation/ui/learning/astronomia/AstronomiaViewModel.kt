@@ -16,7 +16,9 @@ import kotlinx.coroutines.flow.onEach
 data class AstronomiaUiState(
     val nivelActual: Int = 0,
     val nivelCeroCompletado: Boolean = false,
-    val mejorPuntaje: Int = 0
+    val mejorPuntaje: Int = 0,
+    val onboardingCompletado: Boolean = false,
+    val cargado: Boolean = false
 )
 
 @HiltViewModel
@@ -35,7 +37,9 @@ class AstronomiaViewModel @Inject constructor(
                     _uiState.value = AstronomiaUiState(
                         nivelActual = progreso.nivelActual,
                         nivelCeroCompletado = progreso.nivelCeroCompletado,
-                        mejorPuntaje = progreso.mejorPuntaje
+                        mejorPuntaje = progreso.mejorPuntaje,
+                        onboardingCompletado = progreso.onboardingCompletado,
+                        cargado = true
                     )
                 }
                 .launchIn(viewModelScope)

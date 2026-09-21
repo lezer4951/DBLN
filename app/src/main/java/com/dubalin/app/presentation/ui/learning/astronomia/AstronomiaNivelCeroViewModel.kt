@@ -49,12 +49,39 @@ data class AstronomiaNivelCeroUiState(
 @HiltViewModel
 class AstronomiaNivelCeroViewModel @Inject constructor(
     private val sessionRepository: SessionRepository,
-    private val progresoRepository: ProgresoAcademicoRepository
+    private val progresoRepository: ProgresoAcademicoRepository,
+    private val borradores: BorradorSesionStore? = null
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(AstronomiaNivelCeroUiState())
     val uiState: StateFlow<AstronomiaNivelCeroUiState> = _uiState.asStateFlow()
 
-    init { cargarProgreso() }
+    override fun onCleared() {
+        val current = _uiState.value
+        if (!current.isLoading && !current.error && !current.enRepaso) borradores?.guardar(
+            sessionRepository.getUsuarioId(), 0, current.temaActual, current.fase,
+            current.preguntaActual, current.opcionSeleccionada, current.respuestaCorrecta, current.explicacionPropia)
+        super.onCleared()
+    }
+
+    init {
+        val draft = borradores?.leer(sessionRepository.getUsuarioId(), 0)
+        if (draft != null) _uiState.update { it.copy(
+            temaActual = draft.optInt("tema").coerceIn(it.sesiones.indices),
+            fase = runCatching { FaseSesion.valueOf(draft.optString("fase")) }.getOrDefault(FaseSesion.CONTENIDO),
+            preguntaActual = draft.optInt("pregunta").coerceAtLeast(0),
+            opcionSeleccionada = draft.optInt("seleccion", -1).takeIf { value -> value in 0..2 },
+            respuestaCorrecta = draft.optString("correcta").toBooleanStrictOrNull(),
+            explicacionPropia = draft.optString("explicacion")
+        ) }
+        cargarProgreso()
+        viewModelScope.launch {
+            uiState.collect { state ->
+                if (!state.isLoading && !state.error && !state.enRepaso) borradores?.guardar(
+                    sessionRepository.getUsuarioId(), 0, state.temaActual, state.fase,
+                    state.preguntaActual, state.opcionSeleccionada, state.respuestaCorrecta, state.explicacionPropia)
+            }
+        }
+    }
 
     fun iniciarAutoevaluacion() = _uiState.update {
         it.copy(fase = FaseSesion.AUTOEVALUACION, preguntaActual = 0, opcionSeleccionada = null,
@@ -144,7 +171,7 @@ class AstronomiaNivelCeroViewModel @Inject constructor(
                         !NivelCeroAstronomiaContenido.temaCompletado(progreso.temasCompletados, it)
                     } ?: NivelCeroAstronomiaContenido.sesiones.lastIndex
                     _uiState.update {
-                        it.copy(temaActual = firstPending, temasCompletados = progreso.temasCompletados,
+                        it.copy(temaActual = if (borradores?.leer(usuarioId, 0) == null) firstPending else it.temaActual, temasCompletados = progreso.temasCompletados,
                             formato = progreso.formatoAprendizaje, isLoading = false)
                     }
                 }.onFailure { _uiState.update { it.copy(isLoading = false, error = true) } }

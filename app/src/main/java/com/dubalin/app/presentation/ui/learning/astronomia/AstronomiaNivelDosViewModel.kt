@@ -38,11 +38,39 @@ data class AstronomiaNivelDosUiState(
 @HiltViewModel
 class AstronomiaNivelDosViewModel @Inject constructor(
     private val session: SessionRepository,
-    private val repository: NivelAstronomiaRepository
+    private val repository: NivelAstronomiaRepository,
+    private val borradores: BorradorSesionStore? = null
 ) : ViewModel() {
     private val _state = MutableStateFlow(AstronomiaNivelDosUiState())
     val state: StateFlow<AstronomiaNivelDosUiState> = _state.asStateFlow()
-    init { observar() }
+    override fun onCleared() {
+        val current = _state.value
+        if (!current.isLoading && !current.error && !current.enRepaso) borradores?.guardar(
+            session.getUsuarioId(), 2, current.temaActual, current.fase,
+            current.preguntaActual, current.opcionSeleccionada, current.respuestaCorrecta, current.explicacionPropia)
+        super.onCleared()
+    }
+
+    init {
+        val draft = borradores?.leer(session.getUsuarioId(), 2)
+        if (draft != null) _state.update { it.copy(
+            temaActual = draft.optInt("tema").coerceIn(it.sesiones.indices),
+            fase = runCatching { FaseSesion.valueOf(draft.optString("fase")) }.getOrDefault(FaseSesion.CONTENIDO),
+            preguntaActual = draft.optInt("pregunta").coerceAtLeast(0),
+            opcionSeleccionada = draft.optInt("seleccion", -1).takeIf { value -> value in 0..2 },
+            respuestaCorrecta = draft.optString("correcta").toBooleanStrictOrNull(),
+            explicacionPropia = draft.optString("explicacion")
+        ) }
+        observar()
+        viewModelScope.launch {
+            state.collect { state ->
+                if (!state.isLoading && !state.error && !state.enRepaso) borradores?.guardar(
+                    session.getUsuarioId(), 2, state.temaActual, state.fase,
+                    state.preguntaActual, state.opcionSeleccionada, state.respuestaCorrecta, state.explicacionPropia)
+            }
+        }
+    }
+
 
     fun iniciarAutoevaluacion() = _state.update { it.copy(fase = FaseSesion.AUTOEVALUACION,
         preguntaActual = 0, opcionSeleccionada = null, respuestaCorrecta = null, explicacionPropia = "") }
@@ -82,7 +110,7 @@ class AstronomiaNivelDosViewModel @Inject constructor(
         repository.observarNivel(user, 2).onEach { progreso -> _state.update { s ->
             val pendiente = s.sesiones.indices.firstOrNull { !NivelDosAstronomiaContenido.completado(progreso.temasCompletados, it) }
                 ?: s.sesiones.lastIndex
-            s.copy(temaActual = if (s.isLoading) pendiente else s.temaActual, temasCompletados = progreso.temasCompletados,
+            s.copy(temaActual = if (s.isLoading && borradores?.leer(user, 2) == null) pendiente else s.temaActual, temasCompletados = progreso.temasCompletados,
                 practicaCompletada = progreso.practicaCompletada, isLoading = false)
         } }.catch { _state.update { it.copy(isLoading = false, error = true) } }.launchIn(viewModelScope)
     }

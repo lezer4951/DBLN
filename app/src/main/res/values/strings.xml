@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="lesson_resume_title">Retoma donde lo dejaste</string>
+    <string name="lesson_resume_action">Continuar sesión</string>
+    <string name="lesson_resume_detail">Nivel %1$d · %2$s\nSección %3$d de 5</string>
+    <string name="lesson_resume_assessment">Nivel %1$d · %2$s\nAutoevaluación · Pregunta %3$d</string>
+    <string name="lesson_previous_topic">Tema anterior</string>
+    <string name="lesson_section_counter">Sección %1$d de %2$d</string>
+    <string name="lesson_pause_hint">A tu ritmo. Puedes salir y retomar esta sección después.</string>
+    <string name="subject_open_route">Explorar materia →</string>
     <string name="challenge_survival">Supervivencia · Astronomía</string>
     <string name="challenge_finished">Reto terminado</string>
     <string name="challenge_survival_description">El reto termina al primer error o al completar el banco. Revisa la explicación y vuelve a intentarlo. Este juego local no modifica el rango académico.</string>

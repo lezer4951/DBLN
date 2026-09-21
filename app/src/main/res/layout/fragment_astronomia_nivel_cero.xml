@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@color/dubalin_canvas" android:orientation="vertical">
+    android:background="@drawable/space_lesson_backdrop" android:orientation="vertical">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/lesson_toolbar" android:layout_width="match_parent" android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize" android:title="@string/astronomy_level_zero_title"
-        app:navigationContentDescription="@string/action_back" app:navigationIcon="@drawable/ic_arrow_back" />
+        app:titleTextColor="#FFFFFF" app:navigationIconTint="#FFFFFF" app:navigationContentDescription="@string/action_back" app:navigationIcon="@drawable/ic_arrow_back" />
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/lesson_progress" android:layout_width="match_parent" android:layout_height="wrap_content"
@@ -38,55 +38,72 @@
                 </LinearLayout>
 
                 <TextView android:id="@+id/lesson_format_hint" android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp" android:background="@drawable/bg_info_panel" android:padding="14dp"
-                    android:textColor="@color/dubalin_ink_soft" android:textSize="14sp" />
+                    android:layout_marginTop="14dp" android:background="#182947" android:padding="14dp"
+                    android:textColor="#C5D3EB" android:textSize="14sp" />
 
+                <ImageView android:layout_width="match_parent" android:layout_height="140dp" android:layout_marginTop="12dp" android:src="@drawable/space_orbit_illustration" android:scaleType="fitCenter" android:importantForAccessibility="no" />
+                <TextView android:id="@+id/section_counter" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:textColor="#FFFFFF" android:textStyle="bold" android:textSize="18sp" android:accessibilityLiveRegion="polite" />
+                <TextView android:id="@+id/section_saved" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:textColor="#C5D3EB" android:textSize="14sp" />
+                <LinearLayout android:id="@+id/section_goal" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/space_section_panel" android:padding="18dp" android:layout_marginTop="14dp">
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="22dp"
-                    android:text="@string/astronomy_session_goal" android:textColor="@color/astronomy_blue" android:textStyle="bold" />
+                    android:text="@string/astronomy_session_goal" android:textColor="#A6C7FF" android:textStyle="bold" />
                 <TextView android:id="@+id/lesson_objective" android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp" android:textColor="@color/dubalin_ink" android:textSize="16sp" />
+                    android:layout_marginTop="6dp" android:textColor="#F0F4FF" android:textSize="16sp" />
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="18dp"
-                    android:text="@string/astronomy_why_matters" android:textColor="@color/astronomy_blue" android:textStyle="bold" />
+                    android:text="@string/astronomy_why_matters" android:textColor="#A6C7FF" android:textStyle="bold" />
                 <TextView android:id="@+id/lesson_importance" android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp" android:textColor="@color/dubalin_ink" android:textSize="16sp" />
+                    android:layout_marginTop="6dp" android:textColor="#F0F4FF" android:textSize="16sp" />
 
+                </LinearLayout>
+                <LinearLayout android:id="@+id/section_analogy" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/space_section_panel" android:padding="18dp" android:layout_marginTop="14dp">
                 <com.google.android.material.card.MaterialCardView style="@style/Widget.Dubalin.CardView"
                     android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="22dp"
-                    app:cardBackgroundColor="@color/astronomy_blue_soft">
+                    app:cardBackgroundColor="#182947">
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="18dp">
                         <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:text="@string/astronomy_analogy" android:textColor="@color/astronomy_blue" android:textStyle="bold" />
+                            android:text="@string/astronomy_analogy" android:textColor="#A6C7FF" android:textStyle="bold" />
                         <TextView android:id="@+id/lesson_analogy" android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:layout_marginTop="7dp" android:lineSpacingExtra="3dp" android:textColor="@color/dubalin_ink" android:textSize="16sp" />
+                            android:layout_marginTop="7dp" android:lineSpacingExtra="3dp" android:textColor="#F0F4FF" android:textSize="16sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
+                </LinearLayout>
+                <LinearLayout android:id="@+id/section_explanation" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/space_section_panel" android:padding="18dp" android:layout_marginTop="14dp">
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="22dp"
-                    android:text="@string/astronomy_formal_explanation" android:textColor="@color/astronomy_blue" android:textStyle="bold" />
+                    android:text="@string/astronomy_formal_explanation" android:textColor="#A6C7FF" android:textStyle="bold" />
                 <TextView android:id="@+id/lesson_body" android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp" android:lineSpacingExtra="5dp" android:textColor="@color/dubalin_ink" android:textSize="17sp" />
+                    android:layout_marginTop="7dp" android:lineSpacingExtra="5dp" android:textColor="#F0F4FF" android:textSize="17sp" />
 
+                </LinearLayout>
+                <LinearLayout android:id="@+id/section_example" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/space_section_panel" android:padding="18dp" android:layout_marginTop="14dp">
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="22dp"
-                    android:text="@string/astronomy_visual_example" android:textColor="@color/astronomy_blue" android:textStyle="bold" />
+                    android:text="@string/astronomy_visual_example" android:textColor="#A6C7FF" android:textStyle="bold" />
                 <TextView android:id="@+id/lesson_example" android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp" android:background="@drawable/bg_info_panel" android:lineSpacingExtra="3dp"
-                    android:padding="16dp" android:textColor="@color/dubalin_ink" android:textSize="16sp" />
+                    android:layout_marginTop="7dp" android:background="#182947" android:lineSpacingExtra="3dp"
+                    android:padding="16dp" android:textColor="#F0F4FF" android:textSize="16sp" />
 
+                </LinearLayout>
+                <LinearLayout android:id="@+id/section_summary" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/space_section_panel" android:padding="18dp" android:layout_marginTop="14dp">
                 <com.google.android.material.card.MaterialCardView style="@style/Widget.Dubalin.CardView"
                     android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="22dp"
-                    android:layout_marginBottom="12dp" app:cardBackgroundColor="@color/astronomy_star_soft">
+                    android:layout_marginBottom="12dp" app:cardBackgroundColor="#182947">
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="18dp">
                         <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/astronomy_key_idea"
-                            android:textColor="@color/astronomy_star_dark" android:textStyle="bold" />
+                            android:textColor="#FFE3A1" android:textStyle="bold" />
                         <TextView android:id="@+id/lesson_key_idea" android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:layout_marginTop="7dp" android:textColor="@color/dubalin_ink" android:textSize="15sp" />
+                            android:layout_marginTop="7dp" android:textColor="#F0F4FF" android:textSize="15sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="16dp">
+                    <com.google.android.material.button.MaterialButton android:id="@+id/section_previous" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:minHeight="56dp" android:text="@string/action_previous" />
+                    <com.google.android.material.button.MaterialButton android:id="@+id/section_next" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:minHeight="56dp" android:text="@string/action_continue" />
+                </LinearLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/self_assessment" android:layout_width="match_parent" android:layout_height="match_parent"
+            android:background="@color/dubalin_canvas" android:id="@+id/self_assessment" android:layout_width="match_parent" android:layout_height="match_parent"
             android:fillViewport="true" android:visibility="gone">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp">
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/astronomy_self_title"
@@ -126,10 +143,10 @@
     </FrameLayout>
 
     <LinearLayout android:id="@+id/lesson_footer" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:background="@color/dubalin_white" android:gravity="center_vertical" android:orientation="horizontal" android:padding="16dp"
+        android:background="#080E20" android:gravity="center_vertical" android:orientation="horizontal" android:padding="16dp"
         android:visibility="gone">
         <com.google.android.material.button.MaterialButton android:id="@+id/button_previous" style="@style/Widget.Dubalin.Button.Outlined"
-            android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/action_previous" />
+            android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="#A6C7FF" android:text="@string/lesson_previous_topic" />
         <Space android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" />
         <com.google.android.material.button.MaterialButton android:id="@+id/button_next" style="@style/Widget.Dubalin.Button"
             android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/astronomy_start_self_check" />

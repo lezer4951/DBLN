@@ -46,12 +46,39 @@ data class AstronomiaNivelUnoUiState(
 @HiltViewModel
 class AstronomiaNivelUnoViewModel @Inject constructor(
     private val sessionRepository: SessionRepository,
-    private val repository: NivelAstronomiaRepository
+    private val repository: NivelAstronomiaRepository,
+    private val borradores: BorradorSesionStore? = null
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(AstronomiaNivelUnoUiState())
     val uiState: StateFlow<AstronomiaNivelUnoUiState> = _uiState.asStateFlow()
 
-    init { cargar() }
+    override fun onCleared() {
+        val current = _uiState.value
+        if (!current.isLoading && !current.error && !current.enRepaso) borradores?.guardar(
+            sessionRepository.getUsuarioId(), 1, current.temaActual, current.fase,
+            current.preguntaActual, current.opcionSeleccionada, current.respuestaCorrecta, current.explicacionPropia)
+        super.onCleared()
+    }
+
+    init {
+        val draft = borradores?.leer(sessionRepository.getUsuarioId(), 1)
+        if (draft != null) _uiState.update { it.copy(
+            temaActual = draft.optInt("tema").coerceIn(it.sesiones.indices),
+            fase = runCatching { FaseSesion.valueOf(draft.optString("fase")) }.getOrDefault(FaseSesion.CONTENIDO),
+            preguntaActual = draft.optInt("pregunta").coerceAtLeast(0),
+            opcionSeleccionada = draft.optInt("seleccion", -1).takeIf { value -> value in 0..2 },
+            respuestaCorrecta = draft.optString("correcta").toBooleanStrictOrNull(),
+            explicacionPropia = draft.optString("explicacion")
+        ) }
+        cargar()
+        viewModelScope.launch {
+            uiState.collect { state ->
+                if (!state.isLoading && !state.error && !state.enRepaso) borradores?.guardar(
+                    sessionRepository.getUsuarioId(), 1, state.temaActual, state.fase,
+                    state.preguntaActual, state.opcionSeleccionada, state.respuestaCorrecta, state.explicacionPropia)
+            }
+        }
+    }
 
     fun iniciarAutoevaluacion() = _uiState.update {
         it.copy(fase = FaseSesion.AUTOEVALUACION, preguntaActual = 0, opcionSeleccionada = null,
@@ -108,7 +135,7 @@ class AstronomiaNivelUnoViewModel @Inject constructor(
                     !NivelUnoAstronomiaContenido.completado(progreso.temasCompletados, it)
                 } ?: state.sesiones.lastIndex
                 state.copy(
-                    temaActual = if (state.isLoading) pendiente else state.temaActual,
+                    temaActual = if (state.isLoading && borradores?.leer(user, 1) == null) pendiente else state.temaActual,
                     temasCompletados = progreso.temasCompletados,
                     practicaCompletada = progreso.practicaCompletada,
                     isLoading = false

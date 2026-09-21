@@ -24,10 +24,13 @@ class AstronomiaNivelTresFragment : Fragment(R.layout.fragment_astronomia_nivel_
     private var _binding: FragmentAstronomiaNivelCeroBinding? = null
     private val binding get() = _binding!!
     private val viewModel: AstronomiaNivelTresViewModel by viewModels()
+    @javax.inject.Inject lateinit var sessionRepository: com.dubalin.app.domain.repository.SessionRepository
+    private var secciones: SeccionesLeccion? = null
     private var rendering = false; private var tints: List<ColorStateList?> = emptyList()
     private val options: List<RadioButton> get() = listOf(binding.selfOptionA, binding.selfOptionB, binding.selfOptionC)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState); _binding = FragmentAstronomiaNivelCeroBinding.bind(view)
+        secciones = SeccionesLeccion(binding, sessionRepository.getUsuarioId(), 3)
         tints = options.map { it.buttonTintList }; binding.lessonToolbar.title = getString(R.string.astronomy_level_three_title)
         binding.lessonToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
         binding.buttonPrevious.setOnClickListener { viewModel.anterior() }; binding.buttonBackToContent.setOnClickListener { viewModel.anterior() }
@@ -58,6 +61,7 @@ class AstronomiaNivelTresFragment : Fragment(R.layout.fragment_astronomia_nivel_
         if (s.temaCompletadoReciente) { Snackbar.make(binding.root, R.string.astronomy_topic_mastered, Snackbar.LENGTH_SHORT).show(); viewModel.consumirEvento() }
         binding.lessonProgress.setProgressCompat((s.temaActual + 1) * 100 / s.sesiones.size, true)
         if (s.fase == FaseSesion.CONTENIDO) contenido(s) else pregunta(s)
+        if (s.fase == FaseSesion.CONTENIDO) secciones?.render(s.temaActual)
     }
     private fun contenido(state: AstronomiaNivelTresUiState) = with(binding) {
         val s = state.sesion; lessonSection.text = getString(R.string.astronomy_level_three_topic, s.numero); lessonTitle.text = s.titulo
@@ -86,5 +90,5 @@ class AstronomiaNivelTresFragment : Fragment(R.layout.fragment_astronomia_nivel_
         binding.buttonSelfAction.setText(when { s.respuestaCorrecta == false -> R.string.astronomy_try_again; palabras -> R.string.astronomy_complete_topic
             s.respuestaCorrecta == true -> R.string.action_continue; else -> R.string.astronomy_check_answer })
     }
-    override fun onDestroyView() { tints = emptyList(); super.onDestroyView(); _binding = null }
+    override fun onDestroyView() { secciones = null; tints = emptyList(); super.onDestroyView(); _binding = null }
 }

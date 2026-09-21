@@ -85,6 +85,24 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/resume_session_card"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="18dp" android:padding="20dp"
+                android:background="@drawable/space_section_panel" android:orientation="vertical"
+                android:visibility="gone">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="@string/lesson_resume_title" android:textColor="#FFFFFF"
+                    android:textSize="22sp" android:textStyle="bold" android:accessibilityHeading="true" />
+                <TextView android:id="@+id/resume_session_detail"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" android:textColor="#C5D3EB" android:textSize="15sp" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/button_resume_session"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp" android:minHeight="56dp"
+                    android:text="@string/lesson_resume_action" app:cornerRadius="18dp" />
+            </LinearLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

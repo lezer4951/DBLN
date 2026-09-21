@@ -26,6 +26,8 @@ fun LinearLayout.hubCard(
         b.root.isClickable = true
         b.root.isFocusable = true
         b.root.setOnClickListener { action() }
+        b.hubAction.isVisible = true
+        b.hubAction.setOnClickListener { action() }
     } else {
         b.root.isClickable = false
         b.root.isFocusable = false
