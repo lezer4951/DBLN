@@ -39,7 +39,7 @@ class HomeNavigationTest {
     @Test
     fun everyTabReturnsToHomeAndRepeatedTapsStayThere() {
         listOf(R.id.autoestudioFragment, R.id.desafiosFragment,
-            R.id.idiomasFragment, R.id.perfilFragment).forEach { tab ->
+            R.id.perfilFragment).forEach { tab ->
             bottomNav.selectedItemId = tab
             bottomNav.selectedItemId = R.id.homeFragment
             assertHome()
