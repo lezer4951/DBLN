@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
+    <com.google.android.material.appbar.MaterialToolbar android:id="@+id/toolbar"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        app:title="@string/astronomy_mode_curiosity" app:navigationIcon="@drawable/ic_arrow_back" />
+    <androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
+            <TextView android:id="@+id/contador" android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="14sp" />
+            <TextView android:id="@+id/titulo" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:textSize="26sp" android:textStyle="bold" />
+            <TextView android:id="@+id/detalle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:textSize="18sp" android:lineSpacingExtra="6dp" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp">
+        <com.google.android.material.button.MaterialButton android:id="@+id/anterior" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:minHeight="48dp" android:text="@string/astronomy_free_previous" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/siguiente" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="12dp" android:minHeight="48dp" android:text="@string/action_next" />
+    </LinearLayout>
+</LinearLayout>

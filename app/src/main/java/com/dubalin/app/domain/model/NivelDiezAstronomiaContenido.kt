@@ -1,0 +1,126 @@
+package com.dubalin.app.domain.model
+
+object NivelDiezAstronomiaContenido {
+    val sesiones = listOf(
+        s(1, "Pensar como astrónomo", "Convertir una curiosidad en una pregunta investigable.", "Integra observación, modelo y evidencia.",
+            "Resolver un misterio exige definir qué pista distinguiría una explicación de otra.",
+            "Una pregunta científica identifica una variable observable, una predicción y alternativas. La astronomía rara vez manipula su objeto; compara señales naturales con modelos físicos.",
+            "Para estudiar una atmósfera exoplanetaria se predice qué líneas espectrales produciría cada composición.", "Una buena investigación pregunta qué medición podría cambiar nuestra conclusión.",
+            q("¿Qué vuelve científica una pregunta?", "Produce predicciones comprobables", "Suena compleja", "Tiene una respuesta favorita", 0, "Debe poder contrastarse con datos.", "El misterio necesita una pista decisiva."),
+            q("¿Astronomía siempre manipula objetos?", "No", "Sí", "Solo galaxias", 0, "Suele aprovechar experimentos naturales y observación remota.", "El detective no controla el suceso, pero sí cómo reúne pistas.")),
+        s(2, "Escalas y unidades", "Elegir unidades adecuadas y estimar órdenes de magnitud.", "Evita perder significado entre planetas, estrellas y galaxias.",
+            "No medirías una ciudad en milímetros ni una bacteria en kilómetros.",
+            "Unidades astronómicas sirven dentro de sistemas planetarios; años luz y pársecs, entre estrellas y galaxias. El orden de magnitud permite revisar si un resultado es razonable.",
+            "Un pársec equivale aproximadamente a 3,26 años luz y surge de la geometría de paralaje.", "La unidad correcta y una estimación rápida son herramientas de control de calidad.",
+            q("¿Qué unidad conviene entre estrellas?", "Año luz", "Milímetro", "Litro", 0, "Representa distancias interestelares de forma manejable.", "Usamos una regla acorde con el tamaño del mapa."),
+            q("¿Para qué sirve el orden de magnitud?", "Para detectar resultados absurdos", "Para reemplazar toda medición", "Para nombrar estrellas", 0, "Permite revisar la escala de una respuesta.", "Una estimación descubre si medimos la ciudad con la regla equivocada.")),
+        s(3, "Señal, ruido e incertidumbre", "Interpretar mediciones con límites explícitos.", "Ningún dato real es exacto ni está libre de ruido.",
+            "Escuchar una voz débil en una sala ruidosa exige repetir y cuantificar qué tan segura es cada palabra.",
+            "La señal es el patrón buscado; el ruido incluye variación instrumental, ambiente y fuentes astrofísicas. Repetir, calibrar y combinar datos reduce errores, pero no elimina toda incertidumbre.",
+            "Una detección de cinco sigma expresa baja probabilidad de que cierto ruido produzca la señal bajo supuestos definidos.", "Reportar incertidumbre es parte del resultado, no una señal de fracaso.",
+            q("¿Repetir elimina toda incertidumbre?", "No", "Sí", "Solo con telescopios espaciales", 0, "Reduce errores aleatorios, pero quedan límites y sistemáticos.", "Varias escuchas aclaran la voz sin volverla perfecta."),
+            q("¿Qué debe acompañar una medición?", "Su incertidumbre", "Una certeza absoluta", "Solo una imagen", 0, "Indica el rango compatible con los datos.", "También debemos decir qué tan clara fue cada palabra.")),
+        s(4, "Calibración y sesgos", "Reconocer errores sistemáticos y de selección.", "Una muestra precisa puede conducir a una conclusión equivocada.",
+            "Una báscula que añade siempre dos kilos da lecturas consistentes, pero sesgadas.",
+            "La calibración compara instrumentos con referencias conocidas. Sesgos de selección aparecen cuando la muestra observada favorece objetos fáciles de detectar, como exoplanetas grandes y cercanos.",
+            "Corregir un sesgo exige modelar qué objetos podrían haber quedado fuera.", "Precisión no garantiza exactitud; hay que comprender instrumento y selección.",
+            q("¿Qué hace la calibración?", "Compara con una referencia", "Elimina gravedad", "Aumenta el tamaño real", 0, "Permite corregir respuesta instrumental.", "Revisamos la báscula con una masa conocida."),
+            q("¿Lo detectado es siempre lo más común?", "No", "Sí", "Solo en estrellas", 0, "La facilidad de detección puede distorsionar la muestra.", "Vemos primero los objetos que el filtro deja pasar.")),
+        s(5, "Fotometría y curvas de luz", "Extraer física de cambios de brillo.", "Conecta tránsitos, variables y supernovas con una misma herramienta.",
+            "Una gráfica de brillo es el pulso luminoso de un objeto a través del tiempo.",
+            "La fotometría mide flujo en bandas definidas. Forma, profundidad, duración y periodicidad de una curva de luz revelan eclipses, rotación, pulsación, explosiones o tránsitos.",
+            "Una misma caída de brillo puede tener varias causas y requiere color, repetición o espectro para distinguirlas.", "La curva describe qué ocurrió; el contexto decide qué proceso la produjo.",
+            q("¿Qué mide fotometría?", "Brillo", "Masa directa", "Sonido", 0, "Registra flujo luminoso en una banda.", "Es tomar el pulso de la luz."),
+            q("¿Una caída prueba un planeta?", "No", "Sí", "Solo si dura una hora", 0, "Eclipses estelares o actividad pueden imitarla.", "Un pulso extraño admite más de un diagnóstico.")),
+        s(6, "Espectros y movimiento", "Combinar composición, temperatura y Doppler.", "El espectro reúne varias propiedades en una sola observación.",
+            "Un código de barras desplazado conserva su patrón, pero revela qué material hay y cómo se mueve.",
+            "Posiciones y fuerzas de líneas identifican elementos y condiciones físicas. Su desplazamiento Doppler mide velocidad radial; el continuo y la ionización ayudan a estimar temperatura.",
+            "Separar corrimiento cosmológico, movimiento orbital y calibración requiere un modelo del sistema.", "Un espectro es evidencia química y dinámica, no una fotografía de la superficie.",
+            q("¿Qué identifica líneas espectrales?", "Elementos y estados físicos", "Continentes", "Edad exacta", 0, "Cada transición atómica ocurre en energías específicas.", "El patrón del código revela el material."),
+            q("¿Qué mide Doppler?", "Velocidad radial", "Distancia por sí sola", "Masa sin modelo", 0, "Revela movimiento hacia o desde nosotros.", "El código se desplaza según el movimiento.")),
+        s(7, "Masa mediante órbitas", "Inferir masas a partir de movimiento gravitacional.", "Permite pesar estrellas, planetas y agujeros negros.",
+            "Aunque no puedas levantar un objeto, puedes pesarlo observando cómo obliga a bailar a su compañero.",
+            "Periodo, tamaño orbital y geometría permiten aplicar leyes de Kepler y gravedad. En binarias, la inclinación determina cuánto de la velocidad real observamos.",
+            "Órbitas estelares alrededor de Sagitario A* miden millones de masas solares en una región compacta.", "La masa invisible se vuelve medible a través de trayectorias y supuestos geométricos.",
+            q("¿Qué permite pesar un objeto invisible?", "La órbita de un compañero", "Su color negro", "Ausencia de luz", 0, "El movimiento responde a su gravedad.", "El baile revela la fuerza de la pareja oculta."),
+            q("¿Qué puede sesgar la velocidad observada?", "La inclinación", "El nombre", "La estación del año solamente", 0, "Solo medimos directamente componentes proyectadas.", "Un baile visto de frente luce distinto que de lado.")),
+        s(8, "Escalera de distancias", "Integrar paralaje, candelas estándar y corrimiento al rojo.", "La distancia sostiene casi toda inferencia de luminosidad y escala.",
+            "Para medir una montaña lejana se encadenan reglas, cada una calibrada con la anterior.",
+            "Paralaje calibra estrellas cercanas; variables como Cefeidas alcanzan galaxias próximas; supernovas tipo Ia extienden la escala cosmológica. Cada peldaño hereda incertidumbres.",
+            "Comparar métodos independientes revela tensiones y posibles errores sistemáticos.", "La escala cósmica es una cadena de calibraciones, no una regla única.",
+            q("¿Qué mide estrellas cercanas geométricamente?", "Paralaje", "Corrimiento cosmológico", "Tránsito", 0, "Usa el cambio aparente por la órbita terrestre.", "Es el primer peldaño geométrico de la escalera."),
+            q("¿Las incertidumbres se propagan?", "Sí", "No", "Solo en galaxias", 0, "Cada calibración afecta al siguiente método.", "Un peldaño mal medido inclina los posteriores.")),
+        s(9, "Modelos y degeneraciones", "Reconocer que datos similares pueden admitir explicaciones distintas.", "Evita confundir un buen ajuste con una solución única.",
+            "Dos llaves distintas pueden abrir una cerradura sencilla; hacen falta más pruebas para elegir.",
+            "Una degeneración ocurre cuando combinaciones de parámetros producen observaciones parecidas. Nuevas longitudes de onda, resolución temporal o datos independientes pueden romperla.",
+            "Radio y masa juntos restringen composición planetaria mejor que cualquiera por separado.", "Más datos solo ayudan si aportan información distinta, no copias del mismo límite.",
+            q("¿Qué es una degeneración?", "Varias explicaciones compatibles", "Un error de escritura", "Una certeza", 0, "Distintos parámetros pueden reproducir los datos.", "Más de una llave abre la cerradura disponible."),
+            q("¿Cómo se rompe?", "Con una medición independiente", "Repitiendo la misma suposición", "Ignorando alternativas", 0, "Una nueva dimensión observacional separa modelos.", "Probamos otra cerradura que solo una llave pueda abrir.")),
+        s(10, "Astronomía multimensajero", "Combinar luz, partículas y ondas gravitacionales.", "Eventos extremos revelan facetas diferentes según el mensajero.",
+            "Varios testigos describen sonido, luz y movimiento del mismo acontecimiento.",
+            "Fotones, neutrinos, rayos cósmicos y ondas gravitacionales transportan información complementaria. Coincidencias temporales y espaciales vinculan señales con una fuente.",
+            "La fusión de estrellas de neutrones GW170817 se estudió con ondas gravitacionales y luz en múltiples bandas.", "La convergencia de mensajeros reduce ambigüedades y amplía la física accesible.",
+            q("¿Qué aporta multimensajero?", "Evidencias complementarias", "Una sola banda", "Menos información", 0, "Cada señal responde a procesos diferentes.", "Varios testigos reconstruyen mejor el evento."),
+            q("¿Qué une señales a una fuente?", "Coincidencia temporal y espacial", "El mismo color", "Una creencia", 0, "Deben corresponder al mismo lugar y momento.", "Los testimonios tienen que describir el mismo escenario.")),
+        s(11, "Diseñar una observación", "Elegir instrumento, exposición y muestra.", "Convierte una hipótesis en un plan realizable.",
+            "Para fotografiar un animal nocturno eliges cámara, horario, campo y tiempo de espera adecuados.",
+            "El diseño define señal esperada, resolución angular y espectral, cadencia, sensibilidad, controles y estrategia de calibración. También estima tiempo requerido y criterios de éxito.",
+            "Buscar tránsitos cortos exige cadencia rápida; una galaxia tenue, exposiciones profundas.", "El mejor telescopio es el que mide la señal necesaria con controles adecuados.",
+            q("¿Qué determina el instrumento?", "La señal buscada", "Su popularidad", "El nombre del proyecto", 0, "Longitud de onda y resolución deben corresponder al fenómeno.", "La pregunta decide qué cámara llevar."),
+            q("¿Qué requiere un fenómeno rápido?", "Cadencia alta", "Una sola medición tardía", "Menor tiempo de muestreo total sin plan", 0, "Hay que registrar cambios frecuentes.", "La cámara debe tomar imágenes antes de que cambie la escena.")),
+        s(12, "Evaluar una afirmación", "Separar dato, inferencia y especulación.", "Protege contra titulares exagerados y desinformación.",
+            "En un juicio distinguimos evidencia, interpretación y una historia todavía no demostrada.",
+            "Una afirmación sólida cita mediciones, incertidumbres, método y alternativas. Revisión independiente y reproducibilidad aumentan confianza; autoridad o viralidad no sustituyen evidencia.",
+            "Detectar una molécula compatible con vida no equivale a detectar vida.", "La fuerza de una conclusión no debe superar la fuerza de sus datos.",
+            q("¿Una biofirma aislada prueba vida?", "No", "Sí", "Siempre", 0, "Puede tener fuentes no biológicas.", "Una pista no completa todo el caso."),
+            q("¿Qué aumenta confianza?", "Confirmación independiente", "Más publicidad", "Ocultar incertidumbre", 0, "Otros análisis pueden detectar errores o reproducir resultados.", "Más investigadores revisan las pruebas del juicio.")),
+        s(13, "Construir una explicación", "Conectar escalas sin mezclar mecanismos.", "Integra toda la ruta de Astronomía.",
+            "Una historia científica enlaza capítulos donde cada causa prepara el siguiente sin saltos mágicos.",
+            "Gravedad organiza órbitas y estructura; fusión transforma estrellas; estrellas enriquecen galaxias; expansión cambia el universo a gran escala. Cada mecanismo domina condiciones específicas.",
+            "Materia oscura guía estructura galáctica, pero no reemplaza la física de una atmósfera planetaria.", "Integrar significa conectar mecanismos respetando su escala y evidencia.",
+            q("¿Un mecanismo explica toda escala?", "No", "Sí", "Solo la luz", 0, "Diferentes condiciones activan procesos distintos.", "Cada capítulo necesita su causa apropiada."),
+            q("¿Qué organiza órbitas y estructura?", "La gravedad", "El sonido", "La química sola", 0, "Actúa desde sistemas planetarios hasta la red cósmica.", "Es un hilo recurrente, no el único capítulo.")),
+        s(14, "Proyecto final: una conclusión responsable", "Sintetizar evidencia y comunicar límites.", "Demuestra dominio aplicando el método completo.",
+            "Un buen informe cuenta qué sabemos, cómo lo sabemos y qué observación cambiaría la respuesta.",
+            "Una conclusión final resume pregunta, datos, modelo preferido, alternativas, incertidumbres y siguiente prueba. Comunicar con claridad incluye declarar límites sin debilitar el valor del hallazgo.",
+            "La frase “los datos favorecen” suele ser más rigurosa que “queda demostrado para siempre”.", "Dominar Astronomía es argumentar desde evidencia y mantener abiertas las preguntas correctas.",
+            q("¿Qué incluye una conclusión responsable?", "Evidencia e incertidumbre", "Solo certeza", "Solo opinión", 0, "Debe mostrar alcance y límites.", "El informe explica tanto la respuesta como su fortaleza."),
+            q("¿Qué propone al final?", "La siguiente prueba", "Cerrar toda investigación", "Ignorar alternativas", 0, "La ciencia avanza definiendo nuevas mediciones.", "Todo buen informe deja clara la próxima pista."))
+    )
+
+    val practica = listOf(
+        e(2, "Un cálculo sitúa la Luna a tres mil millones de años luz. ¿Qué revisión conviene primero?", "Unidades y orden de magnitud", "Color de la Luna", "Materia oscura", "Fases", 0, "La escala absurda señala una conversión o unidad incorrecta."),
+        e(3, "Una señal débil aparece una vez y cerca del ruido. ¿Qué sigue?", "Repetir y cuantificar incertidumbre", "Declarar descubrimiento", "Eliminar datos contrarios", "Ignorar calibración", 0, "Hace falta evaluar si el ruido puede producirla."),
+        e(4, "Solo detectamos exoplanetas grandes y concluimos que todos son grandes. ¿Qué falta?", "Corregir sesgo de selección", "Más nombres", "Una imagen artística", "Ignorar mundos pequeños", 0, "La muestra favorece señales fáciles."),
+        e(5, "Una caída periódica de brillo podría ser planeta o binaria. ¿Qué ayuda?", "Espectro y observaciones adicionales", "Elegir la opción favorita", "Una sola caída", "El nombre de la estrella", 0, "Datos independientes separan explicaciones."),
+        e(7, "Estrellas orbitan rápidamente una región oscura compacta. ¿Qué inferimos?", "Su masa central", "Su superficie", "El color interior", "Una atmósfera", 0, "Las trayectorias miden gravedad."),
+        e(8, "Dos métodos de distancia discrepan. ¿Qué acción es rigurosa?", "Revisar calibraciones compartidas", "Promediar sin analizar", "Descartar el menos popular", "Ocultar la tensión", 0, "La discrepancia puede revelar sistemáticos o física nueva."),
+        e(9, "Dos composiciones producen el mismo radio planetario. ¿Qué rompe la degeneración?", "Medir también la masa", "Repetir el radio", "Cambiar el nombre", "Ignorar una composición", 0, "La densidad añade información independiente."),
+        e(10, "Ondas gravitacionales y luz llegan del mismo lugar y momento. ¿Qué mejora?", "La identificación y explicación del evento", "La velocidad de la luz", "El tamaño del telescopio", "La órbita terrestre", 0, "Mensajeros distintos restringen mejor la fuente."),
+        e(11, "Se busca un tránsito de minutos. ¿Qué diseño conviene?", "Alta cadencia", "Una imagen mensual", "Solo baja resolución temporal", "Ninguna calibración", 0, "Hay que muestrear con frecuencia suficiente."),
+        e(12, "Un titular anuncia vida por una molécula. ¿Qué pregunta es esencial?", "¿Se descartaron fuentes no biológicas?", "¿Es popular?", "¿Tiene una ilustración?", "¿Quién lo compartió?", 0, "Una biofirma requiere contexto y alternativas.")
+    )
+
+    val examen = listOf(
+        e(1, "¿Qué distingue una hipótesis científica?", "Predicciones comprobables", "Certeza absoluta", "Popularidad", "Lenguaje complejo", 0, "Debe exponerse a contraste con datos."),
+        e(3, "¿Qué debe acompañar una medición?", "Incertidumbre", "Una afirmación absoluta", "Solo una imagen", "Ningún método", 0, "Indica el rango compatible y la calidad del dato."),
+        e(4, "¿Precisión garantiza exactitud?", "No", "Sí", "Solo en el espacio", "Solo con promedios", 0, "Un error sistemático puede ser muy consistente."),
+        e(5, "¿Qué revela una curva de luz?", "Cambios de brillo en el tiempo", "Masa directa siempre", "Composición sin espectro", "Distancia exacta", 0, "Su forma y periodicidad restringen procesos."),
+        e(6, "¿Qué mide el desplazamiento Doppler?", "Velocidad radial", "Radio físico", "Edad exacta", "Masa directa", 0, "Las líneas se desplazan por movimiento relativo."),
+        e(7, "¿Cómo se pesa un objeto oscuro?", "Con órbitas de objetos visibles", "Por su color", "Con sonido", "Por ausencia de datos", 0, "La dinámica responde a la masa gravitatoria."),
+        e(8, "¿Por qué la escalera de distancias necesita calibración?", "Cada método se apoya en rangos anteriores", "Todas las distancias son iguales", "El espacio no tiene escala", "Para cambiar la luz", 0, "Las incertidumbres se propagan entre peldaños."),
+        e(9, "¿Qué es una degeneración?", "Modelos distintos producen datos similares", "Un dato perfecto", "Una unidad", "Una órbita", 0, "Hace falta nueva información para distinguirlos."),
+        e(12, "¿Qué fortalece una afirmación extraordinaria?", "Evidencia independiente y alternativas descartadas", "Un titular", "Una autoridad aislada", "Ocultar límites", 0, "La convergencia reduce explicaciones rivales."),
+        e(14, "¿Qué demuestra dominio de la ruta?", "Argumentar desde datos y reconocer límites", "Memorizar nombres", "Evitar preguntas abiertas", "Usar certeza siempre", 0, "La práctica científica integra evidencia, modelos e incertidumbre.")
+    )
+
+    const val mascaraCompleta = (1 shl 14) - 1
+    fun completado(mascara: Int, indice: Int) = mascara and (1 shl indice) != 0
+    private fun s(numero: Int, titulo: String, objetivo: String, importa: String, analogia: String,
+        explicacion: String, ejemplo: String, clave: String, vararg preguntas: PreguntaAutoevaluacion
+    ) = SesionAstronomia(numero, titulo, objetivo, importa, 30, analogia, explicacion, ejemplo, clave, preguntas.toList())
+    private fun q(enunciado: String, a: String, b: String, c: String, correcta: Int, explicacion: String, alternativa: String) =
+        PreguntaAutoevaluacion(enunciado, listOf(a, b, c), correcta, explicacion, alternativa)
+    private fun e(tema: Int, enunciado: String, a: String, b: String, c: String, d: String, correcta: Int, explicacion: String) =
+        PreguntaAstronomia(tema, enunciado, listOf(a, b, c, d), correcta, explicacion)
+}

@@ -38,6 +38,7 @@
     <string name="ref_subject_ranks_desc">Completa evaluaciones para descubrir tus fortalezas.</string>
     <string name="ref_unevaluated">Sin evaluar</string>
     <string name="subject_math">Matemáticas</string>
+    <string name="subject_astronomy">Astronomía</string>
     <string name="subject_spanish">Español</string>
     <string name="subject_english">Inglés</string>
     <string name="subject_physics">Física</string>
@@ -46,6 +47,9 @@
     <string name="subject_history">Historia</string>
     <string name="subject_geography">Geografía</string>
     <string name="subject_civic">F. Cívica</string>
+    <string name="subject_math_soon">Matemáticas. Próximamente</string>
+    <string name="subject_spanish_soon">Español. Próximamente</string>
+    <string name="subject_physics_soon">Física. Próximamente</string>
     <string name="ref_today_description">%1$s, hoy</string>
     <string name="ref_week_note">Semana actual · hoy resaltado</string>
     <string name="ref_streak_continue">Sigue aprendiendo a tu ritmo</string>

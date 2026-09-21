@@ -28,6 +28,7 @@ class PerfilFragment : Fragment(R.layout.fragment_perfil) {
     private var _binding: FragmentPerfilBinding? = null
     private val binding get() = _binding!!
     private val viewModel: PerfilViewModel by viewModels()
+    private val rankAdapter = RankAdapter()
 
     private val rankStyles = listOf(
         Triple(R.drawable.ic_ref_math, R.color.dubalin_brand, R.string.subject_math),
@@ -44,7 +45,7 @@ class PerfilFragment : Fragment(R.layout.fragment_perfil) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         _binding = FragmentPerfilBinding.bind(view)
         binding.profileRanks.layoutManager = LinearLayoutManager(requireContext())
-        binding.profileRanks.adapter = RankAdapter()
+        binding.profileRanks.adapter = rankAdapter
         binding.btnEditProfile.setOnClickListener { editarPerfil() }
         binding.profileEditIcon.setOnClickListener { editarPerfil() }
         binding.btnCerrarSesion.setOnClickListener { confirmarCierreDeSesion() }
@@ -67,6 +68,7 @@ class PerfilFragment : Fragment(R.layout.fragment_perfil) {
                         binding.profileName.text = h.nombre
                         binding.profileLevel.text = getString(R.string.home_nivel_xp, h.nivel, h.xp)
                         binding.profileAvatar.text = h.nombre.firstOrNull()?.uppercase() ?: "D"
+                        rankAdapter.setAstronomiaRango(h.rangoAstronomia)
                     }
                 }
                 launch {
@@ -102,17 +104,33 @@ class PerfilFragment : Fragment(R.layout.fragment_perfil) {
     }
 
     private inner class RankAdapter : RecyclerView.Adapter<RankHolder>() {
-        override fun getItemCount() = rankStyles.size
+        private var rangoAstronomia: Int? = null
+        override fun getItemCount() = rankStyles.size + if (rangoAstronomia != null) 1 else 0
+        fun setAstronomiaRango(rango: Int?) {
+            if (rangoAstronomia == rango) return
+            rangoAstronomia = rango
+            notifyDataSetChanged()
+        }
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RankHolder(
             ItemSubjectRankBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-        override fun onBindViewHolder(holder: RankHolder, position: Int) = holder.bind(rankStyles[position])
+        override fun onBindViewHolder(holder: RankHolder, position: Int) {
+            if (rangoAstronomia != null && position == 0) {
+                holder.bind(
+                    Triple(R.drawable.ic_ref_sparkles, R.color.astronomy_blue, R.string.subject_astronomy),
+                    getString(R.string.astronomy_rank_value, rangoAstronomia)
+                )
+            } else {
+                holder.bind(rankStyles[position - if (rangoAstronomia != null) 1 else 0], getString(R.string.ref_unevaluated))
+            }
+        }
     }
 
     private inner class RankHolder(private val item: ItemSubjectRankBinding) : RecyclerView.ViewHolder(item.root) {
-        fun bind(data: Triple<Int, Int, Int>) {
+        fun bind(data: Triple<Int, Int, Int>, status: String) {
             item.rankIcon.setImageResource(data.first)
             item.rankIcon.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), data.second))
             item.rankTitle.setText(data.third)
+            item.rankStatus.text = status
             item.root.layoutParams = (item.root.layoutParams as RecyclerView.LayoutParams).apply {
                 bottomMargin = (8 * resources.displayMetrics.density).toInt()
             }

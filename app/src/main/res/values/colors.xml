@@ -43,4 +43,13 @@
     <color name="dubalin_white">#FFFFFF</color>
     <color name="dubalin_brand">#4A3AEB</color>
     <color name="dubalin_hero_ink">#4A3AEB</color>
+    <color name="astronomy_navy">#11143B</color>
+    <color name="astronomy_violet">#5436A9</color>
+    <color name="astronomy_blue">#3B6FE8</color>
+    <color name="astronomy_blue_soft">#E7EEFF</color>
+    <color name="astronomy_star">#FFD76A</color>
+    <color name="astronomy_star_dark">#7D5700</color>
+    <color name="astronomy_star_soft">#FFF2C5</color>
+    <color name="astronomy_text_on_dark">#E8E7FF</color>
+    <color name="astronomy_track">#4C4D75</color>
 </resources>

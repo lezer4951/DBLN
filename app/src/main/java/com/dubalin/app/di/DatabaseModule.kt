@@ -4,6 +4,9 @@ import android.content.Context
 import androidx.room.Room
 import com.dubalin.app.data.local.DubalinDatabase
 import com.dubalin.app.data.local.MIGRATION_1_2
+import com.dubalin.app.data.local.MIGRATION_2_3
+import com.dubalin.app.data.local.MIGRATION_3_4
+import com.dubalin.app.data.local.MIGRATION_4_5
 import com.dubalin.app.data.local.dao.ApunteDao
 import com.dubalin.app.data.local.dao.CategoriaDao
 import com.dubalin.app.data.local.dao.ConfiguracionDao
@@ -12,6 +15,8 @@ import com.dubalin.app.data.local.dao.FlashcardDao
 import com.dubalin.app.data.local.dao.MazoDao
 import com.dubalin.app.data.local.dao.OpcionRespuestaDao
 import com.dubalin.app.data.local.dao.PreguntaDao
+import com.dubalin.app.data.local.dao.ProgresoMateriaDao
+import com.dubalin.app.data.local.dao.ProgresoNivelDao
 import com.dubalin.app.data.local.dao.ResultadoQuizDao
 import com.dubalin.app.data.local.dao.SeccionApuntesDao
 import com.dubalin.app.data.local.dao.UsuarioDao
@@ -40,7 +45,7 @@ object DatabaseModule {
             DubalinDatabase::class.java,
             DubalinDatabase.DATABASE_NAME
         )
-            .addMigrations(MIGRATION_1_2)
+            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
             .build()
 
     @Provides
@@ -86,4 +91,11 @@ object DatabaseModule {
     @Provides
     fun provideApunteDao(database: DubalinDatabase): ApunteDao =
         database.apunteDao()
+
+    @Provides
+    fun provideProgresoMateriaDao(database: DubalinDatabase): ProgresoMateriaDao =
+        database.progresoMateriaDao()
+
+    @Provides
+    fun provideProgresoNivelDao(database: DubalinDatabase): ProgresoNivelDao = database.progresoNivelDao()
 }

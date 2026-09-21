@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+ android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
+ <com.google.android.material.appbar.MaterialToolbar android:id="@+id/toolbar" android:layout_width="match_parent" android:layout_height="wrap_content" app:title="@string/memory_title" app:navigationIcon="@drawable/ic_arrow_back" />
+ <androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+ <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+ <TextView android:id="@+id/estado" android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="18sp" android:accessibilityLiveRegion="polite" />
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+<com.google.android.material.button.MaterialButton android:id="@+id/carta0" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:minHeight="96dp" android:layout_margin="4dp" android:textAllCaps="false" />
+<com.google.android.material.button.MaterialButton android:id="@+id/carta1" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:minHeight="96dp" android:layout_margin="4dp" android:textAllCaps="false" />
+</LinearLayout>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+<com.google.android.material.button.MaterialButton android:id="@+id/carta2" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:minHeight="96dp" android:layout_margin="4dp" android:textAllCaps="false" />
+<com.google.android.material.button.MaterialButton android:id="@+id/carta3" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:minHeight="96dp" android:layout_margin="4dp" android:textAllCaps="false" />
+</LinearLayout>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+<com.google.android.material.button.MaterialButton android:id="@+id/carta4" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:minHeight="96dp" android:layout_margin="4dp" android:textAllCaps="false" />
+<com.google.android.material.button.MaterialButton android:id="@+id/carta5" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:minHeight="96dp" android:layout_margin="4dp" android:textAllCaps="false" />
+</LinearLayout>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+<com.google.android.material.button.MaterialButton android:id="@+id/carta6" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:minHeight="96dp" android:layout_margin="4dp" android:textAllCaps="false" />
+<com.google.android.material.button.MaterialButton android:id="@+id/carta7" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:minHeight="96dp" android:layout_margin="4dp" android:textAllCaps="false" />
+</LinearLayout>
+<com.google.android.material.button.MaterialButton android:id="@+id/continuar" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/action_continue" />
+<com.google.android.material.button.MaterialButton android:id="@+id/reiniciar" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/memory_restart" />
+</LinearLayout></androidx.core.widget.NestedScrollView></LinearLayout>

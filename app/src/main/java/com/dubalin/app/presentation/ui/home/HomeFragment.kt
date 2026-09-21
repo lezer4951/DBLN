@@ -31,15 +31,17 @@ class HomeFragment : Fragment(R.layout.fragment_home_tab) {
         }
         binding.btnHomeSubjects.setOnClickListener(openSubjects)
         binding.btnHomeAllSubjects.setOnClickListener(openSubjects)
-        listOf(binding.homeSubjectMath, binding.homeSubjectSpanish,
-            binding.homeSubjectEnglish, binding.homeSubjectPhysics).forEachIndexed { index, card ->
-            card.setOnClickListener {
-                findNavController().navigate(R.id.autoestudioFragment)
-                findNavController().navigate(R.id.materiasFragment, Bundle().apply {
-                    putInt("materiaInicial", index)
-                })
-            }
+        binding.homeSubjectAstronomy.setOnClickListener {
+            findNavController().navigate(R.id.autoestudioFragment)
+            findNavController().navigate(R.id.materiasFragment, Bundle().apply {
+                putInt("materiaInicial", 0)
+            })
         }
+        listOf(binding.homeSubjectMath, binding.homeSubjectSpanish, binding.homeSubjectPhysics)
+            .forEach { card ->
+                card.isEnabled = false
+                card.alpha = 0.58f
+            }
         binding.btnHomeFlashcards.setOnClickListener { findNavController().navigate(R.id.autoestudioFragment); findNavController().navigate(R.id.flashcardsFragment) }
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {

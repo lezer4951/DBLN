@@ -8,7 +8,7 @@
                 <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="12dp" android:orientation="vertical">
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="start">
                         <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Memorama" android:textSize="18sp" android:textStyle="bold" android:textColor="@color/dubalin_ink" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/ref_soon" android:textColor="@color/dubalin_orange" android:textStyle="bold" android:textSize="12sp" android:background="@drawable/bg_pill_soon" android:layout_marginTop="6dp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/challenge_local_available" android:textColor="@color/dubalin_orange" android:textStyle="bold" android:textSize="12sp" android:background="@drawable/bg_pill_soon" android:layout_marginTop="6dp" />
                     </LinearLayout>
                     <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="@string/ref_memory_desc" android:textSize="15sp" android:lineSpacingExtra="2dp" android:textColor="@color/dubalin_ink_soft" />
                 </LinearLayout>
@@ -44,7 +44,7 @@
                 <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="12dp" android:orientation="vertical">
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="start">
                         <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Supervivencia" android:textSize="18sp" android:textStyle="bold" android:textColor="@color/dubalin_ink" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/ref_soon" android:textColor="@color/dubalin_orange" android:textStyle="bold" android:textSize="12sp" android:background="@drawable/bg_pill_soon" android:layout_marginTop="6dp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/challenge_local_available" android:textColor="@color/dubalin_orange" android:textStyle="bold" android:textSize="12sp" android:background="@drawable/bg_pill_soon" android:layout_marginTop="6dp" />
                     </LinearLayout>
                     <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="@string/ref_survival_desc" android:textSize="15sp" android:lineSpacingExtra="2dp" android:textColor="@color/dubalin_ink_soft" />
                 </LinearLayout>

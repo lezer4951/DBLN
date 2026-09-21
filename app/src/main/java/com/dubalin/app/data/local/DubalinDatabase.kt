@@ -10,6 +10,8 @@ import com.dubalin.app.data.local.dao.FlashcardDao
 import com.dubalin.app.data.local.dao.MazoDao
 import com.dubalin.app.data.local.dao.OpcionRespuestaDao
 import com.dubalin.app.data.local.dao.PreguntaDao
+import com.dubalin.app.data.local.dao.ProgresoMateriaDao
+import com.dubalin.app.data.local.dao.ProgresoNivelDao
 import com.dubalin.app.data.local.dao.ResultadoQuizDao
 import com.dubalin.app.data.local.dao.SeccionApuntesDao
 import com.dubalin.app.data.local.dao.UsuarioDao
@@ -21,6 +23,8 @@ import com.dubalin.app.data.local.entity.FlashcardEntity
 import com.dubalin.app.data.local.entity.MazoEntity
 import com.dubalin.app.data.local.entity.OpcionRespuestaEntity
 import com.dubalin.app.data.local.entity.PreguntaEntity
+import com.dubalin.app.data.local.entity.ProgresoMateriaEntity
+import com.dubalin.app.data.local.entity.ProgresoNivelEntity
 import com.dubalin.app.data.local.entity.ResultadoQuizEntity
 import com.dubalin.app.data.local.entity.SeccionApuntesEntity
 import com.dubalin.app.data.local.entity.UsuarioEntity
@@ -29,7 +33,7 @@ import com.dubalin.app.data.local.entity.UsuarioEntity
  * Base de datos Room de Dubalin. Los esquemas se exportan a app/schemas
  * para conservar el historial y validar migraciones futuras.
  *
- * version = 2: agrega seccion_apuntes y apunte mediante MIGRATION_1_2.
+ * version = 5: normaliza el progreso reutilizable por nivel mediante MIGRATION_4_5.
  */
 @Database(
     entities = [
@@ -43,9 +47,11 @@ import com.dubalin.app.data.local.entity.UsuarioEntity
         ResultadoQuizEntity::class,
         EstadisticaUsuarioEntity::class,
         SeccionApuntesEntity::class,
-        ApunteEntity::class
+        ApunteEntity::class,
+        ProgresoMateriaEntity::class,
+        ProgresoNivelEntity::class
     ],
-    version = 2,
+    version = 5,
     exportSchema = true
 )
 abstract class DubalinDatabase : RoomDatabase() {
@@ -61,6 +67,8 @@ abstract class DubalinDatabase : RoomDatabase() {
     abstract fun estadisticaUsuarioDao(): EstadisticaUsuarioDao
     abstract fun seccionApuntesDao(): SeccionApuntesDao
     abstract fun apunteDao(): ApunteDao
+    abstract fun progresoMateriaDao(): ProgresoMateriaDao
+    abstract fun progresoNivelDao(): ProgresoNivelDao
 
     companion object {
         const val DATABASE_NAME = "dubalin.db"

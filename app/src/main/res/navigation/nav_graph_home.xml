@@ -18,7 +18,358 @@
         <fragment android:id="@+id/materiasFragment"
             android:name="com.dubalin.app.presentation.ui.learning.MateriasFragment"
             android:label="@string/subjects_title"
-            tools:layout="@layout/fragment_learning_hub" />
+            tools:layout="@layout/fragment_learning_hub">
+
+            <action
+                android:id="@+id/action_materias_to_astronomia"
+                app:destination="@id/astronomiaFragment" />
+
+        </fragment>
+
+        <fragment
+            android:id="@+id/astronomiaFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaFragment"
+            android:label="@string/astronomy_title"
+            tools:layout="@layout/fragment_astronomia">
+
+            <action
+                android:id="@+id/action_astronomia_to_ruta"
+                app:destination="@id/astronomiaRutaFragment" />
+            <action android:id="@+id/action_astronomia_to_curiosidades" app:destination="@id/curiosidadesFragment" />
+            <action android:id="@+id/action_astronomia_to_practica_libre" app:destination="@id/practicaLibreFragment" />
+
+        </fragment>
+
+        <fragment android:id="@+id/curiosidadesFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.CuriosidadesFragment" />
+        <fragment android:id="@+id/practicaLibreFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.PracticaLibreFragment" />
+        <fragment
+            android:id="@+id/astronomiaRutaFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaRutaFragment"
+            android:label="@string/astronomy_route_title"
+            tools:layout="@layout/fragment_astronomia_ruta">
+
+            <action
+                android:id="@+id/action_ruta_to_nivel_cero"
+                app:destination="@id/astronomiaNivelCeroFragment" />
+
+            <action
+                android:id="@+id/action_ruta_to_onboarding"
+                app:destination="@id/astronomiaOnboardingFragment" />
+
+            <action
+                android:id="@+id/action_ruta_to_nivel_uno"
+                app:destination="@id/astronomiaNivelUnoFragment" />
+
+            <action
+                android:id="@+id/action_ruta_to_nivel_dos"
+                app:destination="@id/astronomiaNivelDosFragment" />
+
+            <action
+                android:id="@+id/action_ruta_to_nivel_tres"
+                app:destination="@id/astronomiaNivelTresFragment" />
+
+            <action
+                android:id="@+id/action_ruta_to_nivel_cuatro"
+                app:destination="@id/astronomiaNivelCuatroFragment" />
+
+            <action
+                android:id="@+id/action_ruta_to_nivel_cinco"
+                app:destination="@id/astronomiaNivelCincoFragment" />
+
+            <action
+                android:id="@+id/action_ruta_to_nivel_seis"
+                app:destination="@id/astronomiaNivelSeisFragment" />
+
+            <action
+                android:id="@+id/action_ruta_to_nivel_siete"
+                app:destination="@id/astronomiaNivelSieteFragment" />
+
+            <action
+                android:id="@+id/action_ruta_to_nivel_ocho"
+                app:destination="@id/astronomiaNivelOchoFragment" />
+
+            <action
+                android:id="@+id/action_ruta_to_nivel_nueve"
+                app:destination="@id/astronomiaNivelNueveFragment" />
+
+            <action
+                android:id="@+id/action_ruta_to_nivel_diez"
+                app:destination="@id/astronomiaNivelDiezFragment" />
+
+        </fragment>
+
+        <fragment
+            android:id="@+id/astronomiaOnboardingFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaOnboardingFragment"
+            android:label="@string/astronomy_welcome_title"
+            tools:layout="@layout/fragment_astronomia_onboarding">
+
+            <action
+                android:id="@+id/action_onboarding_to_nivel_cero"
+                app:destination="@id/astronomiaNivelCeroFragment"
+                app:popUpTo="@id/astronomiaOnboardingFragment"
+                app:popUpToInclusive="true" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/astronomiaNivelCeroFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelCeroFragment"
+            android:label="@string/astronomy_level_zero_title"
+            tools:layout="@layout/fragment_astronomia_nivel_cero">
+
+            <action
+                android:id="@+id/action_nivel_cero_to_quiz"
+                app:destination="@id/astronomiaQuizFragment" />
+
+        </fragment>
+
+        <fragment
+            android:id="@+id/astronomiaQuizFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaQuizFragment"
+            android:label="@string/astronomy_quiz_title"
+            tools:layout="@layout/fragment_astronomia_quiz" />
+
+        <fragment
+            android:id="@+id/astronomiaNivelUnoFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelUnoFragment"
+            android:label="@string/astronomy_level_one_title"
+            tools:layout="@layout/fragment_astronomia_nivel_cero">
+            <action android:id="@+id/action_nivel_uno_to_practica" app:destination="@id/astronomiaNivelUnoPracticaFragment" />
+            <action android:id="@+id/action_nivel_uno_to_examen" app:destination="@id/astronomiaNivelUnoExamenFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/astronomiaNivelUnoPracticaFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelUnoPracticaFragment"
+            android:label="@string/astronomy_level_one_practice"
+            tools:layout="@layout/fragment_astronomia_quiz">
+            <action android:id="@+id/action_practica_to_examen" app:destination="@id/astronomiaNivelUnoExamenFragment"
+                app:popUpTo="@id/astronomiaNivelUnoPracticaFragment" app:popUpToInclusive="true" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/astronomiaNivelUnoExamenFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelUnoExamenFragment"
+            android:label="@string/astronomy_level_one_exam"
+            tools:layout="@layout/fragment_astronomia_quiz" />
+
+        <fragment
+            android:id="@+id/astronomiaNivelDosFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelDosFragment"
+            android:label="@string/astronomy_level_two_title"
+            tools:layout="@layout/fragment_astronomia_nivel_cero">
+            <action android:id="@+id/action_nivel_dos_to_practica" app:destination="@id/astronomiaNivelDosPracticaFragment" />
+            <action android:id="@+id/action_nivel_dos_to_examen" app:destination="@id/astronomiaNivelDosExamenFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/astronomiaNivelDosPracticaFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelDosPracticaFragment"
+            android:label="@string/astronomy_level_two_practice"
+            tools:layout="@layout/fragment_astronomia_quiz">
+            <action android:id="@+id/action_practica_dos_to_examen" app:destination="@id/astronomiaNivelDosExamenFragment"
+                app:popUpTo="@id/astronomiaNivelDosPracticaFragment" app:popUpToInclusive="true" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/astronomiaNivelDosExamenFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelDosExamenFragment"
+            android:label="@string/astronomy_level_two_exam"
+            tools:layout="@layout/fragment_astronomia_quiz" />
+
+        <fragment
+            android:id="@+id/astronomiaNivelTresFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelTresFragment"
+            android:label="@string/astronomy_level_three_title"
+            tools:layout="@layout/fragment_astronomia_nivel_cero">
+            <action android:id="@+id/action_nivel_tres_to_practica" app:destination="@id/astronomiaNivelTresPracticaFragment" />
+            <action android:id="@+id/action_nivel_tres_to_examen" app:destination="@id/astronomiaNivelTresExamenFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/astronomiaNivelTresPracticaFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelTresPracticaFragment"
+            android:label="@string/astronomy_level_three_practice"
+            tools:layout="@layout/fragment_astronomia_quiz">
+            <action android:id="@+id/action_practica_tres_to_examen" app:destination="@id/astronomiaNivelTresExamenFragment"
+                app:popUpTo="@id/astronomiaNivelTresPracticaFragment" app:popUpToInclusive="true" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/astronomiaNivelTresExamenFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelTresExamenFragment"
+            android:label="@string/astronomy_level_three_exam"
+            tools:layout="@layout/fragment_astronomia_quiz" />
+
+        <fragment
+            android:id="@+id/astronomiaNivelCuatroFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelCuatroFragment"
+            android:label="@string/astronomy_level_four_title"
+            tools:layout="@layout/fragment_astronomia_nivel_cero">
+            <action android:id="@+id/action_nivel_cuatro_to_practica" app:destination="@id/astronomiaNivelCuatroPracticaFragment" />
+            <action android:id="@+id/action_nivel_cuatro_to_examen" app:destination="@id/astronomiaNivelCuatroExamenFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/astronomiaNivelCuatroPracticaFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelCuatroPracticaFragment"
+            android:label="@string/astronomy_level_four_practice"
+            tools:layout="@layout/fragment_astronomia_quiz">
+            <action android:id="@+id/action_practica_cuatro_to_examen" app:destination="@id/astronomiaNivelCuatroExamenFragment"
+                app:popUpTo="@id/astronomiaNivelCuatroPracticaFragment" app:popUpToInclusive="true" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/astronomiaNivelCuatroExamenFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelCuatroExamenFragment"
+            android:label="@string/astronomy_level_four_exam"
+            tools:layout="@layout/fragment_astronomia_quiz" />
+
+        <fragment
+            android:id="@+id/astronomiaNivelCincoFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelCincoFragment"
+            android:label="@string/astronomy_level_five_title"
+            tools:layout="@layout/fragment_astronomia_nivel_cero">
+            <action android:id="@+id/action_nivel_cinco_to_practica" app:destination="@id/astronomiaNivelCincoPracticaFragment" />
+            <action android:id="@+id/action_nivel_cinco_to_examen" app:destination="@id/astronomiaNivelCincoExamenFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/astronomiaNivelCincoPracticaFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelCincoPracticaFragment"
+            android:label="@string/astronomy_level_five_practice"
+            tools:layout="@layout/fragment_astronomia_quiz">
+            <action android:id="@+id/action_practica_cinco_to_examen" app:destination="@id/astronomiaNivelCincoExamenFragment"
+                app:popUpTo="@id/astronomiaNivelCincoPracticaFragment" app:popUpToInclusive="true" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/astronomiaNivelCincoExamenFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelCincoExamenFragment"
+            android:label="@string/astronomy_level_five_exam"
+            tools:layout="@layout/fragment_astronomia_quiz" />
+
+        <fragment
+            android:id="@+id/astronomiaNivelSeisFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelSeisFragment"
+            android:label="@string/astronomy_level_six_title"
+            tools:layout="@layout/fragment_astronomia_nivel_cero">
+            <action android:id="@+id/action_nivel_seis_to_practica" app:destination="@id/astronomiaNivelSeisPracticaFragment" />
+            <action android:id="@+id/action_nivel_seis_to_examen" app:destination="@id/astronomiaNivelSeisExamenFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/astronomiaNivelSeisPracticaFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelSeisPracticaFragment"
+            android:label="@string/astronomy_level_six_practice"
+            tools:layout="@layout/fragment_astronomia_quiz">
+            <action android:id="@+id/action_practica_seis_to_examen" app:destination="@id/astronomiaNivelSeisExamenFragment"
+                app:popUpTo="@id/astronomiaNivelSeisPracticaFragment" app:popUpToInclusive="true" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/astronomiaNivelSeisExamenFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelSeisExamenFragment"
+            android:label="@string/astronomy_level_six_exam"
+            tools:layout="@layout/fragment_astronomia_quiz" />
+
+        <fragment
+            android:id="@+id/astronomiaNivelSieteFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelSieteFragment"
+            android:label="@string/astronomy_level_seven_title"
+            tools:layout="@layout/fragment_astronomia_nivel_cero">
+            <action android:id="@+id/action_nivel_siete_to_practica" app:destination="@id/astronomiaNivelSietePracticaFragment" />
+            <action android:id="@+id/action_nivel_siete_to_examen" app:destination="@id/astronomiaNivelSieteExamenFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/astronomiaNivelSietePracticaFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelSietePracticaFragment"
+            android:label="@string/astronomy_level_seven_practice"
+            tools:layout="@layout/fragment_astronomia_quiz">
+            <action android:id="@+id/action_practica_siete_to_examen" app:destination="@id/astronomiaNivelSieteExamenFragment"
+                app:popUpTo="@id/astronomiaNivelSietePracticaFragment" app:popUpToInclusive="true" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/astronomiaNivelSieteExamenFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelSieteExamenFragment"
+            android:label="@string/astronomy_level_seven_exam"
+            tools:layout="@layout/fragment_astronomia_quiz" />
+
+        <fragment
+            android:id="@+id/astronomiaNivelOchoFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelOchoFragment"
+            android:label="@string/astronomy_level_eight_title"
+            tools:layout="@layout/fragment_astronomia_nivel_cero">
+            <action android:id="@+id/action_nivel_ocho_to_practica" app:destination="@id/astronomiaNivelOchoPracticaFragment" />
+            <action android:id="@+id/action_nivel_ocho_to_examen" app:destination="@id/astronomiaNivelOchoExamenFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/astronomiaNivelOchoPracticaFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelOchoPracticaFragment"
+            android:label="@string/astronomy_level_eight_practice"
+            tools:layout="@layout/fragment_astronomia_quiz">
+            <action android:id="@+id/action_practica_ocho_to_examen" app:destination="@id/astronomiaNivelOchoExamenFragment"
+                app:popUpTo="@id/astronomiaNivelOchoPracticaFragment" app:popUpToInclusive="true" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/astronomiaNivelOchoExamenFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelOchoExamenFragment"
+            android:label="@string/astronomy_level_eight_exam"
+            tools:layout="@layout/fragment_astronomia_quiz" />
+
+        <fragment
+            android:id="@+id/astronomiaNivelNueveFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelNueveFragment"
+            android:label="@string/astronomy_level_nine_title"
+            tools:layout="@layout/fragment_astronomia_nivel_cero">
+            <action android:id="@+id/action_nivel_nueve_to_practica" app:destination="@id/astronomiaNivelNuevePracticaFragment" />
+            <action android:id="@+id/action_nivel_nueve_to_examen" app:destination="@id/astronomiaNivelNueveExamenFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/astronomiaNivelNuevePracticaFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelNuevePracticaFragment"
+            android:label="@string/astronomy_level_nine_practice"
+            tools:layout="@layout/fragment_astronomia_quiz">
+            <action android:id="@+id/action_practica_nueve_to_examen" app:destination="@id/astronomiaNivelNueveExamenFragment"
+                app:popUpTo="@id/astronomiaNivelNuevePracticaFragment" app:popUpToInclusive="true" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/astronomiaNivelNueveExamenFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelNueveExamenFragment"
+            android:label="@string/astronomy_level_nine_exam"
+            tools:layout="@layout/fragment_astronomia_quiz" />
+
+        <fragment
+            android:id="@+id/astronomiaNivelDiezFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelDiezFragment"
+            android:label="@string/astronomy_level_ten_title"
+            tools:layout="@layout/fragment_astronomia_nivel_cero">
+            <action android:id="@+id/action_nivel_diez_to_practica" app:destination="@id/astronomiaNivelDiezPracticaFragment" />
+            <action android:id="@+id/action_nivel_diez_to_examen" app:destination="@id/astronomiaNivelDiezExamenFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/astronomiaNivelDiezPracticaFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelDiezPracticaFragment"
+            android:label="@string/astronomy_level_ten_practice"
+            tools:layout="@layout/fragment_astronomia_quiz">
+            <action android:id="@+id/action_practica_diez_to_examen" app:destination="@id/astronomiaNivelDiezExamenFragment"
+                app:popUpTo="@id/astronomiaNivelDiezPracticaFragment" app:popUpToInclusive="true" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/astronomiaNivelDiezExamenFragment"
+            android:name="com.dubalin.app.presentation.ui.learning.astronomia.AstronomiaNivelDiezExamenFragment"
+            android:label="@string/astronomy_level_ten_exam"
+            tools:layout="@layout/fragment_astronomia_quiz" />
 
         <fragment
             android:id="@+id/flashcardsFragment"
@@ -96,7 +447,14 @@
         android:id="@+id/desafiosFragment"
         android:name="com.dubalin.app.presentation.ui.desafios.DesafiosFragment"
         android:label="Desafíos"
-        tools:layout="@layout/fragment_desafios" />
+        tools:layout="@layout/fragment_desafios">
+        <action android:id="@+id/action_desafios_to_memorama" app:destination="@id/memoramaFragment" />
+        <action android:id="@+id/action_desafios_to_supervivencia" app:destination="@id/supervivenciaFragment" />
+    </fragment>
+    <fragment android:id="@+id/memoramaFragment" android:name="com.dubalin.app.presentation.ui.desafios.MemoramaFragment" />
+    <fragment android:id="@+id/supervivenciaFragment" android:name="com.dubalin.app.presentation.ui.learning.astronomia.PracticaLibreFragment">
+        <argument android:name="supervivencia" app:argType="boolean" android:defaultValue="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/idiomasFragment"

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dubalin_canvas"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/onboarding_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:title="@string/astronomy_welcome_title"
+        app:navigationContentDescription="@string/action_back"
+        app:navigationIcon="@drawable/ic_arrow_back" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Dubalin.CardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/astronomy_blue_soft">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="🔭  Dr. Aster"
+                        android:textColor="@color/astronomy_blue"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:lineSpacingExtra="3dp"
+                        android:text="@string/astronomy_welcome_message"
+                        android:textColor="@color/dubalin_ink"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView style="@style/TextAppearance.Dubalin.SectionTitle"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="24dp" android:text="@string/astronomy_experience_question" />
+            <RadioGroup android:id="@+id/experience_group" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:orientation="vertical">
+                <com.google.android.material.radiobutton.MaterialRadioButton android:id="@+id/experience_first"
+                    android:layout_width="match_parent" android:layout_height="wrap_content" android:checked="true"
+                    android:minHeight="48dp" android:text="@string/astronomy_experience_first" />
+                <com.google.android.material.radiobutton.MaterialRadioButton android:id="@+id/experience_some"
+                    android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="48dp"
+                    android:text="@string/astronomy_experience_some" />
+            </RadioGroup>
+
+            <TextView style="@style/TextAppearance.Dubalin.SectionTitle"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" android:text="@string/astronomy_time_question" />
+            <RadioGroup android:id="@+id/time_group" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:orientation="vertical">
+                <com.google.android.material.radiobutton.MaterialRadioButton android:id="@+id/time_15"
+                    android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="44dp" android:text="15 minutos" />
+                <com.google.android.material.radiobutton.MaterialRadioButton android:id="@+id/time_30"
+                    android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="44dp" android:checked="true" android:text="30 minutos" />
+                <com.google.android.material.radiobutton.MaterialRadioButton android:id="@+id/time_45"
+                    android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="44dp" android:text="45 minutos" />
+                <com.google.android.material.radiobutton.MaterialRadioButton android:id="@+id/time_60"
+                    android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="44dp" android:text="60 minutos" />
+            </RadioGroup>
+
+            <TextView style="@style/TextAppearance.Dubalin.SectionTitle"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" android:text="@string/astronomy_format_question" />
+            <RadioGroup android:id="@+id/format_group" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:orientation="vertical">
+                <com.google.android.material.radiobutton.MaterialRadioButton android:id="@+id/format_text"
+                    android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/astronomy_format_text" />
+                <com.google.android.material.radiobutton.MaterialRadioButton android:id="@+id/format_visual"
+                    android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/astronomy_format_visual" />
+                <com.google.android.material.radiobutton.MaterialRadioButton android:id="@+id/format_quiz"
+                    android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/astronomy_format_quiz" />
+                <com.google.android.material.radiobutton.MaterialRadioButton android:id="@+id/format_balanced"
+                    android:layout_width="match_parent" android:layout_height="wrap_content" android:checked="true"
+                    android:text="@string/astronomy_format_balanced" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/plan_summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_info_panel"
+                android:lineSpacingExtra="3dp"
+                android:padding="16dp"
+                android:textColor="@color/dubalin_ink"
+                android:textSize="15sp" />
+
+            <ProgressBar android:id="@+id/onboarding_saving" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_gravity="center_horizontal"
+                android:layout_marginTop="12dp" android:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_create_plan"
+                style="@style/Widget.Dubalin.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/astronomy_create_plan" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

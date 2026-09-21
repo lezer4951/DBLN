@@ -21,4 +21,18 @@
     <style name="TextAppearance.Dubalin.Body" parent="TextAppearance.Material3.BodyLarge">
         <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
     </style>
+    <style name="TextAppearance.Dubalin.SectionTitle" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/dubalin_ink</item>
+    </style>
+    <style name="Widget.Dubalin.QuizOption" parent="Widget.Material3.CompoundButton.RadioButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">64dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:background">@drawable/bg_info_panel</item>
+        <item name="android:padding">14dp</item>
+        <item name="android:textColor">@color/dubalin_ink</item>
+        <item name="android:textSize">15sp</item>
+    </style>
 </resources>

@@ -1,0 +1,128 @@
+package com.dubalin.app.domain.model
+
+object NivelTresAstronomiaContenido {
+    val sesiones = listOf(
+        s(1, "Estructura del Sol", "Identificar las capas solares y cómo transportan energía.", "El Sol es nuestra referencia para comprender otras estrellas.",
+            "Como una cebolla dinámica: cada capa tiene condiciones y funciones distintas.",
+            "El núcleo produce energía; la zona radiativa la transporta mediante fotones; la convectiva mueve plasma. Fotosfera, cromosfera y corona forman la atmósfera observable.",
+            "En la zona convectiva, material caliente asciende y material más frío desciende.", "La superficie visible es la fotosfera, no una superficie sólida.",
+            q("¿Dónde se genera la energía solar?", "Núcleo", "Corona", "Fotosfera", 0, "La temperatura y presión permiten la fusión.", "La central energética está en el centro, no en la capa que vemos."),
+            q("¿Qué capa vemos normalmente?", "Fotosfera", "Núcleo", "Zona radiativa", 0, "Emite la mayor parte de la luz visible.", "Es la 'piel luminosa', aunque sea plasma.")),
+        s(2, "Fusión nuclear", "Explicar de dónde procede la energía estelar.", "Sustituye la idea incorrecta de que el Sol arde como una fogata.",
+            "Cuatro piezas ligeras se combinan en una más pesada y una pequeña parte se libera como energía.",
+            "En la cadena protón-protón, núcleos de hidrógeno terminan formando helio. La masa final es ligeramente menor; la diferencia se convierte en energía según E=mc².",
+            "Cada segundo el Sol transforma cientos de millones de toneladas de hidrógeno, pero posee combustible para miles de millones de años.", "La fusión convierte masa en energía; no es combustión química.",
+            q("¿Qué elemento se fusiona principalmente?", "Hidrógeno", "Hierro", "Oxígeno", 0, "El producto principal es helio.", "El Sol empieza con los núcleos más ligeros."),
+            q("¿Por qué se libera energía?", "Parte de la masa se convierte", "El helio se quema con aire", "Los planetas calientan al Sol", 0, "La diferencia de masa aparece como energía.", "La balanza final marca un poco menos; esa diferencia salió en forma de energía.")),
+        s(3, "Manchas y actividad solar", "Relacionar magnetismo, manchas y ciclo solar.", "La actividad solar afecta el entorno espacial terrestre.",
+            "Un nudo en una manguera dificulta el flujo; campos magnéticos intensos frenan el transporte de calor.",
+            "Las manchas solares son regiones más frías y oscuras asociadas con campos magnéticos fuertes. Su número varía en un ciclo de aproximadamente 11 años.",
+            "Una mancha sigue siendo muy brillante; parece oscura por contraste con la fotosfera más caliente.", "Las manchas son huellas del campo magnético solar.",
+            q("¿Por qué una mancha parece oscura?", "Es más fría que su entorno", "No emite nada", "Es un agujero", 0, "El contraste reduce su brillo aparente.", "Una bombilla tenue parece oscura junto a un reflector."),
+            q("¿Cuánto dura aproximadamente el ciclo de manchas?", "11 años", "24 horas", "1000 años", 0, "La actividad aumenta y disminuye en ese intervalo.", "Es un ritmo solar de una década, no un ciclo diario.")),
+        s(4, "Viento solar", "Describir el flujo de partículas del Sol.", "Explica tormentas geomagnéticas y la heliosfera.",
+            "Como una brisa continua que llena una burbuja alrededor del Sol.",
+            "La corona libera plasma, principalmente protones y electrones, que viaja por el Sistema Solar. Eyecciones de masa coronal pueden intensificarlo bruscamente.",
+            "La magnetosfera terrestre desvía gran parte de las partículas y protege la atmósfera.", "El viento solar es materia cargada, no luz ni viento atmosférico.",
+            q("¿De qué está hecho?", "Partículas cargadas", "Aire", "Solo luz visible", 0, "Es plasma procedente de la corona.", "Es una corriente de materia microscópica con carga eléctrica."),
+            q("¿Qué escudo terrestre lo desvía?", "Magnetosfera", "Troposfera sola", "Océano", 0, "El campo magnético guía partículas.", "Funciona como un paraguas magnético.")),
+        s(5, "Auroras", "Explicar cómo se producen y por qué aparecen cerca de los polos.", "Conecta actividad solar, magnetismo y atmósfera.",
+            "Partículas recorren carriles magnéticos y hacen brillar gases como un letrero de neón.",
+            "Electrones y protones energéticos guiados por el campo terrestre chocan con oxígeno y nitrógeno. Al liberar energía, esos gases emiten colores característicos.",
+            "El oxígeno puede producir verde o rojo; el nitrógeno contribuye con tonos azules y violetas.", "Las auroras son luz atmosférica excitada por partículas solares.",
+            q("¿Por qué se concentran cerca de los polos?", "Las líneas magnéticas canalizan partículas", "Allí está más cerca el Sol", "No hay atmósfera", 0, "El campo guía las partículas hacia regiones polares.", "Los polos son entradas de los carriles magnéticos."),
+            q("¿Qué produce sus colores?", "Gases atmosféricos excitados", "Reflejo de ciudades", "Luz de la Luna", 0, "Cada gas emite longitudes de onda características.", "Como tubos de neón con gases diferentes.")),
+        s(6, "Naturaleza de la luz", "Comprender la luz como onda electromagnética y fotones.", "Es la principal mensajera de la Astronomía.",
+            "La luz se comporta a veces como olas y a veces como paquetes de energía.",
+            "La luz presenta dualidad onda-partícula. Su longitud de onda y frecuencia están relacionadas por c=λf; en el vacío todas las bandas viajan a la misma velocidad c.",
+            "Una longitud de onda menor implica mayor frecuencia y mayor energía por fotón.", "Color y energía están relacionados con longitud de onda y frecuencia.",
+            q("En el vacío, ¿qué banda viaja más rápido?", "Todas igual", "Rayos gamma", "Radio", 0, "Todas viajan a c.", "Cambian energía y frecuencia, no el límite de velocidad."),
+            q("¿Qué ocurre al reducir longitud de onda?", "Aumenta frecuencia", "Disminuye siempre la velocidad", "Desaparece energía", 0, "c permanece constante y λf=c.", "Si caben más crestas por segundo, la frecuencia aumenta.")),
+        s(7, "Espectro electromagnético", "Ordenar las bandas y relacionarlas con fenómenos.", "El universo muestra aspectos distintos en cada banda.",
+            "Como escuchar una orquesta completa en vez de una sola nota.",
+            "De menor a mayor frecuencia: radio, microondas, infrarrojo, visible, ultravioleta, rayos X y gamma. La atmósfera bloquea varias bandas.",
+            "El polvo frío destaca en infrarrojo; gas extremadamente caliente puede emitir rayos X.", "La luz visible es una franja diminuta del espectro.",
+            q("¿Qué tiene mayor energía por fotón?", "Rayos gamma", "Radio", "Infrarrojo", 0, "Posee la frecuencia más alta.", "Es el extremo de paquetes más energéticos."),
+            q("¿Qué banda revela polvo templado?", "Infrarrojo", "Gamma", "Ultravioleta", 0, "El polvo reemite energía térmica en infrarrojo.", "Una cámara térmica también observa infrarrojo.")),
+        s(8, "Espectroscopía", "Interpretar espectros continuos, de emisión y absorción.", "Permite conocer la química de astros inalcanzables.",
+            "Cada elemento deja un código de barras propio en la luz.",
+            "Gas caliente y tenue produce líneas de emisión; luz continua atravesando gas más frío produce líneas de absorción. Las posiciones identifican elementos.",
+            "El espectro solar contiene líneas oscuras causadas por absorción en su atmósfera.", "Un espectro transforma luz en información física y química.",
+            q("¿Qué identifica un elemento?", "Patrón de líneas", "Brillo total solamente", "Forma de la estrella", 0, "Cada átomo posee transiciones energéticas específicas.", "Su código de barras no depende de que podamos tocarlo."),
+            q("¿Qué produce líneas de absorción?", "Gas frío ante una fuente continua", "Vacío total", "Solo un planeta", 0, "El gas retira longitudes concretas.", "Es un filtro que quita colores específicos.")),
+        s(9, "Temperatura y color", "Usar el color como indicador de temperatura superficial.", "Corrige la intuición cotidiana de rojo caliente y azul frío.",
+            "Una llama azul es más caliente que una rojiza; en estrellas ocurre una relación parecida.",
+            "Las estrellas aproximan radiadores térmicos. Las más calientes alcanzan su máximo a longitudes cortas y parecen azules; las más frías, rojizas.",
+            "Betelgeuse es rojiza y más fría superficialmente que la azulada Rigel.", "En estrellas, azul indica mayor temperatura superficial que rojo.",
+            q("¿Qué estrella es más caliente?", "Azul", "Roja", "Ambas siempre iguales", 0, "El máximo azul corresponde a menor longitud de onda.", "Aquí el termómetro cósmico invierte la asociación del grifo doméstico."),
+            q("¿Qué temperatura medimos principalmente por color?", "Superficial", "Del núcleo directamente", "De sus planetas", 0, "La luz escapa desde capas externas.", "Vemos la zona desde la que salen los fotones.")),
+        s(10, "Brillo aparente y luminosidad", "Diferenciar lo que recibimos de lo que una estrella emite.", "Evita confundir cercanía con potencia real.",
+            "Una linterna cercana puede verse más brillante que un faro lejano.",
+            "La luminosidad es energía emitida por unidad de tiempo; el brillo aparente es energía recibida por área. Disminuye con el cuadrado de la distancia.",
+            "Dos estrellas con igual luminosidad no se ven igual de brillantes si están a distancias distintas.", "El brillo aparente combina luminosidad y distancia.",
+            q("¿Qué propiedad es intrínseca?", "Luminosidad", "Brillo aparente", "Distancia angular", 0, "Describe la potencia total de la estrella.", "Es la potencia de la bombilla, no cuánto ilumina tus ojos."),
+            q("Si duplicamos distancia, el brillo queda en…", "Una cuarta parte", "La mitad", "El doble", 0, "Sigue una ley de inverso del cuadrado.", "La misma luz se reparte sobre una esfera cuatro veces mayor.")),
+        s(11, "Magnitud estelar", "Interpretar la escala logarítmica e invertida de magnitudes.", "Es el lenguaje histórico para comparar brillos.",
+            "Como posiciones de golf: un número menor representa un resultado más destacado.",
+            "En magnitud aparente, números menores significan mayor brillo. Una diferencia de 5 magnitudes equivale exactamente a un factor 100 de brillo.",
+            "El Sol tiene magnitud aparente cercana a −26.7; Sirio, alrededor de −1.46.", "En magnitudes, más negativo significa más brillante.",
+            q("¿Qué estrella se ve más brillante?", "Magnitud 1", "Magnitud 5", "Son iguales", 0, "El número menor indica más brillo.", "La escala corre al revés, como una clasificación donde primero es mejor."),
+            q("Cinco magnitudes representan qué factor?", "100", "5", "10", 0, "La escala es logarítmica.", "Cinco pasos completos multiplican el brillo por cien.")),
+        s(12, "Distancias por paralaje", "Explicar el desplazamiento aparente y su relación con distancia.", "Construye el primer peldaño de la escala cósmica.",
+            "Tu dedo parece saltar frente al fondo al alternar entre un ojo y otro.",
+            "La Tierra observa una estrella desde lados opuestos de su órbita. El ángulo de paralaje p permite calcular distancia en parsecs: d=1/p cuando p está en segundos de arco.",
+            "Una estrella a un parsec presenta un paralaje de un segundo de arco.", "Cuanto menor es el paralaje, mayor es la distancia.",
+            q("¿Qué estrella está más lejos?", "La de paralaje menor", "La de paralaje mayor", "No hay relación", 0, "El ángulo disminuye con distancia.", "Un objeto lejano parece saltar menos entre tus ojos."),
+            q("¿Qué base usa el paralaje estelar?", "Diámetro de la órbita terrestre", "Diámetro lunar", "Tamaño del telescopio", 0, "Se compara desde dos posiciones separadas seis meses.", "Los dos 'ojos' son la Tierra en extremos de su órbita.")),
+        s(13, "Clasificación espectral", "Ordenar OBAFGKM y asociar temperatura.", "Resume propiedades superficiales en una secuencia estándar.",
+            "Es un archivador ordenado por temperatura, no por tamaño ni edad.",
+            "Las clases O, B, A, F, G, K y M van de más calientes y azuladas a más frías y rojizas. El Sol es G2 V.",
+            "Las líneas espectrales cambian porque la temperatura determina qué estados atómicos son comunes.", "OBAFGKM es principalmente una secuencia de temperatura.",
+            q("¿Qué clase es más caliente?", "O", "G", "M", 0, "O ocupa el extremo caliente.", "La secuencia comienza con las estrellas azules más calientes."),
+            q("¿Qué clase tiene el Sol?", "G", "O", "M", 0, "El Sol es aproximadamente G2.", "Nuestra estrella está cerca de la zona media de la secuencia.")),
+        s(14, "Diagrama Hertzsprung–Russell", "Leer temperatura, luminosidad y regiones evolutivas.", "Convierte una tabla de estrellas en un mapa de su física.",
+            "Como un mapa donde cada barrio reúne estrellas con características parecidas.",
+            "El eje vertical muestra luminosidad; el horizontal, temperatura decreciente hacia la derecha. La secuencia principal cruza el diagrama; gigantes, supergigantes y enanas blancas ocupan regiones distintas.",
+            "Una enana blanca es caliente pero poco luminosa porque tiene un radio pequeño.", "La posición en el H–R combina temperatura, luminosidad y tamaño.",
+            q("¿Dónde están las enanas blancas?", "Calientes y poco luminosas", "Frías y muy luminosas", "En el centro exacto", 0, "Su pequeño tamaño limita la luminosidad.", "Una brasa diminuta puede estar muy caliente sin iluminar toda la habitación."),
+            q("¿Hacia dónde baja la temperatura?", "Hacia la derecha", "Hacia arriba", "No aparece", 0, "El eje horizontal está invertido históricamente.", "Otra pequeña travesura astronómica: el termómetro va al revés.")),
+        s(15, "Sistemas binarios y múltiples", "Comprender estrellas ligadas gravitatoriamente y cómo revelan masas.", "La mayoría de las estrellas no vive necesariamente sola.",
+            "Dos bailarines giran alrededor de un punto común que puede quedar entre ambos.",
+            "En una binaria, dos estrellas orbitan su centro de masa. Pueden detectarse visualmente, por cambios espectrales, eclipses o movimiento astrométrico.",
+            "Las binarias permiten calcular masas estelares mediante sus órbitas y las leyes gravitatorias.", "Una estrella doble aparente no siempre es un sistema físico; debe existir vínculo gravitatorio.",
+            q("¿Alrededor de qué orbitan?", "Centro de masa común", "Siempre del planeta más cercano", "Centro galáctico cada día", 0, "Ambas responden a su gravedad mutua.", "Como dos bailarines alrededor de su punto de equilibrio."),
+            q("¿Qué propiedad se mide especialmente con binarias?", "Masa estelar", "Signo zodiacal", "Edad del universo directa", 0, "Periodo y separación revelan masa.", "La órbita funciona como una balanza gravitatoria."))
+    )
+
+    val practica = listOf(
+        e(2, "El Sol produce energía durante miles de millones de años. ¿Qué proceso lo permite?", "Fusión de hidrógeno", "Combustión con oxígeno", "Impactos de cometas", "Fricción planetaria", 0, "La fusión convierte una fracción de masa en energía."),
+        e(5, "Una tormenta solar intensifica auroras. ¿Qué conexión lo explica?", "Partículas guiadas por el campo terrestre", "La Luna refleja más luz", "Aumenta la gravedad", "Cambian las estaciones", 0, "Las partículas excitan gases cerca de regiones polares."),
+        e(8, "Ves líneas oscuras sobre un espectro continuo. ¿Qué hay entre la fuente y tú?", "Gas más frío", "Vacío perfecto", "Solo materia oscura", "Un agujero negro necesariamente", 0, "El gas absorbe longitudes específicas."),
+        e(10, "Dos estrellas tienen igual luminosidad; A está al doble de distancia. ¿Cómo se ve A?", "Cuatro veces más débil", "Dos veces más brillante", "Igual", "Ocho veces más brillante", 0, "El brillo disminuye con distancia al cuadrado."),
+        e(12, "La estrella X tiene paralaje menor que Y. ¿Cuál está más lejos?", "X", "Y", "Ambas igual", "No puede existir", 0, "Menor desplazamiento significa mayor distancia."),
+        e(14, "Una estrella es azul y muy luminosa. ¿En qué zona H–R puede estar?", "Parte superior izquierda", "Parte inferior derecha", "Solo enanas blancas", "Fuera del diagrama", 0, "Azul implica caliente y arriba implica luminosa.")
+    )
+
+    val examen = listOf(
+        e(1, "¿Qué capa solar emite la luz visible que observamos?", "Fotosfera", "Núcleo", "Zona radiativa", "Manto", 0, "La fotosfera es la superficie visible."),
+        e(2, "¿Cuál es el producto principal de la fusión solar?", "Helio", "Hierro", "Carbono sólido", "Oxígeno molecular", 0, "La cadena protón-protón transforma hidrógeno en helio."),
+        e(3, "¿Qué revela una mancha solar?", "Campo magnético intenso", "Un agujero en el Sol", "Ausencia total de calor", "Un planeta", 0, "El magnetismo inhibe transporte de energía."),
+        e(6, "Al disminuir longitud de onda, la frecuencia…", "Aumenta", "Disminuye", "No cambia", "Se hace cero", 0, "λf=c."),
+        e(8, "¿Qué técnica identifica elementos en una estrella?", "Espectroscopía", "Astrología", "Fotografía sin filtros", "Cronometría", 0, "Las líneas espectrales son firmas atómicas."),
+        e(9, "¿Qué color indica mayor temperatura superficial?", "Azul", "Rojo", "Ambos siempre igual", "Verde exclusivamente", 0, "Las estrellas azules son más calientes."),
+        e(10, "Si triplicamos distancia, el brillo aparente queda en…", "Un noveno", "Un tercio", "El triple", "Nueve veces", 0, "Aplica el inverso del cuadrado."),
+        e(12, "Un paralaje de 0.5 segundos de arco corresponde a…", "2 parsecs", "0.5 parsecs", "5 parsecs", "50 parsecs", 0, "d=1/p."),
+        e(14, "¿Por qué una enana blanca es poco luminosa aunque caliente?", "Tiene radio pequeño", "No emite luz", "Está siempre muy lejos", "Es un planeta", 0, "Su área emisora es pequeña."),
+        e(15, "¿Qué permiten medir las órbitas binarias?", "Masas estelares", "Solo colores", "La edad exacta del universo", "Distancia Tierra-Sol", 0, "Periodo y separación actúan como balanza gravitatoria.")
+    )
+
+    const val mascaraCompleta = (1 shl 15) - 1
+    fun completado(mascara: Int, indice: Int) = mascara and (1 shl indice) != 0
+    private fun s(numero: Int, titulo: String, objetivo: String, importa: String, analogia: String,
+        explicacion: String, ejemplo: String, clave: String, vararg preguntas: PreguntaAutoevaluacion
+    ) = SesionAstronomia(numero, titulo, objetivo, importa, 30, analogia, explicacion, ejemplo, clave, preguntas.toList())
+    private fun q(enunciado: String, a: String, b: String, c: String, correcta: Int, explicacion: String, alternativa: String) =
+        PreguntaAutoevaluacion(enunciado, listOf(a, b, c), correcta, explicacion, alternativa)
+    private fun e(tema: Int, enunciado: String, a: String, b: String, c: String, d: String, correcta: Int, explicacion: String) =
+        PreguntaAstronomia(tema, enunciado, listOf(a, b, c, d), correcta, explicacion)
+}
