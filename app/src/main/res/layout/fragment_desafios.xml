@@ -26,18 +26,6 @@
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-        <com.google.android.material.card.MaterialCardView android:id="@+id/card_friend" style="@style/Widget.Dubalin.CardView" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp" android:clickable="true" android:focusable="true">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="top" android:padding="16dp">
-                <ImageView android:layout_width="48dp" android:layout_height="48dp" android:backgroundTint="@color/dubalin_blue_soft" android:background="@drawable/bg_icon_tile" android:importantForAccessibility="no" app:srcCompat="@drawable/ic_ref_friends" app:tint="@color/dubalin_blue" android:padding="10dp" />
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="12dp" android:orientation="vertical">
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="start">
-                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Reto entre amigos" android:textSize="18sp" android:textStyle="bold" android:textColor="@color/dubalin_ink" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/ref_soon" android:textColor="@color/dubalin_orange" android:textStyle="bold" android:textSize="12sp" android:background="@drawable/bg_pill_soon" android:layout_marginTop="6dp" />
-                    </LinearLayout>
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="@string/ref_friend_desc" android:textSize="15sp" android:lineSpacingExtra="2dp" android:textColor="@color/dubalin_ink_soft" />
-                </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView android:id="@+id/card_survival" style="@style/Widget.Dubalin.CardView" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp" android:clickable="true" android:focusable="true">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="top" android:padding="16dp">
                 <ImageView android:layout_width="48dp" android:layout_height="48dp" android:backgroundTint="@color/dubalin_orange_soft" android:background="@drawable/bg_icon_tile" android:importantForAccessibility="no" app:srcCompat="@drawable/ic_ref_shield" app:tint="@color/dubalin_orange" android:padding="10dp" />
@@ -47,18 +35,6 @@
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/challenge_local_available" android:textColor="@color/dubalin_orange" android:textStyle="bold" android:textSize="12sp" android:background="@drawable/bg_pill_soon" android:layout_marginTop="6dp" />
                     </LinearLayout>
                     <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="@string/ref_survival_desc" android:textSize="15sp" android:lineSpacingExtra="2dp" android:textColor="@color/dubalin_ink_soft" />
-                </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-        <com.google.android.material.card.MaterialCardView android:id="@+id/card_ranking" style="@style/Widget.Dubalin.CardView" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp" android:clickable="true" android:focusable="true">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="top" android:padding="16dp">
-                <ImageView android:layout_width="48dp" android:layout_height="48dp" android:backgroundTint="@color/dubalin_purple_soft" android:background="@drawable/bg_icon_tile" android:importantForAccessibility="no" app:srcCompat="@drawable/ic_ref_trophy" app:tint="@color/dubalin_purple" android:padding="10dp" />
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="12dp" android:orientation="vertical">
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="start">
-                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Ranking por materia" android:textSize="18sp" android:textStyle="bold" android:textColor="@color/dubalin_ink" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/ref_soon" android:textColor="@color/dubalin_orange" android:textStyle="bold" android:textSize="12sp" android:background="@drawable/bg_pill_soon" android:layout_marginTop="6dp" />
-                    </LinearLayout>
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="@string/ref_ranking_desc" android:textSize="15sp" android:lineSpacingExtra="2dp" android:textColor="@color/dubalin_ink_soft" />
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

@@ -17,11 +17,6 @@
         android:title="@string/nav_desafios" />
 
     <item
-        android:id="@+id/idiomasFragment"
-        android:icon="@drawable/ic_nav_idiomas"
-        android:title="@string/nav_idiomas" />
-
-    <item
         android:id="@+id/perfilFragment"
         android:icon="@drawable/ic_nav_perfil"
         android:title="@string/nav_perfil" />
