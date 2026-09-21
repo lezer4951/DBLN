@@ -209,7 +209,6 @@
     <string name="nav_home">Inicio</string>
     <string name="nav_autoestudio">Autoestudio</string>
     <string name="nav_desafios">Desafíos</string>
-    <string name="nav_idiomas">Idiomas</string>
     <string name="nav_perfil">Perfil</string>
     <!-- Home tab -->
     <string name="home_saludo">Hola, %1$s</string>
