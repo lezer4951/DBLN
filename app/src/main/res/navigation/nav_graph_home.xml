@@ -457,12 +457,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/idiomasFragment"
-        android:name="com.dubalin.app.presentation.ui.idiomas.IdiomasFragment"
-        android:label="Idiomas"
-        tools:layout="@layout/fragment_idiomas" />
-
-    <fragment
         android:id="@+id/perfilFragment"
         android:name="com.dubalin.app.presentation.ui.perfil.PerfilFragment"
         android:label="Perfil"
