@@ -1,0 +1,938 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 5,
+    "identityHash": "68d13a8c7fecfc129a638d72d799d18d",
+    "entities": [
+      {
+        "tableName": "usuario",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre` TEXT NOT NULL, `correo` TEXT NOT NULL, `password` TEXT NOT NULL, `fecha_registro` INTEGER NOT NULL, `racha_dias` INTEGER NOT NULL DEFAULT 0)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "correo",
+            "columnName": "correo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "password",
+            "columnName": "password",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fechaRegistro",
+            "columnName": "fecha_registro",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rachaDias",
+            "columnName": "racha_dias",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_usuario_correo",
+            "unique": true,
+            "columnNames": [
+              "correo"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_usuario_correo` ON `${TABLE_NAME}` (`correo`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "configuracion",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `usuario_id` INTEGER NOT NULL, `tema_oscuro` INTEGER NOT NULL DEFAULT 0, `idioma` TEXT NOT NULL DEFAULT 'es', `volumen` REAL NOT NULL DEFAULT 1.0, FOREIGN KEY(`usuario_id`) REFERENCES `usuario`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "usuarioId",
+            "columnName": "usuario_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "temaOscuro",
+            "columnName": "tema_oscuro",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "idioma",
+            "columnName": "idioma",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'es'"
+          },
+          {
+            "fieldPath": "volumen",
+            "columnName": "volumen",
+            "affinity": "REAL",
+            "notNull": true,
+            "defaultValue": "1.0"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_configuracion_usuario_id",
+            "unique": true,
+            "columnNames": [
+              "usuario_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_configuracion_usuario_id` ON `${TABLE_NAME}` (`usuario_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "usuario",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "usuario_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "mazo",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `usuario_id` INTEGER NOT NULL, `titulo` TEXT NOT NULL, `descripcion` TEXT NOT NULL, FOREIGN KEY(`usuario_id`) REFERENCES `usuario`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "usuarioId",
+            "columnName": "usuario_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "titulo",
+            "columnName": "titulo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descripcion",
+            "columnName": "descripcion",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_mazo_usuario_id",
+            "unique": false,
+            "columnNames": [
+              "usuario_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_mazo_usuario_id` ON `${TABLE_NAME}` (`usuario_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "usuario",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "usuario_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "flashcard",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `mazo_id` INTEGER NOT NULL, `frente` TEXT NOT NULL, `reverso` TEXT NOT NULL, FOREIGN KEY(`mazo_id`) REFERENCES `mazo`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mazoId",
+            "columnName": "mazo_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "frente",
+            "columnName": "frente",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reverso",
+            "columnName": "reverso",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_flashcard_mazo_id",
+            "unique": false,
+            "columnNames": [
+              "mazo_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_flashcard_mazo_id` ON `${TABLE_NAME}` (`mazo_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "mazo",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "mazo_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "categoria",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "pregunta",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `categoria_id` INTEGER NOT NULL, `enunciado` TEXT NOT NULL, `opcion_a` TEXT NOT NULL, `opcion_b` TEXT NOT NULL, `opcion_c` TEXT NOT NULL, `opcion_d` TEXT NOT NULL, `respuesta_correcta_indice` INTEGER NOT NULL, `dificultad` TEXT NOT NULL, FOREIGN KEY(`categoria_id`) REFERENCES `categoria`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "categoriaId",
+            "columnName": "categoria_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "enunciado",
+            "columnName": "enunciado",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "opcionA",
+            "columnName": "opcion_a",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "opcionB",
+            "columnName": "opcion_b",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "opcionC",
+            "columnName": "opcion_c",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "opcionD",
+            "columnName": "opcion_d",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "respuestaCorrectaIndice",
+            "columnName": "respuesta_correcta_indice",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dificultad",
+            "columnName": "dificultad",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_pregunta_categoria_id",
+            "unique": false,
+            "columnNames": [
+              "categoria_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_pregunta_categoria_id` ON `${TABLE_NAME}` (`categoria_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "categoria",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "categoria_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "opcion_respuesta",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `pregunta_id` INTEGER NOT NULL, `texto_opcion` TEXT NOT NULL, FOREIGN KEY(`pregunta_id`) REFERENCES `pregunta`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "preguntaId",
+            "columnName": "pregunta_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "textoOpcion",
+            "columnName": "texto_opcion",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_opcion_respuesta_pregunta_id",
+            "unique": false,
+            "columnNames": [
+              "pregunta_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_opcion_respuesta_pregunta_id` ON `${TABLE_NAME}` (`pregunta_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "pregunta",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "pregunta_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "resultado_quiz",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `usuario_id` INTEGER NOT NULL, `categoria_id` INTEGER NOT NULL, `puntaje` INTEGER NOT NULL, `aciertos` INTEGER NOT NULL, `errores` INTEGER NOT NULL, `fecha` INTEGER NOT NULL, FOREIGN KEY(`usuario_id`) REFERENCES `usuario`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`categoria_id`) REFERENCES `categoria`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "usuarioId",
+            "columnName": "usuario_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "categoriaId",
+            "columnName": "categoria_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "puntaje",
+            "columnName": "puntaje",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "aciertos",
+            "columnName": "aciertos",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "errores",
+            "columnName": "errores",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fecha",
+            "columnName": "fecha",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_resultado_quiz_usuario_id",
+            "unique": false,
+            "columnNames": [
+              "usuario_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_resultado_quiz_usuario_id` ON `${TABLE_NAME}` (`usuario_id`)"
+          },
+          {
+            "name": "index_resultado_quiz_categoria_id",
+            "unique": false,
+            "columnNames": [
+              "categoria_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_resultado_quiz_categoria_id` ON `${TABLE_NAME}` (`categoria_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "usuario",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "usuario_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "categoria",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "categoria_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "estadistica_usuario",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `usuario_id` INTEGER NOT NULL, `flashcards_estudiadas` INTEGER NOT NULL DEFAULT 0, `quizzes_completados` INTEGER NOT NULL DEFAULT 0, `total_aciertos` INTEGER NOT NULL DEFAULT 0, `total_errores` INTEGER NOT NULL DEFAULT 0, FOREIGN KEY(`usuario_id`) REFERENCES `usuario`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "usuarioId",
+            "columnName": "usuario_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "flashcardsEstudiadas",
+            "columnName": "flashcards_estudiadas",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "quizzesCompletados",
+            "columnName": "quizzes_completados",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "totalAciertos",
+            "columnName": "total_aciertos",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "totalErrores",
+            "columnName": "total_errores",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_estadistica_usuario_usuario_id",
+            "unique": true,
+            "columnNames": [
+              "usuario_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_estadistica_usuario_usuario_id` ON `${TABLE_NAME}` (`usuario_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "usuario",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "usuario_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "seccion_apuntes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `usuario_id` INTEGER NOT NULL, `nombre` TEXT NOT NULL, FOREIGN KEY(`usuario_id`) REFERENCES `usuario`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "usuarioId",
+            "columnName": "usuario_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_seccion_apuntes_usuario_id",
+            "unique": false,
+            "columnNames": [
+              "usuario_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_seccion_apuntes_usuario_id` ON `${TABLE_NAME}` (`usuario_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "usuario",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "usuario_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "apunte",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `seccion_id` INTEGER NOT NULL, `titulo` TEXT NOT NULL, `contenido` TEXT NOT NULL, `fecha_actualizacion` INTEGER NOT NULL, FOREIGN KEY(`seccion_id`) REFERENCES `seccion_apuntes`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "seccionId",
+            "columnName": "seccion_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "titulo",
+            "columnName": "titulo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "contenido",
+            "columnName": "contenido",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fechaActualizacion",
+            "columnName": "fecha_actualizacion",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_apunte_seccion_id",
+            "unique": false,
+            "columnNames": [
+              "seccion_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_apunte_seccion_id` ON `${TABLE_NAME}` (`seccion_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "seccion_apuntes",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "seccion_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "progreso_materia",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`usuario_id` INTEGER NOT NULL, `materia_id` TEXT NOT NULL, `nivel_actual` INTEGER NOT NULL DEFAULT 0, `pagina_actual` INTEGER NOT NULL DEFAULT 0, `nivel_cero_completado` INTEGER NOT NULL DEFAULT 0, `mejor_puntaje` INTEGER NOT NULL DEFAULT 0, `onboarding_completado` INTEGER NOT NULL DEFAULT 0, `experiencia` TEXT NOT NULL DEFAULT 'PRIMERA_VEZ', `minutos_diarios` INTEGER NOT NULL DEFAULT 30, `formato_aprendizaje` TEXT NOT NULL DEFAULT 'EQUILIBRADO', `temas_completados` INTEGER NOT NULL DEFAULT 0, `fecha_actualizacion` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`usuario_id`, `materia_id`), FOREIGN KEY(`usuario_id`) REFERENCES `usuario`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "usuarioId",
+            "columnName": "usuario_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "materiaId",
+            "columnName": "materia_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nivelActual",
+            "columnName": "nivel_actual",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "paginaActual",
+            "columnName": "pagina_actual",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "nivelCeroCompletado",
+            "columnName": "nivel_cero_completado",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "mejorPuntaje",
+            "columnName": "mejor_puntaje",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "onboardingCompletado",
+            "columnName": "onboarding_completado",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "experiencia",
+            "columnName": "experiencia",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'PRIMERA_VEZ'"
+          },
+          {
+            "fieldPath": "minutosDiarios",
+            "columnName": "minutos_diarios",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "30"
+          },
+          {
+            "fieldPath": "formatoAprendizaje",
+            "columnName": "formato_aprendizaje",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'EQUILIBRADO'"
+          },
+          {
+            "fieldPath": "temasCompletados",
+            "columnName": "temas_completados",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "fechaActualizacion",
+            "columnName": "fecha_actualizacion",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "usuario_id",
+            "materia_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_progreso_materia_usuario_id",
+            "unique": false,
+            "columnNames": [
+              "usuario_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_progreso_materia_usuario_id` ON `${TABLE_NAME}` (`usuario_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "usuario",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "usuario_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "progreso_nivel",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`usuario_id` INTEGER NOT NULL, `materia_id` TEXT NOT NULL, `nivel` INTEGER NOT NULL, `temas_completados` INTEGER NOT NULL DEFAULT 0, `practica_completada` INTEGER NOT NULL DEFAULT 0, `nivel_completado` INTEGER NOT NULL DEFAULT 0, `mejor_puntaje` INTEGER NOT NULL DEFAULT 0, `fecha_actualizacion` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`usuario_id`, `materia_id`, `nivel`), FOREIGN KEY(`usuario_id`) REFERENCES `usuario`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "usuarioId",
+            "columnName": "usuario_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "materiaId",
+            "columnName": "materia_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nivel",
+            "columnName": "nivel",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "temasCompletados",
+            "columnName": "temas_completados",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "practicaCompletada",
+            "columnName": "practica_completada",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "nivelCompletado",
+            "columnName": "nivel_completado",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "mejorPuntaje",
+            "columnName": "mejor_puntaje",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "fechaActualizacion",
+            "columnName": "fecha_actualizacion",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "usuario_id",
+            "materia_id",
+            "nivel"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_progreso_nivel_usuario_id",
+            "unique": false,
+            "columnNames": [
+              "usuario_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_progreso_nivel_usuario_id` ON `${TABLE_NAME}` (`usuario_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "usuario",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "usuario_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '68d13a8c7fecfc129a638d72d799d18d')"
+    ]
+  }
+}
