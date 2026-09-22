@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="deck_name_required">Ponle un nombre al mazo</string>
+    <string name="nav_study_short">Estudio</string>
+    <string name="nav_challenges_short">Retos</string>
     <string name="profile_no_ranks">Todavía no tienes rangos. Cuando consigas tu primer rango en una materia, aparecerá aquí.</string>
     <string name="lesson_resume_title">Retoma donde lo dejaste</string>
     <string name="lesson_resume_action">Continuar sesión</string>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Widget.Dubalin.BottomNav" parent="Widget.Material3.BottomNavigationView">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="itemIconTint">@color/bottom_nav_icon_selector</item>
+        <item name="itemTextColor">@color/bottom_nav_text_selector</item>
+        <item name="itemActiveIndicatorStyle">@style/Dubalin.ActiveIndicator</item>
+        <item name="labelVisibilityMode">labeled</item>
+        <item name="itemTextAppearanceActive">@style/TextAppearance.Dubalin.NavLabel</item>
+        <item name="itemTextAppearanceInactive">@style/TextAppearance.Dubalin.NavLabel</item>
+        <item name="android:elevation">0dp</item>
+    </style>
+
+    <style name="Dubalin.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:width">40dp</item>
+        <item name="android:height">28dp</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.Dubalin.Pill</item>
+    </style>
+
+    <style name="ShapeAppearance.Dubalin.Pill" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="TextAppearance.Dubalin.NavLabel" parent="TextAppearance.Material3.LabelSmall">
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+
+
+    <style name="Widget.Dubalin.Button.Primary" parent="Widget.Material3.Button">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:stateListAnimator">@animator/button_press</item>
+        <item name="cornerRadius">16dp</item>
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">15sp</item>
+        <item name="backgroundTint">?attr/colorPrimary</item>
+        <item name="android:elevation">6dp</item>
+    </style>
+
+    <style name="Widget.Dubalin.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">16dp</item>
+        <item name="boxCornerRadiusTopEnd">16dp</item>
+        <item name="boxCornerRadiusBottomStart">16dp</item>
+        <item name="boxCornerRadiusBottomEnd">16dp</item>
+        <item name="boxStrokeColor">?attr/colorPrimary</item>
+        <item name="hintTextColor">?attr/colorPrimary</item>
+        <item name="android:textColorHint">?attr/colorOnSurfaceVariant</item>
+    </style>
+
+    <style name="Widget.Dubalin.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Widget.Dubalin.BottomSheet</item>
+    </style>
+
+    <style name="Widget.Dubalin.BottomSheet" parent="Widget.Material3.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+</resources>

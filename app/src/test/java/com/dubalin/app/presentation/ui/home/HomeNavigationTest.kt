@@ -92,4 +92,19 @@ class HomeNavigationTest {
         assertEquals(R.id.homeFragment, bottomNav.selectedItemId)
         assertEquals(R.id.homeFragment, controller.currentBackStackEntry?.destination?.id)
     }
+
+    @Test
+    fun lessonHidesFloatingNavigationAndBackRestoresIt() {
+        val container = android.view.View(bottomNav.context)
+        val listener = NavVisibilityController.attach(controller, container)
+        controller.navigate(R.id.autoestudioFragment)
+        controller.navigate(R.id.materiasFragment)
+        controller.navigate(R.id.astronomiaFragment)
+        controller.navigate(R.id.astronomiaRutaFragment)
+        controller.navigate(R.id.astronomiaNivelCeroFragment)
+        assertEquals(android.view.View.GONE, container.visibility)
+        controller.popBackStack()
+        assertEquals(android.view.View.VISIBLE, container.visibility)
+        controller.removeOnDestinationChangedListener(listener)
+    }
 }

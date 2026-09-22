@@ -10,7 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * Contenedor del Home Dashboard: aloja el BottomNavigationView y el
- * NavHostFragment anidado que controla las 5 pestañas (nav_graph_home.xml).
+ * NavHostFragment anidado que controla las cuatro pestañas (nav_graph_home.xml).
  * Esta clase reemplaza al HomePlaceholderFragment del Módulo 2.
  */
 @AndroidEntryPoint
@@ -36,6 +36,8 @@ class HomeContainerFragment : Fragment(R.layout.fragment_home_container) {
     }
 
     private var _binding: FragmentHomeContainerBinding? = null
+    private var navigation: androidx.navigation.NavController? = null
+    private var visibilityListener: androidx.navigation.NavController.OnDestinationChangedListener? = null
     private val binding get() = _binding!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,9 +49,14 @@ class HomeContainerFragment : Fragment(R.layout.fragment_home_container) {
         val navController = navHostFragment.navController
 
         binding.bottomNav.bindHomeNavigation(navController)
+        navigation = navController
+        visibilityListener = NavVisibilityController.attach(navController, binding.bottomNavContainer)
     }
 
     override fun onDestroyView() {
+        visibilityListener?.let { navigation?.removeOnDestinationChangedListener(it) }
+        visibilityListener = null
+        navigation = null
         super.onDestroyView()
         _binding = null
     }

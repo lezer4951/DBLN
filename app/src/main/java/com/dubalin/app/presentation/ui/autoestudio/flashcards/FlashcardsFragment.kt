@@ -51,6 +51,9 @@ class FlashcardsFragment : Fragment(R.layout.fragment_flashcards) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val b = FragmentFlashcardsBinding.bind(view)
         binding = b
+        childFragmentManager.setFragmentResultListener(CrearMazoBottomSheet.RESULT, viewLifecycleOwner) { _, result ->
+            vm.guardarMazo(null, result.getString("nombre").orEmpty(), result.getString("descripcion").orEmpty())
+        }
         b.listFlashcards.layoutManager = LinearLayoutManager(requireContext())
         b.listFlashcards.adapter = adapter
         b.toolbarFlashcards.setNavigationOnClickListener { volver() }
@@ -185,8 +188,14 @@ class FlashcardsFragment : Fragment(R.layout.fragment_flashcards) {
                 else confirmar("Eliminar tarjeta", "Esta acción no se puede deshacer.") { vm.borrarTarjeta(card) }
             }.show()
     }
-    private fun editarMazo(mazo: Mazo?) = formulario("Mazo", "Nombre", "Descripción (opcional)",
-        mazo?.titulo.orEmpty(), mazo?.descripcion.orEmpty(), false) { a, b -> vm.guardarMazo(mazo, a, b) }
+    private fun editarMazo(mazo: Mazo?) {
+        if (mazo == null) {
+            if (childFragmentManager.findFragmentByTag(CrearMazoBottomSheet.TAG) == null) {
+                CrearMazoBottomSheet().show(childFragmentManager, CrearMazoBottomSheet.TAG)
+            }
+        } else formulario("Mazo", "Nombre", "Descripción (opcional)",
+            mazo.titulo, mazo.descripcion, false) { a, b -> vm.guardarMazo(mazo, a, b) }
+    }
     private fun editarTarjeta(card: Flashcard?) = formulario("Flashcard", "Anverso (ej. Perro)", "Reverso (ej. Dog)",
         card?.frente.orEmpty(), card?.reverso.orEmpty(), true) { a, b -> vm.guardarTarjeta(card, a, b) }
     private fun formulario(titulo: String, labelA: String, labelB: String, a: String, b: String,

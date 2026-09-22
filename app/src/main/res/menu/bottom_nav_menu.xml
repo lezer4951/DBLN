@@ -9,12 +9,12 @@
     <item
         android:id="@+id/autoestudioFragment"
         android:icon="@drawable/ic_nav_autoestudio"
-        android:title="@string/nav_autoestudio" />
+        android:title="@string/nav_study_short" />
 
     <item
         android:id="@+id/desafiosFragment"
         android:icon="@drawable/ic_nav_desafios"
-        android:title="@string/nav_desafios" />
+        android:title="@string/nav_challenges_short" />
 
     <item
         android:id="@+id/perfilFragment"
