@@ -18,7 +18,7 @@
         <fragment android:id="@+id/materiasFragment"
             android:name="com.dubalin.app.presentation.ui.learning.MateriasFragment"
             android:label="@string/subjects_title"
-            tools:layout="@layout/fragment_learning_hub">
+            tools:layout="@layout/fragment_materias">
 
             <action
                 android:id="@+id/action_materias_to_astronomia"

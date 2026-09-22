@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Astronomía (materia insignia) -->
+    <color name="astronomia_gradient_start">#3A2E8C</color>
+    <color name="astronomia_gradient_end">#1C1745</color>
+
+    <!-- Ciencias exactas -->
+    <color name="family_exactas">#2E6FB0</color>
+    <color name="family_exactas_bg">#EAF2FB</color>
+    <color name="family_exactas_chip">#D7E8FA</color>
+
+    <!-- Ciencias naturales -->
+    <color name="family_naturales">#3F8A4C</color>
+    <color name="family_naturales_bg">#EAF6EC</color>
+    <color name="family_naturales_chip">#D3ECD7</color>
+
+    <!-- Humanidades -->
+    <color name="family_humanidades">#B0475D</color>
+    <color name="family_humanidades_bg">#FBEEF0</color>
+    <color name="family_humanidades_chip">#F6DCE1</color>
+
+    <!-- Idiomas -->
+    <color name="family_idiomas">#B0682C</color>
+    <color name="family_idiomas_bg">#FDF3E9</color>
+    <color name="family_idiomas_chip">#F9E5CC</color>
+</resources>
