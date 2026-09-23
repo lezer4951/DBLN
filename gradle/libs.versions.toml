@@ -27,7 +27,7 @@ hilt = "2.51.1"
 hiltNavigationFragment = "1.2.0"
 
 # Coroutines
-coroutines = "1.8.1"
+coroutines = "1.11.0"
 
 # Testing
 junit = "4.13.2"
