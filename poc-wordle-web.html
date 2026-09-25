@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Dubalin — Palabra del Día (PoC Web)</title>
+<style>
+  body { font-family: -apple-system, Segoe UI, Roboto, sans-serif; background:#F8F9FA; display:flex; flex-direction:column; align-items:center; padding:40px 0; }
+  h1 { font-size:20px; color:#222; margin-bottom:2px; }
+  .sub { color:#777; font-size:13px; margin-bottom:24px; }
+  .grid { display:grid; grid-template-rows:repeat(5, 52px); gap:8px; margin-bottom:24px; }
+  .row { display:grid; grid-template-columns:repeat(5, 52px); gap:8px; }
+  .cell { width:52px; height:52px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+          font-weight:700; font-size:22px; color:#fff; background:#E3E5E8; color:#333; border:2px solid #D8DADD; text-transform:uppercase; }
+  .CORRECTA { background:#2E7D32; border-color:#2E7D32; color:#fff; }
+  .PRESENTE { background:#F2A900; border-color:#F2A900; color:#fff; }
+  .AUSENTE { background:#8A8F98; border-color:#8A8F98; color:#fff; }
+  input { padding:10px 14px; border-radius:20px; border:1px solid #D8DADD; font-size:15px; text-transform:uppercase; width:140px; text-align:center;}
+  button { padding:10px 20px; border-radius:20px; border:none; background:#5B4FE9; color:#fff; font-weight:600; margin-left:8px; }
+  .status { margin-top:16px; font-size:14px; color:#444; }
+  .card { background:#fff; border-radius:20px; padding:28px 32px; box-shadow:0 2px 10px rgba(0,0,0,0.06); }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>🔤 Palabra del Día</h1>
+  <div class="sub">Prueba de concepto — Dubalin (entorno Web)</div>
+  <div class="grid" id="grid"></div>
+  <div>
+    <input id="intento" maxlength="5" placeholder="5 letras">
+    <button onclick="intentar()">Enviar</button>
+  </div>
+  <div class="status" id="estado"></div>
+</div>
+
+<script src="wordle-engine.js"></script>
+<script>
+  const LISTA = ["MUNDO","LUNAR","ORBIT","COMET","PLUTO"]; // palabras de 5 letras, tema Astronomía
+  const secreta = palabraDelDia(new Date(), LISTA);
+  let fila = 0;
+  const grid = document.getElementById("grid");
+  for (let i=0;i<5;i++){
+    const row = document.createElement("div"); row.className="row"; row.id="row"+i;
+    for(let j=0;j<5;j++){ const c=document.createElement("div"); c.className="cell"; row.appendChild(c);}
+    grid.appendChild(row);
+  }
+
+  function intentar(){
+    const input = document.getElementById("intento");
+    const val = input.value.trim().toUpperCase();
+    if (val.length !== 5 || fila >= 5) return;
+    let resultado;
+    try { resultado = evaluarIntento(secreta, val); } catch(e){ return; }
+    const row = document.getElementById("row"+fila);
+    [...row.children].forEach((cell, idx) => {
+      cell.textContent = val[idx];
+      cell.classList.add(resultado[idx]);
+    });
+    document.getElementById("estado").textContent =
+      esVictoria(resultado) ? "¡Correcto! Racha diaria completada ✅" :
+      (fila === 4 ? "Sin intentos restantes. Palabra: " + secreta : (5-fila-1)+" intentos restantes");
+    fila++;
+    input.value = "";
+  }
+</script>
+</body>
+</html>
