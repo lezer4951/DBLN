@@ -7,17 +7,17 @@
     <string name="ref_days">%1$d días</string>
     <string name="ref_all">Ver todas</string>
     <string name="ref_your_subjects">Tus materias</string>
-    <string name="ref_study_today">Estudia hoy para comenzar tu racha</string>
+    <string name="ref_study_today">Completa una lección para activar tu racha</string>
     <string name="ref_flashcards_lab">Laboratorio de flashcards</string>
     <string name="ref_flashcards_desc">Crea mazos y estudia tarjetas de anverso y reverso.</string>
     <string name="ref_offline">Tus apuntes y tarjetas · funcionan sin conexión</string>
     <string name="ref_ai_desc">Crea guías de estudio automáticas a partir de tus apuntes.</string>
     <string name="ref_review_desc">El sistema elige qué repasar según lo que ya dominas.</string>
     <string name="ref_soon">Próximamente</string>
-    <string name="ref_challenges_desc">Aprende. Juega. Supérate. Compite y mejora a tu ritmo — estos modos están en preparación.</string>
-    <string name="ref_memory_desc">Encuentra parejas usando tus flashcards.</string>
+    <string name="ref_challenges_desc">Juega y gana monedas para personalizar tu perfil. La racha se activa al completar lecciones.</string>
+    <string name="ref_memory_desc">Relaciona tus tarjetas. Completar el memorama da 5 monedas una vez al día.</string>
     <string name="ref_pvp_desc">Desafía a otra persona en una o varias materias.</string>
-    <string name="ref_survival_desc">Pon a prueba tus conocimientos pregunta a pregunta.</string>
+    <string name="ref_survival_desc">Responde hasta fallar. Tu primera partida con aciertos del día da una moneda por acierto, hasta 10.</string>
     <string name="ref_profile_desc">Estudia a tu ritmo. Tus rangos se mostrarán cuando existan evaluaciones.</string>
     <string name="ref_about">Sobre mí</string>
     <string name="ref_career">Carrera</string>
@@ -40,11 +40,11 @@
     <string name="subject_history">Historia</string>
     <string name="subject_geography">Geografía</string>
     <string name="subject_civic">F. Cívica</string>
-    <string name="subject_math_soon">Matemáticas. Próximamente</string>
-    <string name="subject_spanish_soon">Español. Próximamente</string>
-    <string name="subject_physics_soon">Física. Próximamente</string>
+    <string name="subject_math_soon">Matemáticas. Lecciones disponibles</string>
+    <string name="subject_spanish_soon">Español. Lecciones disponibles</string>
+    <string name="subject_physics_soon">Física. Lecciones disponibles</string>
     <string name="ref_today_description">%1$s, hoy</string>
     <string name="ref_week_note">Semana actual · hoy resaltado</string>
-    <string name="ref_streak_continue">Sigue aprendiendo a tu ritmo</string>
+    <string name="ref_streak_continue">Completa una lección hoy para mantener tu racha</string>
     <string name="ref_hero_title">Un pequeño paso.\nUn gran avance.</string>
 </resources>

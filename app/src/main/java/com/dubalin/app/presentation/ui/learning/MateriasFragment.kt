@@ -19,11 +19,12 @@ import com.dubalin.app.presentation.ui.learning.materias.MateriaListItem
 import com.dubalin.app.presentation.ui.learning.materias.MateriasAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.combine
 
 @AndroidEntryPoint
 class MateriasFragment : Fragment(R.layout.fragment_materias) {
     private var binding: FragmentMateriasBinding? = null
-    private val model: AstronomiaViewModel by viewModels()
+    private val model: com.dubalin.app.presentation.ui.study.LearningViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val b = FragmentMateriasBinding.bind(view)
@@ -32,12 +33,15 @@ class MateriasFragment : Fragment(R.layout.fragment_materias) {
         b.rvMaterias.layoutManager = LinearLayoutManager(requireContext())
         if (savedInstanceState == null) {
             val index = arguments?.getInt("materiaInicial", -1) ?: -1
-            Materias.todas.getOrNull(index)?.takeIf { it.disponible }?.let { abrirMateria() }
+            Materias.todas.getOrNull(index)?.takeIf { it.disponible }?.let { abrirMateria(it.id) }
         }
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                model.uiState.collect { state ->
-                    b.rvMaterias.adapter = MateriasAdapter(filas(state.nivelActual)) { abrirMateria() }
+                model.state.combine(model.store.changes) { state, _ -> state }.collect { _ ->
+                    val next = com.dubalin.app.domain.model.ShortLessons.forSubject(MateriaId.ASTRONOMIA).firstOrNull { it.id !in model.store.completed(model.user) }
+                    b.rvMaterias.adapter = MateriasAdapter(filas(next?.level?.plus(1) ?: 12)) { item ->
+                        abrirMateria(if (item is MateriaListItem.Card) MateriaId.valueOf(item.id) else MateriaId.ASTRONOMIA)
+                    }
                 }
             }
         }
@@ -80,8 +84,8 @@ class MateriasFragment : Fragment(R.layout.fragment_materias) {
         return items
     }
 
-    private fun abrirMateria() {
-        findNavController().navigate(R.id.action_materias_to_astronomia)
+    private fun abrirMateria(id: MateriaId) {
+        findNavController().navigate(R.id.studyRouteFragment, Bundle().apply { putString("subject", id.name) })
     }
 
     override fun onDestroyView() {

@@ -24,7 +24,7 @@ class AstronomiaQuizFragment : Fragment(R.layout.fragment_astronomia_quiz) {
     private var _binding: FragmentAstronomiaQuizBinding? = null
     private val binding get() = _binding!!
     private val viewModel: AstronomiaQuizViewModel by viewModels()
-    private var rendering = false
+
     private var defaultOptionTints: List<ColorStateList?> = emptyList()
 
     private val optionButtons: List<RadioButton>
@@ -36,13 +36,7 @@ class AstronomiaQuizFragment : Fragment(R.layout.fragment_astronomia_quiz) {
         defaultOptionTints = optionButtons.map { it.buttonTintList }
 
         binding.quizToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        binding.quizOptions.setOnCheckedChangeListener { _, checkedId ->
-            if (!rendering) {
-                optionButtons.indexOfFirst { it.id == checkedId }
-                    .takeIf { it >= 0 }
-                    ?.let(viewModel::seleccionarOpcion)
-            }
-        }
+        binding.quizOptions.onAnswerSelected(viewModel::seleccionarOpcion)
         binding.buttonQuizAction.setOnClickListener { viewModel.accionPrincipal() }
         binding.buttonQuizRetry.setOnClickListener {
             val weakTopics = viewModel.uiState.value.resultado?.temasDebiles.orEmpty()
@@ -115,7 +109,6 @@ class AstronomiaQuizFragment : Fragment(R.layout.fragment_astronomia_quiz) {
         )
         binding.quizQuestion.text = pregunta.enunciado
 
-        rendering = true
         optionButtons.forEachIndexed { index, button ->
             button.text = pregunta.opciones[index]
             button.isEnabled = !state.mostrandoRetroalimentacion
@@ -123,8 +116,7 @@ class AstronomiaQuizFragment : Fragment(R.layout.fragment_astronomia_quiz) {
             button.buttonTintList = defaultOptionTints.getOrNull(index)
         }
         binding.quizOptions.clearCheck()
-        state.opcionSeleccionada?.let { optionButtons[it].isChecked = true }
-        rendering = false
+        binding.quizOptions.check(state.opcionSeleccionada?.let { optionButtons[it].id } ?: View.NO_ID)
 
         binding.quizFeedback.isVisible = state.mostrandoRetroalimentacion
         if (state.mostrandoRetroalimentacion) {

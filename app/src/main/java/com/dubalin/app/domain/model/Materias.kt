@@ -25,14 +25,10 @@ data class Materia(
     val nombre: String,
     val descripcion: String,
     val temas: List<String>,
-    val disponible: Boolean = false
+    val disponible: Boolean = true
 )
 
-/**
- * Catálogo académico inicial. Solo Astronomía está activa durante la primera
- * etapa; conservar las demás materias aquí permite habilitarlas sin cambiar
- * los identificadores usados por progreso, evaluaciones o analíticas.
- */
+/** Materias con rutas introductorias; Astronomía conserva su catálogo completo. */
 object Materias {
     val todas = listOf(
         Materia(

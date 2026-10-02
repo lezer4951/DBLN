@@ -4,7 +4,6 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.os.Build
 import androidx.core.view.isVisible
-import com.dubalin.app.R
 import com.dubalin.app.databinding.FragmentAstronomiaNivelCeroBinding
 
 /** Paginación visual; no concede puntos ni marca temas como completados. */
@@ -45,11 +44,9 @@ class SeccionesLeccion(private val b: FragmentAstronomiaNivelCeroBinding, privat
             view.alpha = 1f
             view.isVisible = i == pagina
         }
-        b.sectionCounter.text = b.root.context.getString(R.string.lesson_section_counter, pagina + 1, grupos.size)
         b.sectionPrevious.isEnabled = pagina > 0
         b.sectionNext.isVisible = pagina < grupos.lastIndex
         b.buttonNext.isVisible = pagina == grupos.lastIndex
-        b.sectionSaved.setText(R.string.lesson_pause_hint)
         if (animar && (Build.VERSION.SDK_INT < 26 || ValueAnimator.areAnimatorsEnabled())) {
             grupos[pagina].alpha = 0f
             grupos[pagina].animate().alpha(1f).setDuration(180).start()

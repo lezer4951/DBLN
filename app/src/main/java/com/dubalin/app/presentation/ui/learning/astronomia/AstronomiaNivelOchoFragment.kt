@@ -26,7 +26,7 @@ class AstronomiaNivelOchoFragment : Fragment(R.layout.fragment_astronomia_nivel_
     private val viewModel: AstronomiaNivelOchoViewModel by viewModels()
     @javax.inject.Inject lateinit var sessionRepository: com.dubalin.app.domain.repository.SessionRepository
     private var secciones: SeccionesLeccion? = null
-    private var rendering = false; private var tints: List<ColorStateList?> = emptyList()
+    private var tints: List<ColorStateList?> = emptyList()
     private val options: List<RadioButton> get() = listOf(binding.selfOptionA, binding.selfOptionB, binding.selfOptionC)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState); _binding = FragmentAstronomiaNivelCeroBinding.bind(view)
@@ -34,8 +34,7 @@ class AstronomiaNivelOchoFragment : Fragment(R.layout.fragment_astronomia_nivel_
         tints = options.map { it.buttonTintList }; binding.lessonToolbar.title = getString(R.string.astronomy_level_eight_title)
         binding.lessonToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
         binding.buttonPrevious.setOnClickListener { viewModel.anterior() }; binding.buttonBackToContent.setOnClickListener { viewModel.anterior() }
-        binding.selfOptions.setOnCheckedChangeListener { _, id -> if (!rendering)
-            options.indexOfFirst { it.id == id }.takeIf { it >= 0 }?.let(viewModel::seleccionar) }
+        binding.selfOptions.onAnswerSelected(viewModel::seleccionar)
         binding.selfOwnWords.doOnTextChanged { text, _, _, _ -> viewModel.actualizarExplicacion(text?.toString().orEmpty()) }
         binding.buttonSelfAction.setOnClickListener { viewModel.accionAutoevaluacion() }
         binding.buttonNext.setOnClickListener { val s = viewModel.state.value; when {
@@ -64,10 +63,8 @@ class AstronomiaNivelOchoFragment : Fragment(R.layout.fragment_astronomia_nivel_
         if (s.fase == FaseSesion.CONTENIDO) secciones?.render(s.temaActual)
     }
     private fun contenido(state: AstronomiaNivelOchoUiState) = with(binding) {
-        val s = state.sesion; lessonSection.text = getString(R.string.astronomy_level_eight_topic, s.numero); lessonTitle.text = s.titulo
-        lessonCounter.text = getString(R.string.astronomy_lesson_counter, s.numero, state.sesiones.size)
-        lessonDuration.text = getString(R.string.astronomy_session_duration, s.duracionMinutos)
-        lessonFormat.text = getString(R.string.astronomy_aster_guided); lessonFormatHint.setText(R.string.astronomy_level_eight_hint)
+        val s = state.sesion;
+
         lessonObjective.text = s.objetivo; lessonImportance.text = s.porQueImporta; lessonAnalogy.text = s.analogia
         lessonBody.text = s.explicacion; lessonExample.text = s.ejemploVisual; lessonKeyIdea.text = s.ideaClave
         buttonPrevious.isEnabled = !state.enRepaso && state.temaActual > 0
@@ -78,10 +75,10 @@ class AstronomiaNivelOchoFragment : Fragment(R.layout.fragment_astronomia_nivel_
     }
     private fun pregunta(s: AstronomiaNivelOchoUiState) {
         val q = s.pregunta ?: return; binding.selfCounter.text = getString(R.string.astronomy_self_counter, s.preguntaActual + 1, s.sesion.autoevaluacion.size)
-        binding.selfQuestion.text = q.enunciado; rendering = true; binding.selfOptions.clearCheck()
+        binding.selfQuestion.text = q.enunciado; binding.selfOptions.clearCheck()
         options.forEachIndexed { i, b -> b.text = q.opciones[i]; b.isEnabled = s.respuestaCorrecta == null
             b.setTextColor(ContextCompat.getColor(requireContext(), R.color.dubalin_ink)); b.buttonTintList = tints[i] }
-        s.opcionSeleccionada?.let { options[it].isChecked = true }; rendering = false; binding.selfFeedback.isVisible = s.respuestaCorrecta != null
+        binding.selfOptions.check(s.opcionSeleccionada?.let { options[it].id } ?: View.NO_ID); binding.selfFeedback.isVisible = s.respuestaCorrecta != null
         s.respuestaCorrecta?.let { ok -> binding.selfFeedback.text = getString(if (ok) R.string.astronomy_feedback_correct else R.string.astronomy_feedback_reframed,
             if (ok) q.explicacion else q.explicacionAlternativa) }
         val palabras = s.respuestaCorrecta == true && s.preguntaActual == s.sesion.autoevaluacion.lastIndex

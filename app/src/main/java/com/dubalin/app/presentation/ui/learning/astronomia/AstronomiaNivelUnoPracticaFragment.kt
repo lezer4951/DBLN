@@ -23,7 +23,7 @@ class AstronomiaNivelUnoPracticaFragment : Fragment(R.layout.fragment_astronomia
     private var _binding: FragmentAstronomiaQuizBinding? = null
     private val binding get() = _binding!!
     private val viewModel: AstronomiaNivelUnoPracticaViewModel by viewModels()
-    private var rendering = false
+
     private var tints: List<ColorStateList?> = emptyList()
     private val options: List<RadioButton> get() = listOf(binding.optionA, binding.optionB, binding.optionC, binding.optionD)
 
@@ -33,7 +33,7 @@ class AstronomiaNivelUnoPracticaFragment : Fragment(R.layout.fragment_astronomia
         tints = options.map { it.buttonTintList }
         binding.quizToolbar.title = getString(R.string.astronomy_level_one_practice)
         binding.quizToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        binding.quizOptions.setOnCheckedChangeListener { _, id -> if (!rendering) options.indexOfFirst { it.id == id }.takeIf { it >= 0 }?.let(viewModel::seleccionar) }
+        binding.quizOptions.onAnswerSelected(viewModel::seleccionar)
         binding.buttonQuizAction.setOnClickListener { viewModel.accion() }
         binding.buttonQuizFinish.setOnClickListener { findNavController().navigate(R.id.action_practica_to_examen) }
         binding.buttonQuizRetry.isVisible = false
@@ -59,10 +59,10 @@ class AstronomiaNivelUnoPracticaFragment : Fragment(R.layout.fragment_astronomia
         binding.quizProgress.setProgressCompat((state.actual + 1) * 100 / state.preguntas.size, true)
         binding.quizCounter.text = getString(R.string.astronomy_practice_counter, state.actual + 1, state.preguntas.size)
         binding.quizQuestion.text = q.enunciado
-        rendering = true; binding.quizOptions.clearCheck()
+        binding.quizOptions.clearCheck()
         options.forEachIndexed { i, b -> b.text = q.opciones[i]; b.isEnabled = state.feedback == null
             b.setTextColor(ContextCompat.getColor(requireContext(), R.color.dubalin_ink)); b.buttonTintList = tints[i] }
-        state.seleccion?.let { options[it].isChecked = true }; rendering = false
+        binding.quizOptions.check(state.seleccion?.let { options[it].id } ?: View.NO_ID);
         binding.quizFeedback.isVisible = state.feedback != null
         state.feedback?.let { ok -> binding.quizFeedback.text = getString(if (ok) R.string.astronomy_feedback_correct else R.string.astronomy_feedback_incorrect, q.explicacion) }
         binding.quizSaving.isVisible = state.guardando

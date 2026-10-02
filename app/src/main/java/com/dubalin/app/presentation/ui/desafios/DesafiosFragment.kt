@@ -11,6 +11,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 class DesafiosFragment : Fragment(R.layout.fragment_desafios) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val b = FragmentDesafiosBinding.bind(view)
+        b.dailyWord.setOnClickListener { findNavController().navigate(R.id.dailyWordFragment) }
+        b.shop.setOnClickListener { findNavController().navigate(R.id.shopFragment) }
         b.cardPvp.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Duelo PvP")

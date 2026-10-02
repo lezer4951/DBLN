@@ -23,6 +23,7 @@ import com.dubalin.app.databinding.ItemSubjectRankBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.combine
 
 @AndroidEntryPoint
 class PerfilFragment : Fragment(R.layout.fragment_perfil) {
@@ -30,11 +31,14 @@ class PerfilFragment : Fragment(R.layout.fragment_perfil) {
     private val binding get() = _binding!!
     private val viewModel: PerfilViewModel by viewModels()
     private val rankAdapter = RankAdapter()
+    @javax.inject.Inject lateinit var learning: com.dubalin.app.data.local.LearningStore
+    @javax.inject.Inject lateinit var session: com.dubalin.app.domain.repository.SessionRepository
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         _binding = FragmentPerfilBinding.bind(view)
         binding.profileRanks.layoutManager = LinearLayoutManager(requireContext())
         binding.profileRanks.adapter = rankAdapter
+        binding.shop.setOnClickListener { androidx.navigation.fragment.NavHostFragment.findNavController(this).navigate(R.id.shopFragment) }
         binding.btnEditProfile.setOnClickListener { editarPerfil() }
         binding.profileEditIcon.setOnClickListener { editarPerfil() }
         binding.btnCerrarSesion.setOnClickListener { confirmarCierreDeSesion() }
@@ -53,10 +57,16 @@ class PerfilFragment : Fragment(R.layout.fragment_perfil) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    viewModel.header.collect { h ->
+                    viewModel.header.combine(learning.changes) { h, _ -> h }.collect { h ->
                         binding.profileName.text = h.nombre
                         binding.profileLevel.text = getString(R.string.home_nivel_xp, h.nivel, h.xp)
-                        binding.profileAvatar.text = h.nombre.firstOrNull()?.uppercase() ?: "D"
+                        com.dubalin.app.presentation.ui.study.applyAvatar(binding.profileAvatar, learning, session.getUsuarioId() ?: 0, h.nombre.firstOrNull()?.uppercase() ?: "D")
+                        val bg = com.dubalin.app.data.local.Cosmetics.items.firstOrNull { it.id == learning.equipped(session.getUsuarioId() ?: 0, "background") }
+                        if (bg != null) {
+                            binding.profileHero.setBackgroundColor(bg.color)
+                            val ink = if(bg.id == "mint") 0xFF201A38.toInt() else 0xFFFFFFFF.toInt()
+                            binding.profileName.setTextColor(ink); binding.profileLevel.setTextColor(ink); binding.profileEditIcon.setTextColor(ink)
+                        }
                         rankAdapter.setAstronomiaRango(h.rangoAstronomia)
                         binding.profileRanks.isVisible = rankAdapter.itemCount > 0
                         binding.profileRanksEmpty.isVisible = rankAdapter.itemCount == 0

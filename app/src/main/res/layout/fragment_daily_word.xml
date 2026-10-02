@@ -1,0 +1,15 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:background="@color/dubalin_canvas">
+    <com.google.android.material.appbar.MaterialToolbar android:id="@+id/toolbar" android:layout_width="match_parent" android:layout_height="wrap_content" app:title="Palabra diaria" app:navigationIcon="@drawable/ic_arrow_back" app:navigationContentDescription="@string/action_back" />
+    <androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Adivina la palabra de cinco letras en seis intentos. Al resolverla ganas 10 monedas, una vez al día." android:textSize="18sp" android:textColor="@color/dubalin_ink" />
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="✓ Posición correcta · ↔ Otra posición · — No aparece" android:layout_marginTop="12dp" android:textColor="@color/dubalin_ink_soft" />
+            <LinearLayout android:id="@+id/rows" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="24dp" />
+            <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Palabra de cinco letras" style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+                <com.google.android.material.textfield.TextInputEditText android:id="@+id/input" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textCapCharacters" android:maxLength="5" android:singleLine="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <TextView android:id="@+id/status" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingVertical="16dp" android:textSize="16sp" android:textColor="@color/dubalin_ink" android:accessibilityLiveRegion="polite" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/submit" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Comprobar" style="@style/Widget.Dubalin.Button" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>
