@@ -1,0 +1,17 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="4dp">
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/bg_hero_gradient" android:orientation="vertical" android:padding="24dp">
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="DALE TU ESTILO" android:textSize="12sp" android:letterSpacing="0.1" android:textStyle="bold" android:textColor="@color/dubalin_white" />
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Tu perfil, a tu manera" android:textSize="26sp" android:textStyle="bold" android:textColor="@color/dubalin_white" android:layout_marginTop="8dp" />
+<TextView android:id="@+id/balance" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="18dp" android:paddingHorizontal="16dp" android:paddingVertical="10dp" android:background="@drawable/bg_coin_pill" android:textColor="#684500" android:textSize="18sp" android:textStyle="bold" />
+</LinearLayout>
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:text="Colección Dubalin" android:textStyle="bold" android:textSize="21sp" android:textColor="@color/dubalin_ink" android:accessibilityHeading="true" />
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="Gana monedas en los juegos y elige tu próximo detalle." android:textSize="14sp" android:textColor="@color/dubalin_ink_soft" />
+<HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:scrollbars="none">
+<com.google.android.material.chip.ChipGroup android:id="@+id/categories" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginVertical="12dp" app:singleSelection="true" app:selectionRequired="true" app:singleLine="true">
+<com.google.android.material.chip.Chip android:id="@+id/all" style="@style/Widget.Material3.Chip.Filter" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Todo" android:checked="true" />
+<com.google.android.material.chip.Chip android:id="@+id/avatars" style="@style/Widget.Material3.Chip.Filter" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Avatares" />
+<com.google.android.material.chip.Chip android:id="@+id/backgrounds" style="@style/Widget.Material3.Chip.Filter" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Fondos" />
+<com.google.android.material.chip.Chip android:id="@+id/frames" style="@style/Widget.Material3.Chip.Filter" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Marcos" />
+</com.google.android.material.chip.ChipGroup></HorizontalScrollView>
+<TextView android:id="@+id/feedback" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="12dp" android:layout_marginBottom="12dp" android:background="@drawable/bg_info_panel" android:textColor="@color/dubalin_ink" android:accessibilityLiveRegion="polite" android:visibility="gone" />
+</LinearLayout>

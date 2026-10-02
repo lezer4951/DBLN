@@ -1,1 +1,1 @@
-<com.google.android.material.radiobutton.MaterialRadioButton xmlns:android="http://schemas.android.com/apk/res/android" style="@style/Widget.Dubalin.QuizOption" android:layout_width="match_parent" android:layout_height="wrap_content" />
+<com.google.android.material.radiobutton.MaterialRadioButton xmlns:android="http://schemas.android.com/apk/res/android" style="@style/Widget.Dubalin.QuizOption" android:background="@drawable/bg_lesson_option" android:minHeight="64dp" android:layout_width="match_parent" android:layout_height="wrap_content" />

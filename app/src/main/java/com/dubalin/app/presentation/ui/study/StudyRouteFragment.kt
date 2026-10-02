@@ -1,6 +1,9 @@
 package com.dubalin.app.presentation.ui.study
 
 import android.os.Bundle
+import android.content.res.ColorStateList
+import androidx.core.content.ContextCompat
+import com.dubalin.app.databinding.ItemRouteLessonBinding
 import android.view.View
 import android.widget.TextView
 import androidx.core.view.isVisible
@@ -26,6 +29,7 @@ class StudyRouteFragment : Fragment(R.layout.fragment_study_route) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val b = FragmentStudyRouteBinding.bind(view)
         b.toolbar.title = Materias.buscar(model.subject)?.nombre
+        com.dubalin.app.presentation.ui.learning.Motion.enter(b.root)
         b.toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -35,6 +39,7 @@ class StudyRouteFragment : Fragment(R.layout.fragment_study_route) {
                     val next = lessons.firstOrNull { it.id !in completed }
                     b.summary.text = if(!s.ready) s.feedback.ifEmpty { "Cargando tu avance…" } else
                         "Lecciones breves · 5–7 min estimados\n${lessons.count { it.id in completed }} de ${lessons.size} completadas"
+                    b.progress.setProgressCompat(lessons.count { it.id in completed } * 100 / lessons.size.coerceAtLeast(1), false)
                     b.resume.isVisible = next != null; b.resume.isEnabled = s.ready
                     b.resume.text = if(next != null && model.store.draft(model.user, next.id) > 0) "Retomar: ${next.title}" else "Continuar: ${next?.title.orEmpty()}"
                     b.resume.setOnClickListener { next?.let(::open) }
@@ -45,10 +50,21 @@ class StudyRouteFragment : Fragment(R.layout.fragment_study_route) {
                         units.forEachIndexed { index, lesson ->
                             val done = lesson.id in completed
                             val unlocked = done || lesson == next
-                            val button = layoutInflater.inflate(R.layout.item_study_button, b.levels, false) as MaterialButton
-                            button.text = "${if(done) "✓ " else if(!unlocked) "🔒 " else ""}${index + 1}. ${lesson.title}"
-                            button.isEnabled = s.ready && unlocked
-                            button.setOnClickListener { open(lesson) }; b.levels.addView(button)
+                            val card = ItemRouteLessonBinding.inflate(layoutInflater, b.levels, false)
+                            card.title.text = lesson.title
+                            card.number.text = if(done) "✓" else (index + 1).toString()
+                            card.status.text = when { done -> "Completada · repasar"; unlocked -> "Tu siguiente lección · 5–7 min"; else -> "Completa la lección anterior" }
+                            val tint = ContextCompat.getColor(requireContext(), if(done) R.color.dubalin_green else if(unlocked) R.color.md_primary else R.color.dubalin_ink_soft)
+                            card.number.setTextColor(tint)
+                            card.number.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), if(done) R.color.dubalin_green_soft else if(unlocked) R.color.dubalin_primary_soft else R.color.dubalin_rank_bg))
+                            card.root.strokeColor = ContextCompat.getColor(requireContext(), if(lesson == next) R.color.md_primary else R.color.dubalin_line)
+                            card.root.strokeWidth = ((if(lesson == next) 2 else 1) * resources.displayMetrics.density).toInt()
+                            card.arrow.isVisible = unlocked
+                            card.root.isEnabled = s.ready && unlocked
+                            card.root.isClickable = s.ready && unlocked
+                            card.root.isFocusable = s.ready && unlocked
+                            card.root.setOnClickListener(if(s.ready && unlocked) View.OnClickListener { open(lesson) } else null)
+                            b.levels.addView(card.root)
                         }
                     }
                 }

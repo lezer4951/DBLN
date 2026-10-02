@@ -1,0 +1,4 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:background="@color/dubalin_canvas">
+<com.google.android.material.appbar.MaterialToolbar android:id="@+id/toolbar" android:layout_width="match_parent" android:layout_height="wrap_content" app:title="Tienda" app:titleTextColor="@color/dubalin_ink" app:navigationIcon="@drawable/ic_arrow_back" app:navigationContentDescription="@string/action_back" />
+<androidx.recyclerview.widget.RecyclerView android:id="@+id/products" android:layout_width="match_parent" android:layout_height="match_parent" android:paddingHorizontal="16dp" android:paddingBottom="24dp" android:clipToPadding="false" />
+</LinearLayout>
