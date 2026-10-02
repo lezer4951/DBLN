@@ -8,10 +8,10 @@ import org.junit.Test
 class MateriasTest {
 
     @Test
-    fun `astronomia es la unica materia disponible en la primera etapa`() {
-        assertEquals(listOf(MateriaId.ASTRONOMIA), Materias.disponibles.map { it.id })
+    fun `todas las materias tienen una ruta inicial disponible`() {
+        assertEquals(MateriaId.values().toList(), Materias.disponibles.map { it.id })
         assertTrue(Materias.buscar(MateriaId.ASTRONOMIA)?.disponible == true)
-        assertFalse(Materias.buscar(MateriaId.FISICA)?.disponible == true)
+        assertTrue(Materias.buscar(MateriaId.FISICA)?.disponible == true)
     }
 
     @Test

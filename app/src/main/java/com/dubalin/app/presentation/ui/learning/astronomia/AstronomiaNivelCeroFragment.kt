@@ -15,7 +15,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.dubalin.app.R
 import com.dubalin.app.databinding.FragmentAstronomiaNivelCeroBinding
-import com.dubalin.app.domain.model.FormatoAprendizaje
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -27,7 +26,7 @@ class AstronomiaNivelCeroFragment : Fragment(R.layout.fragment_astronomia_nivel_
     private val viewModel: AstronomiaNivelCeroViewModel by viewModels()
     @javax.inject.Inject lateinit var sessionRepository: com.dubalin.app.domain.repository.SessionRepository
     private var secciones: SeccionesLeccion? = null
-    private var rendering = false
+
     private var defaultTints: List<ColorStateList?> = emptyList()
     private val options: List<RadioButton> get() = listOf(binding.selfOptionA, binding.selfOptionB, binding.selfOptionC)
 
@@ -39,9 +38,7 @@ class AstronomiaNivelCeroFragment : Fragment(R.layout.fragment_astronomia_nivel_
         binding.lessonToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
         binding.buttonPrevious.setOnClickListener { viewModel.paginaAnterior() }
         binding.buttonBackToContent.setOnClickListener { viewModel.paginaAnterior() }
-        binding.selfOptions.setOnCheckedChangeListener { _, id ->
-            if (!rendering) options.indexOfFirst { it.id == id }.takeIf { it >= 0 }?.let(viewModel::seleccionarOpcion)
-        }
+        binding.selfOptions.onAnswerSelected(viewModel::seleccionarOpcion)
         binding.buttonSelfAction.setOnClickListener { viewModel.comprobarOContinuar() }
         binding.selfOwnWords.doOnTextChanged { text, _, _, _ ->
             viewModel.actualizarExplicacionPropia(text?.toString().orEmpty())
@@ -88,23 +85,14 @@ class AstronomiaNivelCeroFragment : Fragment(R.layout.fragment_astronomia_nivel_
 
     private fun renderContent(state: AstronomiaNivelCeroUiState) {
         val session = state.sesionActual
-        binding.lessonSection.text = getString(R.string.astronomy_topic_label, session.numero)
-        binding.lessonTitle.text = session.titulo
-        binding.lessonCounter.text = getString(R.string.astronomy_lesson_counter, session.numero, state.sesiones.size)
-        binding.lessonDuration.text = getString(R.string.astronomy_session_duration, session.duracionMinutos)
+
         binding.lessonObjective.text = session.objetivo
         binding.lessonImportance.text = session.porQueImporta
         binding.lessonAnalogy.text = session.analogia
         binding.lessonBody.text = session.explicacion
         binding.lessonExample.text = session.ejemploVisual
         binding.lessonKeyIdea.text = session.ideaClave
-        binding.lessonFormat.text = getString(R.string.astronomy_learning_mode, state.formato.name.lowercase().replaceFirstChar { it.titlecase() })
-        binding.lessonFormatHint.setText(when (state.formato) {
-            FormatoAprendizaje.TEXTO -> R.string.astronomy_mode_hint_text
-            FormatoAprendizaje.VISUAL -> R.string.astronomy_mode_hint_visual
-            FormatoAprendizaje.QUIZ -> R.string.astronomy_mode_hint_quiz
-            FormatoAprendizaje.EQUILIBRADO -> R.string.astronomy_mode_hint_balanced
-        })
+
         binding.buttonPrevious.isEnabled = !state.enRepaso && state.temaActual > 0
         binding.buttonNext.setText(when {
             state.enRepaso && state.ultimoTemaDeRepaso -> R.string.astronomy_retry_exam
@@ -119,7 +107,7 @@ class AstronomiaNivelCeroFragment : Fragment(R.layout.fragment_astronomia_nivel_
         val question = state.pregunta ?: return
         binding.selfCounter.text = getString(R.string.astronomy_self_counter, state.preguntaActual + 1, state.sesionActual.autoevaluacion.size)
         binding.selfQuestion.text = question.enunciado
-        rendering = true
+
         binding.selfOptions.clearCheck()
         options.forEachIndexed { index, button ->
             button.text = question.opciones[index]
@@ -127,8 +115,8 @@ class AstronomiaNivelCeroFragment : Fragment(R.layout.fragment_astronomia_nivel_
             button.setTextColor(ContextCompat.getColor(requireContext(), R.color.dubalin_ink))
             button.buttonTintList = defaultTints.getOrNull(index)
         }
-        state.opcionSeleccionada?.let { options[it].isChecked = true }
-        rendering = false
+        binding.selfOptions.check(state.opcionSeleccionada?.let { options[it].id } ?: View.NO_ID)
+
         binding.selfFeedback.isVisible = state.respuestaCorrecta != null
         state.respuestaCorrecta?.let { correct ->
             val color = ContextCompat.getColor(requireContext(), if (correct) R.color.feedback_success else R.color.md_error)

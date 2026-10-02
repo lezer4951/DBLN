@@ -21,12 +21,12 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class AstronomiaNivelTresExamenFragment : Fragment(R.layout.fragment_astronomia_quiz) {
     private var _binding: FragmentAstronomiaQuizBinding? = null; private val binding get() = _binding!!
-    private val viewModel: AstronomiaNivelTresExamenViewModel by viewModels(); private var rendering = false
+    private val viewModel: AstronomiaNivelTresExamenViewModel by viewModels();
     private var tints: List<ColorStateList?> = emptyList(); private val options: List<RadioButton> get() = listOf(binding.optionA, binding.optionB, binding.optionC, binding.optionD)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) { super.onViewCreated(view, savedInstanceState)
         _binding = FragmentAstronomiaQuizBinding.bind(view); tints = options.map { it.buttonTintList }
         binding.quizToolbar.title = getString(R.string.astronomy_level_three_exam); binding.quizToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
-        binding.quizOptions.setOnCheckedChangeListener { _, id -> if (!rendering) options.indexOfFirst { it.id == id }.takeIf { it >= 0 }?.let(viewModel::seleccionar) }
+        binding.quizOptions.onAnswerSelected(viewModel::seleccionar)
         binding.buttonQuizAction.setOnClickListener { viewModel.accion() }; binding.buttonQuizFinish.setOnClickListener { findNavController().popBackStack(R.id.astronomiaRutaFragment, false) }
         binding.buttonQuizRetry.setOnClickListener { val weak = viewModel.state.value.resultado?.temasDebiles.orEmpty()
             if (weak.isEmpty()) viewModel.reiniciar() else { findNavController().getBackStackEntry(R.id.astronomiaNivelTresFragment).savedStateHandle
@@ -45,9 +45,9 @@ class AstronomiaNivelTresExamenFragment : Fragment(R.layout.fragment_astronomia_
             binding.buttonQuizRetry.setText(R.string.astronomy_review_weak_topics); return }
         val q = s.preguntas[s.actual]; binding.quizProgress.setProgressCompat((s.actual + 1) * 100 / s.preguntas.size, true)
         binding.quizCounter.text = getString(R.string.astronomy_quiz_counter, s.actual + 1, s.preguntas.size); binding.quizQuestion.text = q.enunciado
-        rendering = true; binding.quizOptions.clearCheck(); options.forEachIndexed { i, b -> b.text = q.opciones[i]; b.isEnabled = s.feedback == null
+        binding.quizOptions.clearCheck(); options.forEachIndexed { i, b -> b.text = q.opciones[i]; b.isEnabled = s.feedback == null
             b.setTextColor(ContextCompat.getColor(requireContext(), R.color.dubalin_ink)); b.buttonTintList = tints[i] }
-        s.seleccion?.let { options[it].isChecked = true }; rendering = false; binding.quizFeedback.isVisible = s.feedback != null
+        binding.quizOptions.check(s.seleccion?.let { options[it].id } ?: View.NO_ID); binding.quizFeedback.isVisible = s.feedback != null
         s.feedback?.let { ok -> binding.quizFeedback.text = getString(if (ok) R.string.astronomy_feedback_correct else R.string.astronomy_feedback_incorrect, q.explicacion) }
         binding.quizSaving.isVisible = s.guardando; binding.buttonQuizAction.isEnabled = !s.guardando && s.seleccion != null
         binding.buttonQuizAction.setText(if (s.feedback == null) R.string.astronomy_check_answer else if (s.actual == s.preguntas.lastIndex) R.string.astronomy_finish_exam else R.string.action_next)

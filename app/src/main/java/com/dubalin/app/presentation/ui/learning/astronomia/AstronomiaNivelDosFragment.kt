@@ -26,7 +26,7 @@ class AstronomiaNivelDosFragment : Fragment(R.layout.fragment_astronomia_nivel_c
     private val viewModel: AstronomiaNivelDosViewModel by viewModels()
     @javax.inject.Inject lateinit var sessionRepository: com.dubalin.app.domain.repository.SessionRepository
     private var secciones: SeccionesLeccion? = null
-    private var rendering = false
+
     private var tints: List<ColorStateList?> = emptyList()
     private val options: List<RadioButton> get() = listOf(binding.selfOptionA, binding.selfOptionB, binding.selfOptionC)
 
@@ -38,8 +38,7 @@ class AstronomiaNivelDosFragment : Fragment(R.layout.fragment_astronomia_nivel_c
         binding.lessonToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
         binding.buttonPrevious.setOnClickListener { viewModel.anterior() }
         binding.buttonBackToContent.setOnClickListener { viewModel.anterior() }
-        binding.selfOptions.setOnCheckedChangeListener { _, id -> if (!rendering)
-            options.indexOfFirst { it.id == id }.takeIf { it >= 0 }?.let(viewModel::seleccionar) }
+        binding.selfOptions.onAnswerSelected(viewModel::seleccionar)
         binding.selfOwnWords.doOnTextChanged { text, _, _, _ -> viewModel.actualizarExplicacion(text?.toString().orEmpty()) }
         binding.buttonSelfAction.setOnClickListener { viewModel.accionAutoevaluacion() }
         binding.buttonNext.setOnClickListener {
@@ -78,10 +77,7 @@ class AstronomiaNivelDosFragment : Fragment(R.layout.fragment_astronomia_nivel_c
 
     private fun contenido(state: AstronomiaNivelDosUiState) = with(binding) {
         val s = state.sesion
-        lessonSection.text = getString(R.string.astronomy_level_two_topic, s.numero); lessonTitle.text = s.titulo
-        lessonCounter.text = getString(R.string.astronomy_lesson_counter, s.numero, state.sesiones.size)
-        lessonDuration.text = getString(R.string.astronomy_session_duration, s.duracionMinutos)
-        lessonFormat.text = getString(R.string.astronomy_aster_guided); lessonFormatHint.setText(R.string.astronomy_level_two_hint)
+
         lessonObjective.text = s.objetivo; lessonImportance.text = s.porQueImporta; lessonAnalogy.text = s.analogia
         lessonBody.text = s.explicacion; lessonExample.text = s.ejemploVisual; lessonKeyIdea.text = s.ideaClave
         buttonPrevious.isEnabled = !state.enRepaso && state.temaActual > 0
@@ -98,10 +94,10 @@ class AstronomiaNivelDosFragment : Fragment(R.layout.fragment_astronomia_nivel_c
     private fun pregunta(state: AstronomiaNivelDosUiState) {
         val q = state.pregunta ?: return
         binding.selfCounter.text = getString(R.string.astronomy_self_counter, state.preguntaActual + 1, state.sesion.autoevaluacion.size)
-        binding.selfQuestion.text = q.enunciado; rendering = true; binding.selfOptions.clearCheck()
+        binding.selfQuestion.text = q.enunciado; binding.selfOptions.clearCheck()
         options.forEachIndexed { i, b -> b.text = q.opciones[i]; b.isEnabled = state.respuestaCorrecta == null
             b.setTextColor(ContextCompat.getColor(requireContext(), R.color.dubalin_ink)); b.buttonTintList = tints[i] }
-        state.opcionSeleccionada?.let { options[it].isChecked = true }; rendering = false
+        binding.selfOptions.check(state.opcionSeleccionada?.let { options[it].id } ?: View.NO_ID);
         binding.selfFeedback.isVisible = state.respuestaCorrecta != null
         state.respuestaCorrecta?.let { ok -> binding.selfFeedback.text = getString(
             if (ok) R.string.astronomy_feedback_correct else R.string.astronomy_feedback_reframed,

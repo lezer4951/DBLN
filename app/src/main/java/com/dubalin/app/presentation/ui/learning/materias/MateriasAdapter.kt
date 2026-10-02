@@ -54,7 +54,7 @@ class MateriasAdapter(
         fun bind(item: MateriaListItem.Destacada, onClick: (MateriaListItem) -> Unit) {
             b.tvNombreDestacada.text = item.nombre
             b.tvDescripcionDestacada.text = item.descripcion
-            b.tvNivelDestacada.text = if (item.nivelActual > 10) "Ruta completada" else "Nivel ${item.nivelActual}"
+            b.tvNivelDestacada.text = if (item.nivelActual > 11) "Ruta completada" else "Nivel ${item.nivelActual}"
             b.ivIconoDestacada.setImageResource(item.iconRes)
             b.root.setOnClickListener { onClick(item) }
         }

@@ -13,10 +13,12 @@ import com.dubalin.app.R
 import com.dubalin.app.databinding.FragmentMemoramaBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.combine
 
 @AndroidEntryPoint
 class MemoramaFragment : Fragment(R.layout.fragment_memorama) {
     private val model: MemoramaViewModel by viewModels()
+    private val rewards: com.dubalin.app.presentation.ui.study.GameRewardsViewModel by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val b = FragmentMemoramaBinding.bind(view)
         val cartas = listOf(b.carta0, b.carta1, b.carta2, b.carta3, b.carta4, b.carta5, b.carta6, b.carta7)
@@ -26,12 +28,13 @@ class MemoramaFragment : Fragment(R.layout.fragment_memorama) {
         b.reiniciar.setOnClickListener { model.cargar() }
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                model.state.collect { s ->
+                model.state.combine(rewards.message) { s, message -> s to message }.collect { (s, rewardMessage) ->
+                    if (s.completo) rewards.claim("memory", 5)
                     b.estado.text = when {
                         s.cargando -> getString(R.string.memory_loading)
                         s.error -> getString(R.string.memory_error)
                         s.textos.isEmpty() -> getString(R.string.memory_empty)
-                        s.completo -> getString(R.string.memory_complete, s.intentos)
+                        s.completo -> getString(R.string.memory_complete, s.intentos) + "\n" + rewardMessage
                         else -> getString(R.string.memory_progress, s.encontradas.size, s.intentos)
                     }
                     cartas.forEachIndexed { i, boton ->

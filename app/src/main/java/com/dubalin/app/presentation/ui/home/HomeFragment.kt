@@ -12,6 +12,7 @@ import com.dubalin.app.R
 import com.dubalin.app.databinding.FragmentHomeTabBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.combine
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home_tab) {
@@ -20,6 +21,8 @@ class HomeFragment : Fragment(R.layout.fragment_home_tab) {
     private val binding get() = _binding!!
 
     private val viewModel: HomeViewModel by viewModels()
+    @javax.inject.Inject lateinit var learning: com.dubalin.app.data.local.LearningStore
+    @javax.inject.Inject lateinit var session: com.dubalin.app.domain.repository.SessionRepository
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,24 +40,25 @@ class HomeFragment : Fragment(R.layout.fragment_home_tab) {
                 putInt("materiaInicial", 0)
             })
         }
-        listOf(binding.homeSubjectMath, binding.homeSubjectSpanish, binding.homeSubjectPhysics)
-            .forEach { card ->
-                card.isEnabled = false
-                card.alpha = 0.58f
+        listOf(binding.homeSubjectMath to "MATEMATICAS", binding.homeSubjectSpanish to "ESPANOL", binding.homeSubjectPhysics to "FISICA")
+            .forEach { (card, subject) -> card.isEnabled = true; card.alpha = 1f
+                card.setOnClickListener { findNavController().navigate(R.id.studyRouteFragment, Bundle().apply { putString("subject", subject) }) }
             }
         binding.btnHomeFlashcards.setOnClickListener { findNavController().navigate(R.id.autoestudioFragment); findNavController().navigate(R.id.flashcardsFragment) }
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect { state ->
+                viewModel.uiState.combine(learning.changes) { state, _ -> state }.collect { state ->
+                    val streak = learning.streak(session.getUsuarioId() ?: 0)
                     binding.tvSaludo.text = getString(R.string.home_saludo, state.nombre)
                     binding.tvNivelXp.text = getString(R.string.ref_xp, state.xpTotal)
                     binding.tvLevelBadge.text = getString(R.string.ref_level_short, state.nivel)
-                    binding.tvRachaDias.text = getString(R.string.ref_days, state.rachaDias)
+                    binding.tvRachaDias.text = getString(R.string.ref_days, streak)
                     binding.tvStreakTitle.text = resources.getQuantityString(
-                        R.plurals.home_racha_dias, state.rachaDias, state.rachaDias)
-                    binding.tvStreakDetail.setText(if (state.rachaDias == 0)
+                        R.plurals.home_racha_dias, streak, streak)
+                    binding.tvStreakDetail.setText(if (streak == 0)
                         R.string.ref_study_today else R.string.ref_streak_continue)
-                    binding.tvAvatar.text = state.nombre.trim().firstOrNull()?.uppercase() ?: "D"
+                    com.dubalin.app.presentation.ui.study.applyAvatar(binding.tvAvatar, learning, session.getUsuarioId() ?: 0, state.nombre.trim().firstOrNull()?.uppercase() ?: "D")
+                    renderWeek()
                 }
             }
         }
@@ -80,7 +84,8 @@ class HomeFragment : Fragment(R.layout.fragment_home_tab) {
                 day.get(java.util.Calendar.DAY_OF_YEAR) == today.get(java.util.Calendar.DAY_OF_YEAR)
             cell.dayLetter.text = labels[index]
             cell.dayNumber.text = day.get(java.util.Calendar.DAY_OF_MONTH).toString()
-            cell.dayLetter.setBackgroundResource(if (isToday) R.drawable.bg_circle_streak_active else R.drawable.bg_circle_streak_inactive)
+            val studied = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.ROOT).format(day.time) in learning.studiedDays(session.getUsuarioId() ?: 0)
+            cell.dayLetter.setBackgroundResource(if (studied) R.drawable.bg_circle_streak_active else R.drawable.bg_circle_streak_inactive)
             cell.root.contentDescription = if (isToday) getString(R.string.ref_today_description, format.format(day.time))
                 else format.format(day.time)
             b.streakWeek.addView(cell.root)

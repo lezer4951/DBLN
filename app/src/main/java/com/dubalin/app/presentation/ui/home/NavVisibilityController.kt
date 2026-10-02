@@ -6,6 +6,8 @@ import com.dubalin.app.R
 
 internal object NavVisibilityController {
     private val focusedDestinations = setOf(
+        R.id.shortLessonFragment,
+        R.id.dailyWordFragment,
         R.id.practicaLibreFragment,
         R.id.astronomiaNivelCeroFragment,
         R.id.astronomiaQuizFragment,

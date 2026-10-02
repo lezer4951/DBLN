@@ -462,4 +462,13 @@
         android:label="Perfil"
         tools:layout="@layout/fragment_perfil" />
 
+    <fragment android:id="@+id/studyRouteFragment" android:name="com.dubalin.app.presentation.ui.study.StudyRouteFragment">
+        <argument android:name="subject" app:argType="string" android:defaultValue="ASTRONOMIA" />
+    </fragment>
+    <fragment android:id="@+id/shortLessonFragment" android:name="com.dubalin.app.presentation.ui.study.ShortLessonFragment">
+        <argument android:name="lesson" app:argType="string" />
+        <argument android:name="subject" app:argType="string" android:defaultValue="ASTRONOMIA" />
+    </fragment>
+    <fragment android:id="@+id/dailyWordFragment" android:name="com.dubalin.app.presentation.ui.study.DailyWordFragment" />
+    <fragment android:id="@+id/shopFragment" android:name="com.dubalin.app.presentation.ui.study.ShopFragment" />
 </navigation>
