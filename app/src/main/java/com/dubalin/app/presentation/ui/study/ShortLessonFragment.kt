@@ -1,6 +1,8 @@
 package com.dubalin.app.presentation.ui.study
 
 import android.app.Activity
+import android.content.res.ColorStateList
+import androidx.core.content.ContextCompat
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.os.Bundle
@@ -70,6 +72,7 @@ class ShortLessonFragment : Fragment(R.layout.fragment_short_lesson) {
             renderedPage = s.page; choice = null; selectedLeft = null
             b.input.setText(""); b.options.removeAllViews(); b.matches.removeAllViews()
             b.scroll.scrollTo(0, 0)
+            com.dubalin.app.presentation.ui.learning.Motion.enter(b.scroll)
             val q = when { s.page == 5 -> l.questions.last(); s.page == 4 && l.spoken == null -> l.questions.first(); else -> null }
             if (q != null) q.options.indices.shuffled(kotlin.random.Random(l.id.hashCode() + s.page)).forEach { index ->
                 val text = q.options[index]
@@ -105,6 +108,8 @@ class ShortLessonFragment : Fragment(R.layout.fragment_short_lesson) {
         b.input.isEnabled = !s.correct && !s.busy
         b.speak.isEnabled = !s.correct && !s.busy
         b.feedback.isVisible = s.feedback.isNotEmpty(); b.feedback.text = s.feedback
+        b.feedback.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), if(s.correct) R.color.dubalin_green_soft else R.color.dubalin_primary_soft))
+        b.feedback.setTextColor(ContextCompat.getColor(requireContext(), if(s.correct) R.color.dubalin_green else R.color.dubalin_ink))
         b.action.isEnabled = s.ready && !s.busy && (activity != 3 || s.correct)
         b.action.text = when { s.busy -> "Guardando…"; s.page == 6 -> "Volver a mis lecciones"; s.page == 5 && s.correct -> "Completar lección"; s.page < 2 || s.correct -> "Continuar"; else -> "Comprobar" }
     }
@@ -123,7 +128,7 @@ class ShortLessonFragment : Fragment(R.layout.fragment_short_lesson) {
             val button = layoutInflater.inflate(R.layout.item_study_button, b.matches, false) as MaterialButton
             button.text = if(index in s.matched) "✓ ${l.pairs[index].second}" else l.pairs[index].second
             button.isEnabled = index !in s.matched && selectedLeft != null
-            button.setOnClickListener { selectedLeft?.let { left -> selectedLeft = null; model.match(left, index) } }
+            button.setOnClickListener { selectedLeft?.let { left -> selectedLeft = null; model.match(left, index); renderPairs(model.state.value) } }
             b.matches.addView(button)
         }
     }
