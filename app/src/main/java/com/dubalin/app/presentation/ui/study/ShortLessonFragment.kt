@@ -101,6 +101,9 @@ class ShortLessonFragment : Fragment(R.layout.fragment_short_lesson) {
             "solar" -> { b.visual.setImageResource(R.drawable.study_solar); b.visual.contentDescription = "Esquema sin escala: el Sol emite luz y la Tierra orbita a su alrededor." }
             "rectangle" -> { b.visual.setImageResource(R.drawable.study_rectangle); b.visual.contentDescription = "Rectángulo dividido en cuatro columnas y tres filas: doce cuadrados de un centímetro cuadrado." }
         }
+        for (index in 0 until b.options.childCount) b.options.getChildAt(index).isEnabled = !s.correct && !s.busy
+        b.input.isEnabled = !s.correct && !s.busy
+        b.speak.isEnabled = !s.correct && !s.busy
         b.feedback.isVisible = s.feedback.isNotEmpty(); b.feedback.text = s.feedback
         b.action.isEnabled = s.ready && !s.busy && (activity != 3 || s.correct)
         b.action.text = when { s.busy -> "Guardando…"; s.page == 6 -> "Volver a mis lecciones"; s.page == 5 && s.correct -> "Completar lección"; s.page < 2 || s.correct -> "Continuar"; else -> "Comprobar" }

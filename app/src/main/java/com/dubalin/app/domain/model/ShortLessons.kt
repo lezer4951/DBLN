@@ -8,10 +8,11 @@ data class ShortLesson(
     val id: String, val subject: MateriaId, val level: Int, val title: String,
     val theory: String, val example: String, val sentence: String,
     val pairs: List<Pair<String, String>>, val questions: List<ShortQuestion>,
-    val spoken: String? = null, val language: String = "es-MX", val visual: String? = null
+    val spoken: String? = null, val language: String = "es-MX", val visual: String? = null,
+    val gapAnswer: String? = null
 ) {
     fun activityAt(page: Int): Int = if (id.hashCode() % 2 == 0 && page in 2..3) 5 - page else page
-    val missingWord: String get() = Regex("[\\p{L}]{5,}").findAll(sentence).lastOrNull()?.value
+    val missingWord: String get() = gapAnswer ?: Regex("[\\p{L}]{5,}").findAll(sentence).lastOrNull()?.value
         ?: Regex("[\\p{L}]+").findAll(sentence).last().value
     val gapSentence: String get() {
         val position = sentence.lastIndexOf(missingWord)
